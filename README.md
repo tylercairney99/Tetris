@@ -1,13 +1,12 @@
-# TCSS305-Group-Project
+# TCSS305-Group7-Project
 
-TCSS 305 Tetris
+TCSS 305 Tetris Group 7
 
 Autumn 2023
 Tyler, James, Josh, and Cam
 
 
-This is the starter code template for TCSS 305 assignments.
-
+This is group 7 Tetris project.
 Included:
 
 - Checkstyle rule structure
