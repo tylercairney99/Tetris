@@ -17,4 +17,5 @@ public class TetrisGUI extends JFrame {
         // Ensure GUI is created in the Event Dispatch Thread
         SwingUtilities.invokeLater(() -> new view.TetrisGUI());
     }
+
 }

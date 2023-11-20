@@ -67,3 +67,4 @@ public class Menu extends JMenuBar {
         return aboutMenu;
     }
 }
+
