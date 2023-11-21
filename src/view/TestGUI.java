@@ -1,5 +1,7 @@
 package view;
 
+import model.TetrisPiece;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -55,6 +57,8 @@ public class TestGUI {
         bluePanel.add(nextPieceLabel);
         greenPanel.add(actionsLabel);
         greenPanel2.add(scoreLabel);
+
+        bluePanel.add(new NextPiece(TetrisPiece.getRandomPiece(), Color.GREEN));
 
     }
 

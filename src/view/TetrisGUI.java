@@ -1,10 +1,18 @@
 package view;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
-public class TetrisGUI extends JFrame {
+/**
+ * 
+ */
+public final class TetrisGUI extends JFrame {
 
+    /**
+     *
+     */
     public TetrisGUI() {
+        super();
         setJMenuBar(new Menu());
 
         pack();
@@ -12,6 +20,7 @@ public class TetrisGUI extends JFrame {
         setLocationRelativeTo(null); // Center on screen
         setVisible(true);
     }
+
 
     public static void main(String[] args) {
         // Ensure GUI is created in the Event Dispatch Thread
