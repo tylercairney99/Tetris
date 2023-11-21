@@ -22,22 +22,10 @@ public class TestGUI {
         scoreLabel.setText("Score");
 
 
-
-        JPanel redPanel = new JPanel();
-        redPanel.setBackground(Color.RED);
-        redPanel.setBounds(15, 15, 340, 630);
-
-        JPanel bluePanel = new JPanel();
-        bluePanel.setBackground(Color.BLUE);
-        bluePanel.setBounds(395, 15, 200, 200);
-
-        JPanel greenPanel = new JPanel();
-        greenPanel.setBackground(Color.GREEN);
-        greenPanel.setBounds(395, 300, 200, 150);
-
-        JPanel greenPanel2 = new JPanel();
-        greenPanel2.setBackground(Color.GREEN);
-        greenPanel2.setBounds(395, 495, 200, 150);
+        final JPanel mainBoard = new MainBoard();
+        final JPanel nextPieceBoard = new NextPieceBoard();
+        final JPanel controlBoard = new ControlBoard();
+        final JPanel scoreBoard = new ScoreBoard();
 
         JFrame frame = new JFrame("Tetris");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -48,17 +36,17 @@ public class TestGUI {
         frame.setJMenuBar(menuBar); // Here we add the menu bar to the frame
 
         frame.setVisible(true);
-        frame.add(redPanel);
-        frame.add(bluePanel);
-        frame.add(greenPanel);
-        frame.add(greenPanel2);
+        frame.add(mainBoard);
+        frame.add(nextPieceBoard);
+        frame.add(controlBoard);
+        frame.add(scoreBoard);
 
-        redPanel.add(mainBoardLabel);
-        bluePanel.add(nextPieceLabel);
-        greenPanel.add(actionsLabel);
-        greenPanel2.add(scoreLabel);
+        mainBoard.add(mainBoardLabel);
+        nextPieceBoard.add(nextPieceLabel);
+        controlBoard.add(actionsLabel);
+        scoreBoard.add(scoreLabel);
 
-        bluePanel.add(new NextPiece(TetrisPiece.getRandomPiece(), Color.GREEN));
+        nextPieceBoard.add(new NextPiece(TetrisPiece.getRandomPiece(), Color.GREEN));
 
     }
 
