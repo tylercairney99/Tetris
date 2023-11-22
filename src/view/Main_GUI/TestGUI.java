@@ -1,6 +1,7 @@
-package view;
+package view.Main_GUI;
 
-import model.TetrisPiece;
+import view.Layout.MainPanel;
+import view.Menu.Menu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +26,7 @@ public class TestGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
-        final Menu menuBar = new Menu();
+        final view.Menu.Menu menuBar = new Menu();
         frame.setJMenuBar(menuBar); // Here we add the menu bar to the frame
 
         //this is the main panel which contains all the other panels.
