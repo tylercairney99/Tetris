@@ -7,7 +7,6 @@ public class Menu extends JMenuBar {
 
     public Menu() {
         super();
-
         add(createMenu());
     }
 
