@@ -37,6 +37,12 @@ public class TestGUI {
         final JPanel right = new JPanel();
         final JPanel top = new JPanel();
         final JPanel bottom = new JPanel();
+
+        left.setPreferredSize(new Dimension(10, 10));
+        right.setPreferredSize(new Dimension(10, 10));
+        top.setPreferredSize(new Dimension(10, 10));
+        bottom.setPreferredSize(new Dimension(10, 10));
+
         frame.add(left, BorderLayout.WEST);
         frame.add(right, BorderLayout.EAST);
         frame.add(top, BorderLayout.NORTH);
