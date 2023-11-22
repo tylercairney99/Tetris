@@ -32,6 +32,7 @@ public class TestGUI {
         //this is the main panel which contains all the other panels.
         final JPanel main = new MainPanel();
         frame.add(main, BorderLayout.CENTER);
+        frame.setResizable(false);
 
         //these are blank panels used to create an outer border.
         final JPanel left = new JPanel();
