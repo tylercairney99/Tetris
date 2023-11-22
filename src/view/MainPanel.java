@@ -30,7 +30,7 @@ public class MainPanel extends JPanel {
         myScore.setPreferredSize(new Dimension(100, 115));
     }
     private void layoutComponents() {
-        setLayout(new BorderLayout(10, 10));
+        setLayout(new BorderLayout(5, 10));
         add(myGame, BorderLayout.WEST);
         add(mySecondary, BorderLayout.EAST);
 
