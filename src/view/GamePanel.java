@@ -3,11 +3,11 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
-public class MainBoard extends JPanel {
+public class GamePanel extends JPanel {
 
-    public MainBoard() {
+    public GamePanel() {
         super();
         setBackground(Color.RED);
-        setBounds(15, 15, 340, 630);
+        //setBounds(15, 15, 340, 630);
     }
 }

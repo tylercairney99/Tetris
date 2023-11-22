@@ -3,8 +3,8 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
-public class ControlBoard extends JPanel {
-    public ControlBoard() {
+public class ControlPanel extends JPanel {
+    public ControlPanel() {
         super();
         setBackground(Color.GREEN);
         setBounds(395, 300, 200, 150);

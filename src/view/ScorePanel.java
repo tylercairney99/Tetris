@@ -3,12 +3,12 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
-public class ScoreBoard extends JPanel {
+public class ScorePanel extends JPanel {
 
-        public ScoreBoard() {
+        public ScorePanel() {
             super();
             setBackground(Color.GREEN);
-            setBounds(395, 495, 200, 150);
+            setBounds(395, 495, 200, 10);
 
         }
 }
