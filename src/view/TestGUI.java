@@ -24,8 +24,6 @@ public class TestGUI {
         final JFrame frame = new JFrame("Tetris");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
-        frame.setSize(1000, 1000);
-        frame.setVisible(true);
 
         final Menu menuBar = new Menu();
         frame.setJMenuBar(menuBar); // Here we add the menu bar to the frame
@@ -44,6 +42,8 @@ public class TestGUI {
         frame.add(top, BorderLayout.NORTH);
         frame.add(bottom, BorderLayout.SOUTH);
 
+        frame.pack(); //this needs to be called after adding all components to the frame
+        frame.setVisible(true); //this needs to be called after adding all components to the frame
     }
 
 }

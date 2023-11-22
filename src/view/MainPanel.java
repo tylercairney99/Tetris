@@ -25,16 +25,18 @@ public class MainPanel extends JPanel {
         myScore = new ScorePanel();
 
         myGame.setPreferredSize(new Dimension(200, 400));
+        myNextPiece.setPreferredSize(new Dimension(150, 150));
+        myControl.setPreferredSize(new Dimension(100, 115));
+        myScore.setPreferredSize(new Dimension(100, 115));
     }
-
     private void layoutComponents() {
-        setLayout(new GridLayout(1, 2, 10, 10));
-        add(myGame);
-        add(mySecondary);
+        setLayout(new BorderLayout(10, 10));
+        add(myGame, BorderLayout.WEST);
+        add(mySecondary, BorderLayout.EAST);
 
-        mySecondary.setLayout(new GridLayout(3, 1, 10, 10));
-        mySecondary.add(myNextPiece);
-        mySecondary.add(myControl);
-        mySecondary.add(myScore);
+        mySecondary.setLayout(new BorderLayout(10, 10));
+        mySecondary.add(myNextPiece, BorderLayout.NORTH);
+        mySecondary.add(myControl, BorderLayout.CENTER);
+        mySecondary.add(myScore, BorderLayout.SOUTH);
     }
 }

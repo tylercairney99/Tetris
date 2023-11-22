@@ -8,7 +8,7 @@ public class ScorePanel extends JPanel {
         public ScorePanel() {
             super();
             setBackground(Color.GREEN);
-            setBounds(395, 495, 200, 10);
+//            setBounds(395, 495, 200, 10);
 
         }
 }

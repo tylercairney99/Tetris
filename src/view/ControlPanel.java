@@ -7,6 +7,6 @@ public class ControlPanel extends JPanel {
     public ControlPanel() {
         super();
         setBackground(Color.GREEN);
-        setBounds(395, 300, 200, 150);
+//        setBounds(395, 300, 200, 150);
     }
 }
