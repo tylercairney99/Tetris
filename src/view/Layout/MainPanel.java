@@ -25,9 +25,9 @@ public class MainPanel extends JPanel {
         myScore = new ScorePanel();
 
         myGame.setPreferredSize(new Dimension(200, 400));
-        myNextPiece.setPreferredSize(new Dimension(150, 150));
-        myControl.setPreferredSize(new Dimension(100, 115));
-        myScore.setPreferredSize(new Dimension(100, 115));
+        myNextPiece.setPreferredSize(new Dimension(160, 160));
+        myControl.setPreferredSize(new Dimension(160, 110));
+        myScore.setPreferredSize(new Dimension(160, 110));
     }
     private void layoutComponents() {
         setLayout(new BorderLayout(5, 10));
