@@ -1,4 +1,4 @@
-package view.Main_GUI;
+package view.Controller;
 
 import view.Layout.MainPanel;
 import view.Menu.Menu;
@@ -6,7 +6,7 @@ import view.Menu.Menu;
 import javax.swing.*;
 import java.awt.*;
 
-public class TestGUI {
+public class TetrisGUI {
 
     public static void main(String[] args) {
 
