@@ -47,22 +47,22 @@ public class Board implements MyBoard {
     /**
      * A property to check if the board changes.
      */
-    String PROPERTY_BOARD_CHANGES = "the pieces move";
+    public static final String PROPERTY_BOARD_CHANGES = "the pieces move";
 
     /**
      * A property to check if a row is cleared.
      */
-    String PROPERTY_ROW_CLEARED = "a row is cleared";
+    public static final String PROPERTY_ROW_CLEARED = "a row is cleared";
 
     /**
      * A property to check when / if the next piece changes.
      */
-    String PROPERTY_NEXT_PIECE_CHANGES = "the next piece changes";
+    public static final String PROPERTY_NEXT_PIECE_CHANGES = "the next piece changes";
 
     /**
      * A property to check if the game is over.
      */
-    String PROPERTY_GAME_OVER = "the game is over";
+    public static final String PROPERTY_GAME_OVER = "the game is over";
 
 
     // Class constants
@@ -633,12 +633,12 @@ public class Board implements MyBoard {
         // Implmentation of Observer Design Pattern
 
         private void updateGameState() {
-            List<Block[]> currentState = getBoard();
+            final List<Block[]> currentState = getBoard();
             myPcs.firePropertyChange(PROPERTY_BOARD_CHANGES, null, currentState);
         }
 
         private void clearRows() {
-            List<Integer> clearedRows = new ArrayList<>();
+            final List<Integer> clearedRows = new ArrayList<>();
             for (int i = 0; i < myFrozenBlocks.size(); i++) {
                 boolean isRowComplete = true;
                 for (Block block : myFrozenBlocks.get(i)) {
@@ -671,8 +671,7 @@ public class Board implements MyBoard {
         }
 
         private void checkGameOver() {
-            // Check if the current piece is in an illegal position (overlapping or out of bounds).
-            // This is typically checked right after a new piece spawns.
+
             if (!isPieceLegal(myCurrentPiece)) {
                 myGameOver = true;
                 myPcs.firePropertyChange(PROPERTY_GAME_OVER, false, true);
