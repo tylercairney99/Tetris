@@ -80,10 +80,10 @@ public class TetrisGUI {
      * This includes the game timer and property change listener for the game board.
      */
     private void addListeners() {
-        myGameTimer.addActionListener(e -> myBoard.step());
+        myGameTimer.addActionListener(theEvent -> myBoard.step());
 
-        myBoard.addPropertyChangeListener(evt -> {
-            if (PROPERTY_GAME_OVER.equals(evt.getPropertyName()) && (Boolean) evt.getNewValue()) {
+        myBoard.addPropertyChangeListener(theEvent -> {
+            if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName()) && (Boolean) theEvent.getNewValue()) {
                 myGameTimer.stop();
             }
         });
