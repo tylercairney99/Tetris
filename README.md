@@ -17,6 +17,11 @@ Autumn 2023
   - Utilized layout managers to create the current version of the GUI.
 - Cam
 
+## Sprint 1 Comments
+- There are currently many checkstyle warnings within the code.
+- TetrisGUI contains unused JLabels
+- 
+
 Included:
 
 - Checkstyle rule structure
