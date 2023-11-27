@@ -20,7 +20,6 @@ Autumn 2023
 ## Sprint 1 Comments
 - There are currently many checkstyle warnings within the code.
 - TetrisGUI contains unused JLabels
-- 
 
 Included:
 
