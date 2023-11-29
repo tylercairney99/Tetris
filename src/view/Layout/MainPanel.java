@@ -7,7 +7,8 @@ public class MainPanel extends JPanel {
 
     private JPanel mySecondaryPanel;
     private JPanel myGamePanel;
-    private JPanel myNextPiecePanel;
+    private NextPiecePanel myNextPiecePanel;
+
     private JPanel myControlPanel;
     private JPanel myScorePanel;
 
@@ -38,5 +39,9 @@ public class MainPanel extends JPanel {
         mySecondaryPanel.add(myNextPiecePanel, BorderLayout.NORTH);
         mySecondaryPanel.add(myControlPanel, BorderLayout.CENTER);
         mySecondaryPanel.add(myScorePanel, BorderLayout.SOUTH);
+    }
+
+    public NextPiecePanel getNextPiecePanel() {
+        return myNextPiecePanel;
     }
 }

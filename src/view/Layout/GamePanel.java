@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
+
+// CAN MAKE INTO UTILITY CLASS TO BE USED BY NEXTPIECEPANEL FOR DRAWING SHAPES ***
+
 public class GamePanel extends JPanel {
 
     private final int STROKE_WIDTH = 1;

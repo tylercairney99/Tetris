@@ -6,11 +6,13 @@ import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
 import static model.Board.PROPERTY_GAME_OVER;
 
 import view.Layout.MainPanel;
+import view.Layout.NextPiecePanel;
 import view.Menu.Menu;
 import model.Board;
-import model.MyBoard;
+import model.TetrisPiece;
 import javax.swing.*;
 import java.awt.*;
+
 
 /**
  * This class represents the graphical user interface for the Tetris game.
@@ -31,6 +33,8 @@ public class TetrisGUI {
      */
     private final Board myBoard;
 
+    private NextPiecePanel myNextPiecePanel;
+
     /**
      * Timer to manage game updates at regular intervals.
      */
@@ -50,7 +54,7 @@ public class TetrisGUI {
      * The number of milliseconds in one second.
      * This constant defines the interval for the game's timer tick.
      */
-    private static final int MILLIS_PER_SEC = 1000;
+    private static final int MILLIS_PER_SEC = 100; // CHANGE BACK TO 1000 (1 second per tick of myBoard.step)
 
     /**
      * Constructs a new TetrisGUI object.
@@ -59,8 +63,12 @@ public class TetrisGUI {
     public TetrisGUI() {
         super();
         myBoard = new Board();
+        myNextPiecePanel = new NextPiecePanel();
         setUpComponents();
         addListeners();
+
+        //SwingUtilities.invokeLater(() -> myNextPiecePanel.getNextTetrisPiece(TetrisPiece.I)); // DELETE LATER (USED TO TEST SHAPES)
+
     }
 
     /**
@@ -74,12 +82,17 @@ public class TetrisGUI {
 
         setupGameTimer();
 
+        MainPanel mainPanel = new MainPanel();
+
         frame.setJMenuBar(new Menu(myBoard, myGameTimer));
-        frame.add(new MainPanel(), BorderLayout.CENTER);
+        frame.add(mainPanel, BorderLayout.CENTER);
+
+        myNextPiecePanel = mainPanel.getNextPiecePanel();
+
         addBorders(frame);
 
         frame.pack();
-        frame.setLocationRelativeTo(null); // centers GUI on screen when ran
+        frame.setLocationRelativeTo(null);
         setupGameTimer();
         frame.setVisible(true);
         frame.setResizable(false);
@@ -94,8 +107,13 @@ public class TetrisGUI {
         myBoard.addPropertyChangeListener(theEvent -> {
             if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName()) && (Boolean) theEvent.getNewValue()) {
                 myGameTimer.stop();
+            } else if (PROPERTY_NEXT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
+                final TetrisPiece nextPiece = (TetrisPiece) theEvent.getNewValue();
+                myNextPiecePanel.getNextTetrisPiece(nextPiece); // Update the NextPiecePanel
             }
         });
+
+
     }
 
     /**
@@ -136,6 +154,7 @@ public class TetrisGUI {
      * @param theArgs Command line arguments (not used).
      */
     public static void main(final String[] theArgs) {
+
         SwingUtilities.invokeLater(TetrisGUI::new);
     }
 }

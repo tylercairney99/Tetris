@@ -205,6 +205,7 @@ public class Board implements MyBoard {
         myDrop = false;
 
         // TODO Publish Update!
+        prepareNextMovablePiece();
     }
 
     /**
@@ -583,7 +584,7 @@ public class Board implements MyBoard {
             myNextPiece = myNonRandomPieces.get(mySequenceIndex++);
         }
         if (share && !myGameOver) {
-            // TODO Publish Update!
+            myPcs.firePropertyChange(PROPERTY_NEXT_PIECE_CHANGES, null, myNextPiece); // FIX OLD VALUE
         }
     }
 
