@@ -1,6 +1,10 @@
 package view.Controller;
 
+import static model.Board.PROPERTY_BOARD_CHANGES;
+import static model.Board.PROPERTY_ROW_CLEARED;
+import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
 import static model.Board.PROPERTY_GAME_OVER;
+
 import view.Layout.MainPanel;
 import view.Menu.Menu;
 import model.Board;
@@ -19,10 +23,13 @@ import java.awt.*;
  */
 public class TetrisGUI {
 
+
+    private int timerCounter = 0; // DELETE LATER (ONLY USED FOR TESTING)!!!
+
     /**
      * The primary model object representing the Tetris game board.
      */
-    private final MyBoard myBoard;
+    private final Board myBoard;
 
     /**
      * Timer to manage game updates at regular intervals.
@@ -65,7 +72,9 @@ public class TetrisGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
-        frame.setJMenuBar(new Menu());
+        setupGameTimer();
+
+        frame.setJMenuBar(new Menu(myBoard, myGameTimer));
         frame.add(new MainPanel(), BorderLayout.CENTER);
         addBorders(frame);
 
@@ -81,7 +90,6 @@ public class TetrisGUI {
      * This includes the game timer and property change listener for the game board.
      */
     private void addListeners() {
-        myGameTimer.addActionListener(theEvent -> myBoard.step());
 
         myBoard.addPropertyChangeListener(theEvent -> {
             if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName()) && (Boolean) theEvent.getNewValue()) {
@@ -95,7 +103,11 @@ public class TetrisGUI {
      * Initializes the timer to trigger every second.
      */
     private void setupGameTimer() {
-        myGameTimer = new Timer(MILLIS_PER_SEC, null);
+        myGameTimer = new Timer(MILLIS_PER_SEC, theEvent -> {
+            timerCounter++; // DELETE LATER (USED FOR TESTING)
+            System.out.print(timerCounter + "\n"); // DELETE LATER (USED FOR TESTING)
+            myBoard.step();
+        });
     }
 
     /**

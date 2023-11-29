@@ -3,11 +3,21 @@ package view.Menu;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 
+import model.Board;
+
 public class Menu extends JMenuBar {
 
-    public Menu() {
+    private JMenuItem newGameItem;
+
+    private Board myBoard;
+
+    private Timer myGameTimer;
+
+    public Menu(Board board, Timer gameTimer) {
         super();
         add(createMenu());
+        myBoard = board;
+        myGameTimer = gameTimer;
     }
 
     private JMenuBar createMenu() {
@@ -31,17 +41,11 @@ public class Menu extends JMenuBar {
         gameMenu.add(exitItem);
 
         newGameItem.addActionListener(theEvent -> {
+            myBoard.newGame();
+            myGameTimer.start();
             JOptionPane.showMessageDialog(null, "Starting a New Game!");
         });
 
-        /**
-         *  REPLACE WITH THIS BLOCK OF CODE
-         *
-         *
-         * exitItem.addActionListener(theEvent ->
-         *                 theFrame.dispatchEvent(new WindowEvent(theFrame, WindowEvent.WINDOW_CLOSING)));
-         *
-         */
         exitItem.addActionListener(theEvent -> {
             System.exit(0);
         });
@@ -65,5 +69,6 @@ public class Menu extends JMenuBar {
 
         return aboutMenu;
     }
+
 }
 
