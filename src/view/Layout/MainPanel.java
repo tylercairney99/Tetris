@@ -2,8 +2,12 @@ package view.Layout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class MainPanel extends JPanel {
+public class MainPanel extends JPanel implements PropertyChangeListener {
 
     private JPanel mySecondaryPanel;
     private JPanel myGamePanel;
@@ -16,6 +20,7 @@ public class MainPanel extends JPanel {
         super();
         buildComponents();
         layoutComponents();
+        addListeners();
     }
 
     private void buildComponents() {
@@ -39,6 +44,34 @@ public class MainPanel extends JPanel {
         mySecondaryPanel.add(myNextPiecePanel, BorderLayout.NORTH);
         mySecondaryPanel.add(myControlPanel, BorderLayout.CENTER);
         mySecondaryPanel.add(myScorePanel, BorderLayout.SOUTH);
+    }
+    private void addListeners() {
+        addKeyListener(new ControlKeyListener());
+        setFocusable(true);
+        requestFocus();
+    }
+
+    class ControlKeyListener extends KeyAdapter {
+        @Override
+        public void keyPressed(final KeyEvent theEvent) {
+            if (theEvent.getKeyCode() == KeyEvent.VK_LEFT) {
+                System.out.println("left");
+            } else if (theEvent.getKeyCode() == KeyEvent.VK_RIGHT) {
+                System.out.println("right");
+            } else if (theEvent.getKeyCode() == KeyEvent.VK_DOWN) {
+                System.out.println("down");
+            } else if (theEvent.getKeyCode() == KeyEvent.VK_Z) {
+                System.out.println("z");
+            } else if (theEvent.getKeyCode() == KeyEvent.VK_X) {
+                System.out.println("x");
+            } else if (theEvent.getKeyCode() == KeyEvent.VK_SPACE) {
+                System.out.println("space");
+            }
+        }
+    }
+
+    @Override
+    public void propertyChange(final PropertyChangeEvent theEvent) {
     }
 
     public NextPiecePanel getNextPiecePanel() {
