@@ -73,6 +73,7 @@ public class TetrisGUI {
         frame.setLocationRelativeTo(null); // centers GUI on screen when ran
         setupGameTimer();
         frame.setVisible(true);
+        frame.setResizable(false);
     }
 
     /**
