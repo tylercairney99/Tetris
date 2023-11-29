@@ -47,22 +47,22 @@ public class Board implements MyBoard {
     /**
      * A property to check if the board changes.
      */
-    public static final String PROPERTY_BOARD_CHANGES = "the pieces move";
+    public static final String PROPERTY_BOARD_CHANGES = "The pieces move.";
 
     /**
      * A property to check if a row is cleared.
      */
-    public static final String PROPERTY_ROW_CLEARED = "a row is cleared";
+    public static final String PROPERTY_ROW_CLEARED = "A row is cleared.";
 
     /**
      * A property to check when / if the next piece changes.
      */
-    public static final String PROPERTY_NEXT_PIECE_CHANGES = "the next piece changes";
+    public static final String PROPERTY_NEXT_PIECE_CHANGES = "The next piece changes.";
 
     /**
      * A property to check if the game is over.
      */
-    public static final String PROPERTY_GAME_OVER = "the game is over";
+    public static final String PROPERTY_GAME_OVER = "The game is over.";
 
 
     // Class constants
@@ -716,34 +716,27 @@ public class Board implements MyBoard {
                 myPcs.firePropertyChange(PROPERTY_GAME_OVER, false, true);
             }
         }
-
-
     }  // end inner class BoardData
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener theListener) {
         myPcs.addPropertyChangeListener(theListener);
-
     }
 
     @Override
     public void addPropertyChangeListener(String thePropertyName,
                                           PropertyChangeListener theListener) {
         myPcs.addPropertyChangeListener(thePropertyName, theListener);
-
     }
 
     @Override
     public void removePropertyChangeListener(PropertyChangeListener theListener) {
         myPcs.removePropertyChangeListener(theListener);
-
     }
 
     @Override
     public void removePropertyChangeListener(String thePropertyName,
                                              PropertyChangeListener theListener) {
         myPcs.removePropertyChangeListener(thePropertyName, theListener);
-
     }
-
 }

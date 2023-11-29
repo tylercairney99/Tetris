@@ -5,11 +5,11 @@ import java.awt.*;
 
 public class MainPanel extends JPanel {
 
-    private JPanel mySecondary;
-    private JPanel myGame;
-    private JPanel myNextPiece;
-    private JPanel myControl;
-    private JPanel myScore;
+    private JPanel mySecondaryPanel;
+    private JPanel myGamePanel;
+    private JPanel myNextPiecePanel;
+    private JPanel myControlPanel;
+    private JPanel myScorePanel;
 
     public MainPanel() {
         super();
@@ -18,25 +18,25 @@ public class MainPanel extends JPanel {
     }
 
     private void buildComponents() {
-        mySecondary = new JPanel();
-        myGame = new GamePanel();
-        myNextPiece = new NextPiecePanel();
-        myControl = new ControlPanel();
-        myScore = new ScorePanel();
+        mySecondaryPanel = new JPanel();
+        myGamePanel = new GamePanel();
+        myNextPiecePanel = new NextPiecePanel();
+        myControlPanel = new ControlPanel();
+        myScorePanel = new ScorePanel();
 
-        myGame.setPreferredSize(new Dimension(200, 400));
-        myNextPiece.setPreferredSize(new Dimension(160, 160));
-        myControl.setPreferredSize(new Dimension(160, 110));
-        myScore.setPreferredSize(new Dimension(160, 110));
+        myGamePanel.setPreferredSize(new Dimension(200, 400));
+        myNextPiecePanel.setPreferredSize(new Dimension(160, 160));
+        myControlPanel.setPreferredSize(new Dimension(160, 110));
+        myScorePanel.setPreferredSize(new Dimension(160, 110));
     }
     private void layoutComponents() {
         setLayout(new BorderLayout(5, 10));
-        add(myGame, BorderLayout.WEST);
-        add(mySecondary, BorderLayout.EAST);
+        add(myGamePanel, BorderLayout.WEST);
+        add(mySecondaryPanel, BorderLayout.EAST);
 
-        mySecondary.setLayout(new BorderLayout(10, 10));
-        mySecondary.add(myNextPiece, BorderLayout.NORTH);
-        mySecondary.add(myControl, BorderLayout.CENTER);
-        mySecondary.add(myScore, BorderLayout.SOUTH);
+        mySecondaryPanel.setLayout(new BorderLayout(10, 10));
+        mySecondaryPanel.add(myNextPiecePanel, BorderLayout.NORTH);
+        mySecondaryPanel.add(myControlPanel, BorderLayout.CENTER);
+        mySecondaryPanel.add(myScorePanel, BorderLayout.SOUTH);
     }
 }
