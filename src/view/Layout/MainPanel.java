@@ -2,23 +2,60 @@ package view.Layout;
 
 import model.Board;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import javax.swing.JPanel;
 
+/**
+ *
+ *
+ * @author James
+ * @author Josh
+ * @author Tyler
+ * @author Cam
+ * @version 2.0
+ */
 public class MainPanel extends JPanel implements PropertyChangeListener {
 
+    /**
+     *
+     */
     private JPanel mySecondaryPanel;
+
+    /**
+     *
+     */
     private JPanel myGamePanel;
+
+    /**
+     * Shows next tetromino to be played.
+     */
     private NextPiecePanel myNextPiecePanel;
 
+    /**
+     * Displays game controls.
+     */
     private JPanel myControlPanel;
-    private JPanel myScorePanel;
-    private Board myBoard;
 
+    /**
+     * Shows the player's score.
+     */
+    private JPanel myScorePanel;
+
+    /**
+     *
+     */
+    private final Board myBoard;
+
+    /**
+     * Calls methods to build game.
+     *
+     * @param theBoard ???
+     */
     public MainPanel(final Board theBoard) {
         super();
         buildComponents();
@@ -28,6 +65,9 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
         myBoard = theBoard;
     }
 
+    /**
+     *
+     */
     private void buildComponents() {
         mySecondaryPanel = new JPanel();
         myGamePanel = new GamePanel();
@@ -40,6 +80,10 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
         myControlPanel.setPreferredSize(new Dimension(160, 110));
         myScorePanel.setPreferredSize(new Dimension(160, 110));
     }
+
+    /**
+     *
+     */
     private void layoutComponents() {
         setLayout(new BorderLayout(5, 10));
         add(myGamePanel, BorderLayout.WEST);
@@ -50,12 +94,32 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
         mySecondaryPanel.add(myControlPanel, BorderLayout.CENTER);
         mySecondaryPanel.add(myScorePanel, BorderLayout.SOUTH);
     }
+
+    /**
+     *
+     */
     private void addListeners() {
         addKeyListener(new ControlKeyListener());
         setFocusable(true);
         requestFocus();
     }
 
+    @Override
+    public void propertyChange(final PropertyChangeEvent theEvent) {
+    }
+
+    /**
+     * ???
+     *
+     * @return Next piece panel displays next tetromino to be played.
+     */
+    public NextPiecePanel getNextPiecePanel() {
+        return myNextPiecePanel;
+    }
+
+    /**
+     * Creates key press events.
+     */
     class ControlKeyListener extends KeyAdapter {
         @Override
         public void keyPressed(final KeyEvent theEvent) {
@@ -75,13 +139,5 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
                 //pause timer here
             }
         }
-    }
-
-    @Override
-    public void propertyChange(final PropertyChangeEvent theEvent) {
-    }
-
-    public NextPiecePanel getNextPiecePanel() {
-        return myNextPiecePanel;
     }
 }
