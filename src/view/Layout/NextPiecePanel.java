@@ -188,12 +188,11 @@ public class NextPiecePanel extends JPanel implements PropertyChangeListener {
     }
 
 
-    private void createTShape(final Graphics2D theG2d) { // WRONG SHAPE
+    private void createTShape(final Graphics2D theG2d) {
         int offsetX = (getWidth() - 3 * BLOCK_WIDTH) / 2;
         int offsetY = (getHeight() - 2 * BLOCK_HEIGHT) / 2;
 
-
-        final Shape tetrisBlock1 = new Rectangle2D.Double(offsetX, offsetY + BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
+        final Shape tetrisBlock1 = new Rectangle2D.Double(offsetX + BLOCK_WIDTH, offsetY + BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
         final Shape tetrisBlock2 = new Rectangle2D.Double(offsetX, offsetY, BLOCK_WIDTH, BLOCK_HEIGHT);
         final Shape tetrisBlock3 = new Rectangle2D.Double(offsetX + BLOCK_WIDTH, offsetY, BLOCK_WIDTH, BLOCK_HEIGHT);
         final Shape tetrisBlock4 = new Rectangle2D.Double(offsetX + 2 * BLOCK_WIDTH, offsetY, BLOCK_WIDTH, BLOCK_HEIGHT);
@@ -213,7 +212,8 @@ public class NextPiecePanel extends JPanel implements PropertyChangeListener {
     }
 
 
-    private void createZShape(final Graphics2D theG2d) { // WRONG SHAPE
+
+    private void createZShape(final Graphics2D theG2d) {
         int offsetX = (getWidth() - 3 * BLOCK_WIDTH) / 2;
         int offsetY = (getHeight() - 2 * BLOCK_HEIGHT) / 2;
 
@@ -237,8 +237,8 @@ public class NextPiecePanel extends JPanel implements PropertyChangeListener {
     }
 
 
-    public void getNextTetrisPiece(TetrisPiece nextPiece) {
-        myNextTetrisPiece = nextPiece;
+    public void getNextTetrisPiece(final TetrisPiece theNextPiece) {
+        myNextTetrisPiece = theNextPiece;
         repaint();
     }
 
