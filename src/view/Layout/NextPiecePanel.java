@@ -21,9 +21,9 @@ public class NextPiecePanel extends JPanel implements PropertyChangeListener {
 
     private final int STROKE_WIDTH = 1;
 
-    private static final int BLOCK_WIDTH = 20;
+    private static final int BLOCK_WIDTH = 15;
 
-    private static final int BLOCK_HEIGHT = 20;
+    private static final int BLOCK_HEIGHT = 15;
 
 
     public NextPiecePanel() {
@@ -206,6 +206,7 @@ public class NextPiecePanel extends JPanel implements PropertyChangeListener {
         theG2d.fill(tetrisBlock4);
 
         theG2d.setPaint(Color.BLACK);
+
         theG2d.draw(tetrisBlock1);
         theG2d.draw(tetrisBlock2);
         theG2d.draw(tetrisBlock3);

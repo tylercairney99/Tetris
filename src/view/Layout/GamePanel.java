@@ -37,13 +37,13 @@ public class GamePanel extends JPanel {
 
     private void createIShape(final Graphics2D theG2d) {
         final Shape tetrisBlock1 =
-                new Rectangle2D.Double(0, 379, 20, 20);
+                new Rectangle2D.Double(0, 380, 19, 19);
         final Shape tetrisBlock2 =
-                new Rectangle2D.Double(20, 379, 20, 20);
+                new Rectangle2D.Double(20, 380, 19, 19);
         final Shape tetrisBlock3 =
-                new Rectangle2D.Double(40, 379, 20, 20);
+                new Rectangle2D.Double(40, 380, 19, 19);
         final Shape tetrisBlock4 =
-                new Rectangle2D.Double(60, 379, 20, 20);
+                new Rectangle2D.Double(60, 380, 19, 19);
         theG2d.setPaint(Color.CYAN);
 
         theG2d.fill(tetrisBlock1);
@@ -61,13 +61,13 @@ public class GamePanel extends JPanel {
 
     private void createLShape(final Graphics2D theG2d) {
         final Shape tetrisBlock1 =
-                new Rectangle2D.Double(80, 379, 20, 20);
+                new Rectangle2D.Double(80, 380, 19, 19);
         final Shape tetrisBlock2 =
-                new Rectangle2D.Double(100, 379, 20, 20);
+                new Rectangle2D.Double(100, 380, 19, 19);
         final Shape tetrisBlock3 =
-                new Rectangle2D.Double(120, 379, 20, 20);
+                new Rectangle2D.Double(120, 380, 19, 19);
         final Shape tetrisBlock4 =
-                new Rectangle2D.Double(120, 359, 20, 20);
+                new Rectangle2D.Double(120, 360, 19, 19);
         theG2d.setPaint(Color.ORANGE);
 
         theG2d.fill(tetrisBlock1);
@@ -85,13 +85,13 @@ public class GamePanel extends JPanel {
 
     private void createJShape(final Graphics2D theG2d) {
         final Shape tetrisBlock1 =
-                new Rectangle2D.Double(140, 379, 20, 20);
+                new Rectangle2D.Double(140, 380, 19, 19);
         final Shape tetrisBlock2 =
-                new Rectangle2D.Double(160, 379, 20, 20);
+                new Rectangle2D.Double(160, 380, 19, 19);
         final Shape tetrisBlock3 =
-                new Rectangle2D.Double(180, 379, 20, 20);
+                new Rectangle2D.Double(180, 380, 19, 19);
         final Shape tetrisBlock4 =
-                new Rectangle2D.Double(140, 359, 20, 20);
+                new Rectangle2D.Double(140, 360, 19, 19);
         theG2d.setPaint(Color.BLUE);
 
         theG2d.fill(tetrisBlock1);
@@ -109,13 +109,13 @@ public class GamePanel extends JPanel {
 
     private void createOShape(final Graphics2D theG2d) {
         final Shape tetrisBlock1 =
-                new Rectangle2D.Double(160, 359, 20, 20);
+                new Rectangle2D.Double(160, 360, 19, 19);
         final Shape tetrisBlock2 =
-                new Rectangle2D.Double(180, 359, 20, 20);
+                new Rectangle2D.Double(180, 360, 19, 19);
         final Shape tetrisBlock3 =
-                new Rectangle2D.Double(160, 339, 20, 20);
+                new Rectangle2D.Double(160, 340, 19, 19);
         final Shape tetrisBlock4 =
-                new Rectangle2D.Double(180, 339, 20, 20);
+                new Rectangle2D.Double(180, 340, 19, 19);
         theG2d.setPaint(Color.YELLOW);
 
         theG2d.fill(tetrisBlock1);
@@ -133,13 +133,13 @@ public class GamePanel extends JPanel {
 
     private void createSShape(final Graphics2D theG2d) {
         final Shape tetrisBlock1 =
-                new Rectangle2D.Double(80, 359, 20, 20);
+                new Rectangle2D.Double(80, 360, 19, 19);
         final Shape tetrisBlock2 =
-                new Rectangle2D.Double(100, 359, 20, 20);
+                new Rectangle2D.Double(100, 360, 19, 19);
         final Shape tetrisBlock3 =
-                new Rectangle2D.Double(100, 339, 20, 20);
+                new Rectangle2D.Double(100, 340, 19, 19);
         final Shape tetrisBlock4 =
-                new Rectangle2D.Double(120, 339, 20, 20);
+                new Rectangle2D.Double(120, 340, 19, 19);
         theG2d.setPaint(Color.GREEN);
 
         theG2d.fill(tetrisBlock1);
@@ -157,13 +157,13 @@ public class GamePanel extends JPanel {
 
     private void createTShape(final Graphics2D theG2d) {
         final Shape tetrisBlock1 =
-                new Rectangle2D.Double(80, 339, 20, 20);
+                new Rectangle2D.Double(80, 340, 19, 19);
         final Shape tetrisBlock2 =
-                new Rectangle2D.Double(80, 319, 20, 20);
+                new Rectangle2D.Double(80, 320, 19, 19);
         final Shape tetrisBlock3 =
-                new Rectangle2D.Double(100, 319, 20, 20);
+                new Rectangle2D.Double(100, 320, 19, 19);
         final Shape tetrisBlock4 =
-                new Rectangle2D.Double(60, 319, 20, 20);
+                new Rectangle2D.Double(60, 320, 19, 19);
         theG2d.setPaint(Color.MAGENTA);
 
         theG2d.fill(tetrisBlock1);
@@ -181,13 +181,13 @@ public class GamePanel extends JPanel {
 
     private void createZShape(final Graphics2D theG2d) {
         final Shape tetrisBlock1 =
-                new Rectangle2D.Double(140, 339, 20, 20);
+                new Rectangle2D.Double(140, 340, 19, 19);
         final Shape tetrisBlock2 =
-                new Rectangle2D.Double(140, 319, 20, 20);
+                new Rectangle2D.Double(140, 320, 19, 19);
         final Shape tetrisBlock3 =
-                new Rectangle2D.Double(160, 319, 20, 20);
+                new Rectangle2D.Double(160, 320, 19, 19);
         final Shape tetrisBlock4 =
-                new Rectangle2D.Double(160, 299, 20, 20);
+                new Rectangle2D.Double(160, 300, 19, 19);
         theG2d.setPaint(Color.PINK);
 
         theG2d.fill(tetrisBlock1);
