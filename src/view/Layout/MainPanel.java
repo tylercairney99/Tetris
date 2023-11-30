@@ -1,5 +1,7 @@
 package view.Layout;
 
+import model.Board;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -15,20 +17,22 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
 
     private JPanel myControlPanel;
     private JPanel myScorePanel;
+    private Board myBoard;
 
-    public MainPanel() {
+    public MainPanel(final Board theBoard) {
         super();
-        buildComponents();
+        buildComponents(theBoard);
         layoutComponents();
         addListeners();
     }
 
-    private void buildComponents() {
+    private void buildComponents(final Board theBoard) {
         mySecondaryPanel = new JPanel();
         myGamePanel = new GamePanel();
         myNextPiecePanel = new NextPiecePanel();
         myControlPanel = new ControlPanel();
         myScorePanel = new ScorePanel();
+        myBoard = theBoard;
 
         myGamePanel.setPreferredSize(new Dimension(200, 400));
         myNextPiecePanel.setPreferredSize(new Dimension(160, 160));
@@ -55,17 +59,19 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
         @Override
         public void keyPressed(final KeyEvent theEvent) {
             if (theEvent.getKeyCode() == KeyEvent.VK_LEFT) {
-                System.out.println("left");
+                myBoard.left();
             } else if (theEvent.getKeyCode() == KeyEvent.VK_RIGHT) {
-                System.out.println("right");
+                myBoard.right();
             } else if (theEvent.getKeyCode() == KeyEvent.VK_DOWN) {
-                System.out.println("down");
+                myBoard.down();
             } else if (theEvent.getKeyCode() == KeyEvent.VK_Z) {
-                System.out.println("z");
+                myBoard.rotateCCW();
             } else if (theEvent.getKeyCode() == KeyEvent.VK_X) {
-                System.out.println("x");
+                myBoard.rotateCW();
             } else if (theEvent.getKeyCode() == KeyEvent.VK_SPACE) {
-                System.out.println("space");
+                myBoard.drop();
+            } else if (theEvent.getKeyCode() == KeyEvent.VK_P) {
+                //pause
             }
         }
     }
