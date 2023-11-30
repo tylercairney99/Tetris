@@ -13,7 +13,6 @@ import model.TetrisPiece;
 import javax.swing.*;
 import java.awt.*;
 
-
 /**
  * This class represents the graphical user interface for the Tetris game.
  * It handles the initialization and display of the game window, including setting up
@@ -82,13 +81,14 @@ public class TetrisGUI {
 
         setupGameTimer();
 
-        MainPanel mainPanel = new MainPanel();
+        MainPanel mainPanel = new MainPanel(new Board(10, 20));
 
         frame.setJMenuBar(new Menu(myBoard, myGameTimer));
         frame.add(mainPanel, BorderLayout.CENTER);
 
         myNextPiecePanel = mainPanel.getNextPiecePanel();
 
+        frame.add(mainPanel, BorderLayout.CENTER);
         addBorders(frame);
 
         frame.pack();
