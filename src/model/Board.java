@@ -37,12 +37,7 @@ import model.wallkicks.WallKick;
  */
 public class Board implements MyBoard {
 
-    // Implementation of Observer Design Pattern
-
-    /**
-     * Manager for Property Change Listeners.
-     */
-    private final PropertyChangeSupport myPcs;
+    // Class constants
 
     /**
      * A property to check if the board changes.
@@ -64,9 +59,6 @@ public class Board implements MyBoard {
      */
     public static final String PROPERTY_GAME_OVER = "The game is over.";
 
-
-    // Class constants
-
     /**
      * Default width of a Tetris game board.
      */
@@ -76,6 +68,14 @@ public class Board implements MyBoard {
      * Default height of a Tetris game board.
      */
     private static final int DEFAULT_HEIGHT = 20;
+
+
+    // Implementation of Observer Design Pattern
+
+    /**
+     * Manager for Property Change Listeners.
+     */
+    private final PropertyChangeSupport myPcs;
 
 
     // Instance fields
@@ -137,7 +137,6 @@ public class Board implements MyBoard {
         this(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
     }
-
 
     /**
      * Tetris board constructor for non-default sized boards.

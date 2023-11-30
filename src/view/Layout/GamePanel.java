@@ -51,13 +51,13 @@ public final class GamePanel extends JPanel {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-//        createIShape(g2d);
-//        createLShape(g2d);
-//        createJShape(g2d);
-//        createOShape(g2d);
-//        createSShape(g2d);
-//        createTShape(g2d);
-//        createZShape(g2d);
+        createIShape(g2d);
+        createLShape(g2d);
+        createJShape(g2d);
+        createOShape(g2d);
+        createSShape(g2d);
+        createTShape(g2d);
+        createZShape(g2d);
     }
 
     /**
