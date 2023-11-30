@@ -104,10 +104,14 @@ public final class NextPiecePanel extends JPanel implements PropertyChangeListen
         final int offsetX = (getWidth() - 4 * BLOCK_WIDTH) / 2;
         final int offsetY = (getHeight() - BLOCK_HEIGHT) / 2;
 
-        final Shape tetrisBlock1 = new Rectangle2D.Double(offsetX, offsetY, BLOCK_WIDTH, BLOCK_HEIGHT);
-        final Shape tetrisBlock2 = new Rectangle2D.Double(offsetX + 16, offsetY, BLOCK_WIDTH, BLOCK_HEIGHT);
-        final Shape tetrisBlock3 = new Rectangle2D.Double(offsetX + 2 * 16, offsetY, BLOCK_WIDTH, BLOCK_HEIGHT);
-        final Shape tetrisBlock4 = new Rectangle2D.Double(offsetX + 3 * 16, offsetY, BLOCK_WIDTH, BLOCK_HEIGHT);
+        final Shape tetrisBlock1 = new Rectangle2D.Double(offsetX, offsetY,
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
+        final Shape tetrisBlock2 = new Rectangle2D.Double(offsetX + 16, offsetY,
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
+        final Shape tetrisBlock3 = new Rectangle2D.Double(offsetX + 2 * 16, offsetY,
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
+        final Shape tetrisBlock4 = new Rectangle2D.Double(offsetX + 3 * 16, offsetY,
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
 
         theG2d.setPaint(Color.CYAN);
         paintShape(theG2d, tetrisBlock1, tetrisBlock2, tetrisBlock3, tetrisBlock4);
@@ -123,14 +127,14 @@ public final class NextPiecePanel extends JPanel implements PropertyChangeListen
         final int startY = (getHeight() - 2 * BLOCK_HEIGHT) / 2;
 
 
-        final Shape tetrisBlock1 = new Rectangle2D.Double(startX, startY + BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
+        final Shape tetrisBlock1 = new Rectangle2D.Double(startX, startY + BLOCK_HEIGHT,
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
         final Shape tetrisBlock2 = new Rectangle2D.Double(startX + BLOCK_WIDTH , startY + BLOCK_HEIGHT,
-                BLOCK_WIDTH, BLOCK_HEIGHT);
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
         final Shape tetrisBlock3 = new Rectangle2D.Double(startX + BLOCK_WIDTH * 2, startY,
-                BLOCK_WIDTH, BLOCK_HEIGHT);
-
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
         final Shape tetrisBlock4 = new Rectangle2D.Double(startX + BLOCK_WIDTH * 2, startY + BLOCK_HEIGHT,
-                BLOCK_WIDTH, BLOCK_HEIGHT);
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
 
         theG2d.setPaint(Color.ORANGE);
         paintShape(theG2d, tetrisBlock1, tetrisBlock2, tetrisBlock3, tetrisBlock4);
@@ -145,11 +149,14 @@ public final class NextPiecePanel extends JPanel implements PropertyChangeListen
         final int startX = (getWidth() - 3 * BLOCK_WIDTH) / 2;
         final int startY = (getHeight() - 2 * BLOCK_HEIGHT) / 2;
 
-        final Shape tetrisBlock1 = new Rectangle2D.Double(startX, startY, BLOCK_WIDTH, BLOCK_HEIGHT);
-        final Shape tetrisBlock2 = new Rectangle2D.Double(startX + BLOCK_WIDTH, startY + BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
-        final Shape tetrisBlock3 = new Rectangle2D.Double(startX + 2 * BLOCK_WIDTH,
-                startY + BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
-        final Shape tetrisBlock4 = new Rectangle2D.Double(startX, startY + BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
+        final Shape tetrisBlock1 = new Rectangle2D.Double(startX, startY,
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
+        final Shape tetrisBlock2 = new Rectangle2D.Double(startX + BLOCK_WIDTH, startY + BLOCK_HEIGHT,
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
+        final Shape tetrisBlock3 = new Rectangle2D.Double(startX + 2 * BLOCK_WIDTH, startY + BLOCK_HEIGHT,
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
+        final Shape tetrisBlock4 = new Rectangle2D.Double(startX, startY + BLOCK_HEIGHT,
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
 
         theG2d.setPaint(Color.BLUE);
         paintShape(theG2d, tetrisBlock1, tetrisBlock2, tetrisBlock3, tetrisBlock4);
@@ -164,11 +171,14 @@ public final class NextPiecePanel extends JPanel implements PropertyChangeListen
         final int startX = (getWidth() - 2 * BLOCK_WIDTH) / 2;
         final int startY = (getHeight() - 2 * BLOCK_HEIGHT) / 2;
 
-        final Shape tetrisBlock1 = new Rectangle2D.Double(startX, startY, BLOCK_WIDTH, BLOCK_HEIGHT);
-        final Shape tetrisBlock2 = new Rectangle2D.Double(startX + BLOCK_WIDTH, startY, BLOCK_WIDTH, BLOCK_HEIGHT);
-        final Shape tetrisBlock3 = new Rectangle2D.Double(startX, startY + BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
-        final Shape tetrisBlock4 = new Rectangle2D.Double(startX + BLOCK_WIDTH,
-                startY + BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
+        final Shape tetrisBlock1 = new Rectangle2D.Double(startX, startY,
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
+        final Shape tetrisBlock2 = new Rectangle2D.Double(startX + BLOCK_WIDTH, startY,
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
+        final Shape tetrisBlock3 = new Rectangle2D.Double(startX, startY + BLOCK_HEIGHT,
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
+        final Shape tetrisBlock4 = new Rectangle2D.Double(startX + BLOCK_WIDTH, startY + BLOCK_HEIGHT,
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
 
         theG2d.setPaint(Color.YELLOW);
         paintShape(theG2d, tetrisBlock1, tetrisBlock2, tetrisBlock3, tetrisBlock4);
@@ -185,13 +195,13 @@ public final class NextPiecePanel extends JPanel implements PropertyChangeListen
         final int offsetY = (getHeight() - 2 * BLOCK_HEIGHT) / 2;
 
         final Shape tetrisBlock1 = new Rectangle2D.Double(offsetX + BLOCK_WIDTH, offsetY,
-                BLOCK_WIDTH, BLOCK_HEIGHT);
-        final Shape tetrisBlock2 = new Rectangle2D.Double(offsetX + 2 * BLOCK_WIDTH,
-                offsetY, BLOCK_WIDTH, BLOCK_HEIGHT);
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
+        final Shape tetrisBlock2 = new Rectangle2D.Double(offsetX + 2 * BLOCK_WIDTH, offsetY,
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
         final Shape tetrisBlock3 = new Rectangle2D.Double(offsetX, offsetY + BLOCK_HEIGHT,
-                BLOCK_WIDTH, BLOCK_HEIGHT);
-        final Shape tetrisBlock4 = new Rectangle2D.Double(offsetX + BLOCK_WIDTH,
-                offsetY + BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
+        final Shape tetrisBlock4 = new Rectangle2D.Double(offsetX + BLOCK_WIDTH, offsetY + BLOCK_HEIGHT,
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
 
         theG2d.setPaint(Color.GREEN);
         paintShape(theG2d, tetrisBlock1, tetrisBlock2, tetrisBlock3, tetrisBlock4);
@@ -208,13 +218,13 @@ public final class NextPiecePanel extends JPanel implements PropertyChangeListen
 
 
         final Shape tetrisBlock1 = new Rectangle2D.Double(offsetX, offsetY + BLOCK_HEIGHT,
-                BLOCK_WIDTH, BLOCK_HEIGHT);
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
         final Shape tetrisBlock2 = new Rectangle2D.Double(offsetX + BLOCK_WIDTH, offsetY,
-                BLOCK_WIDTH, BLOCK_HEIGHT);
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
         final Shape tetrisBlock3 = new Rectangle2D.Double(offsetX + BLOCK_WIDTH, offsetY + BLOCK_HEIGHT,
-                BLOCK_WIDTH, BLOCK_HEIGHT);
-        final Shape tetrisBlock4 = new Rectangle2D.Double(offsetX + 2 * BLOCK_WIDTH,
-                offsetY + BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
+        final Shape tetrisBlock4 = new Rectangle2D.Double(offsetX + 2 * BLOCK_WIDTH, offsetY + BLOCK_HEIGHT,
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
 
         theG2d.setPaint(Color.MAGENTA);
         paintShape(theG2d, tetrisBlock1, tetrisBlock2, tetrisBlock3, tetrisBlock4);
@@ -230,13 +240,13 @@ public final class NextPiecePanel extends JPanel implements PropertyChangeListen
         final int offsetY = (getHeight() - 2 * BLOCK_HEIGHT) / 2;
 
         final Shape tetrisBlock1 = new Rectangle2D.Double(offsetX, offsetY,
-                BLOCK_WIDTH, BLOCK_HEIGHT);
-        final Shape tetrisBlock2 = new Rectangle2D.Double(offsetX + BLOCK_WIDTH,
-                offsetY, BLOCK_WIDTH, BLOCK_HEIGHT);
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
+        final Shape tetrisBlock2 = new Rectangle2D.Double(offsetX + BLOCK_WIDTH, offsetY,
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
         final Shape tetrisBlock3 = new Rectangle2D.Double(offsetX + BLOCK_WIDTH, offsetY + BLOCK_HEIGHT,
-                BLOCK_WIDTH, BLOCK_HEIGHT);
-        final Shape tetrisBlock4 = new Rectangle2D.Double(offsetX + 2 * BLOCK_WIDTH,
-                offsetY + BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
+        final Shape tetrisBlock4 = new Rectangle2D.Double(offsetX + 2 * BLOCK_WIDTH, offsetY + BLOCK_HEIGHT,
+                BLOCK_WIDTH - 1, BLOCK_HEIGHT - 1);
 
         theG2d.setPaint(Color.PINK);
         paintShape(theG2d, tetrisBlock1, tetrisBlock2, tetrisBlock3, tetrisBlock4);
