@@ -82,7 +82,7 @@ public class TetrisGUI {
 
         setupGameTimer();
 
-        MainPanel mainPanel = new MainPanel();
+        MainPanel mainPanel = new MainPanel(new Board(10,20));
 
         frame.setJMenuBar(new Menu(myBoard, myGameTimer));
         frame.add(mainPanel, BorderLayout.CENTER);
