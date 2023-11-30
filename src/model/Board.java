@@ -585,6 +585,7 @@ public class Board implements MyBoard {
         }
         if (share && !myGameOver) {
             myPcs.firePropertyChange(PROPERTY_NEXT_PIECE_CHANGES, null, myNextPiece); // FIX OLD VALUE
+            System.out.println("Firing next piece change: " + myNextPiece); // DELETE USED FOR TESTING
         }
     }
 
@@ -699,6 +700,7 @@ public class Board implements MyBoard {
             }
 
             myPcs.firePropertyChange(PROPERTY_NEXT_PIECE_CHANGES, null, myNextPiece);
+            System.out.println("Firing next piece change: " + myNextPiece); // DELETE LATER
         }
 
         /**
