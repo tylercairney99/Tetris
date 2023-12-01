@@ -37,7 +37,12 @@ import model.wallkicks.WallKick;
  */
 public class Board implements MyBoard {
 
-    // Class constants
+    // Implementation of Observer Design Pattern
+
+    /**
+     * Manager for Property Change Listeners.
+     */
+    private final PropertyChangeSupport myPcs;
 
     /**
      * A property to check if the board changes.
@@ -59,6 +64,9 @@ public class Board implements MyBoard {
      */
     public static final String PROPERTY_GAME_OVER = "The game is over.";
 
+
+    // Class constants
+
     /**
      * Default width of a Tetris game board.
      */
@@ -68,14 +76,6 @@ public class Board implements MyBoard {
      * Default height of a Tetris game board.
      */
     private static final int DEFAULT_HEIGHT = 20;
-
-
-    // Implementation of Observer Design Pattern
-
-    /**
-     * Manager for Property Change Listeners.
-     */
-    private final PropertyChangeSupport myPcs;
 
 
     // Instance fields
@@ -137,6 +137,7 @@ public class Board implements MyBoard {
         this(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
     }
+
 
     /**
      * Tetris board constructor for non-default sized boards.
@@ -204,7 +205,7 @@ public class Board implements MyBoard {
         myDrop = false;
 
         // TODO Publish Update!
-        prepareNextMovablePiece();
+        prepareNextMovablePiece(); // MIGHT NEED TO CHANGE LATER
     }
 
     /**
@@ -583,7 +584,7 @@ public class Board implements MyBoard {
             myNextPiece = myNonRandomPieces.get(mySequenceIndex++);
         }
         if (share && !myGameOver) {
-            myPcs.firePropertyChange(PROPERTY_NEXT_PIECE_CHANGES, null, myNextPiece); // FIX OLD VALUE
+            updateNextPiece();
         }
     }
 
@@ -632,90 +633,6 @@ public class Board implements MyBoard {
 
         // Implmentation of Observer Design Pattern
 
-        /**
-         * Updates the current game state and notifies observers about the board changes.
-         * This method should be called whenever there is a change in the game board,
-         * such as after a piece has moved or landed. It triggers a property change event
-         * to inform observers about the update. Observers typically include GUI components
-         * that need to reflect the current state of the game board.
-         *
-         * Usage:
-         *   This method is typically called within the game loop or in response to game events.
-         */
-        private void updateGameState() {
-            final List<Block[]> currentState = getBoard();
-            myPcs.firePropertyChange(PROPERTY_BOARD_CHANGES, null, currentState);
-        }
-
-        /**
-         * Clears complete rows from the game board and notifies observers about the cleared rows.
-         * This method checks for and clears rows that are completely filled. It should be called
-         * whenever there is a potential for row completion, such as when a piece lands.
-         * Once rows are cleared, it fires a property change event with the indices of the cleared rows.
-         * Observers such as scoring systems or GUI components can use this information to update accordingly.
-         *
-         * Usage:
-         *   Typically invoked after a piece has landed and settled on the board.
-         */
-        private void clearRows() {
-            final List<Integer> clearedRows = new ArrayList<>();
-            for (int i = 0; i < myFrozenBlocks.size(); i++) {
-                boolean isRowComplete = true;
-                for (Block block : myFrozenBlocks.get(i)) {
-                    if (block == null) {
-                        isRowComplete = false;
-                        break;
-                    }
-                }
-                if (isRowComplete) {
-                    clearedRows.add(i);
-                    myFrozenBlocks.remove(i);
-                    myFrozenBlocks.add(0, new Block[myWidth]);
-                }
-            }
-
-            if (!clearedRows.isEmpty()) {
-                myPcs.firePropertyChange(PROPERTY_ROW_CLEARED, null, clearedRows.toArray(new Integer[0]));
-            }
-        }
-
-        /**
-         * Updates the next piece for the game, either from a predefined sequence or randomly.
-         * This method determines and updates the next Tetris piece. Observers are notified about
-         * the change in the next piece, allowing GUI components to display the upcoming piece.
-         * It supports both random piece generation and predefined piece sequences.
-         *
-         * Usage:
-         *   Call this method after a piece has landed to determine the next piece in the game.
-         *   It should be part of the game loop or piece settling logic.
-         */
-        private void updateNextPiece() {
-            if (myNonRandomPieces == null || myNonRandomPieces.isEmpty()) {
-                myNextPiece = TetrisPiece.getRandomPiece();
-            } else {
-                mySequenceIndex %= myNonRandomPieces.size();
-                myNextPiece = myNonRandomPieces.get(mySequenceIndex++);
-            }
-
-            myPcs.firePropertyChange(PROPERTY_NEXT_PIECE_CHANGES, null, myNextPiece);
-        }
-
-        /**
-         * Checks if the game is over based on the legality of the current piece's position.
-         * This method determines if the game should end, typically when a new piece cannot
-         * be legally placed on the board. Observers are notified about the game-over condition.
-         * This method should be called whenever a new piece is generated and its legality needs verification.
-         *
-         * Usage:
-         *   Call this method as part of the game loop, especially after placing a new piece on the board.
-         *   It is crucial for determining the end-of-game logic.
-         */
-        private void checkGameOver() {
-            if (!isPieceLegal(myCurrentPiece)) {
-                myGameOver = true;
-                myPcs.firePropertyChange(PROPERTY_GAME_OVER, false, true);
-            }
-        }
     }  // end inner class BoardData
 
     @Override
@@ -738,5 +655,80 @@ public class Board implements MyBoard {
     public void removePropertyChangeListener(String thePropertyName,
                                              PropertyChangeListener theListener) {
         myPcs.removePropertyChangeListener(thePropertyName, theListener);
+    }
+    private void updateGameState() {
+        final List<Block[]> currentState = getBoard();
+        myPcs.firePropertyChange(PROPERTY_BOARD_CHANGES, null, currentState);
+    }
+
+    /**
+     * Clears complete rows from the game board and notifies observers about the cleared rows.
+     * This method checks for and clears rows that are completely filled. It should be called
+     * whenever there is a potential for row completion, such as when a piece lands.
+     * Once rows are cleared, it fires a property change event with the indices of the cleared rows.
+     * Observers such as scoring systems or GUI components can use this information to update accordingly.
+     *
+     * Usage:
+     *   Typically invoked after a piece has landed and settled on the board.
+     */
+    private void clearRows() {
+        final List<Integer> clearedRows = new ArrayList<>();
+        for (int i = 0; i < myFrozenBlocks.size(); i++) {
+            boolean isRowComplete = true;
+            for (Block block : myFrozenBlocks.get(i)) {
+                if (block == null) {
+                    isRowComplete = false;
+                    break;
+                }
+            }
+            if (isRowComplete) {
+                clearedRows.add(i);
+                myFrozenBlocks.remove(i);
+                myFrozenBlocks.add(0, new Block[myWidth]);
+            }
+        }
+
+        if (!clearedRows.isEmpty()) {
+            myPcs.firePropertyChange(PROPERTY_ROW_CLEARED, null, clearedRows.toArray(new Integer[0]));
+        }
+    }
+
+    /**
+     * Updates the next piece for the game, either from a predefined sequence or randomly.
+     * This method determines and updates the next Tetris piece. Observers are notified about
+     * the change in the next piece, allowing GUI components to display the upcoming piece.
+     * It supports both random piece generation and predefined piece sequences.
+     *
+     * Usage:
+     *   Call this method after a piece has landed to determine the next piece in the game.
+     *   It should be part of the game loop or piece settling logic.
+     */
+    private void updateNextPiece() {
+        if (myNonRandomPieces == null || myNonRandomPieces.isEmpty()) {
+            myNextPiece = TetrisPiece.getRandomPiece();
+        } else {
+            mySequenceIndex %= myNonRandomPieces.size();
+            myNextPiece = myNonRandomPieces.get(mySequenceIndex++);
+        }
+
+        myPcs.firePropertyChange(PROPERTY_NEXT_PIECE_CHANGES, null, myNextPiece);
+        System.out.println("Firing next piece change: " + myNextPiece); // DELETE LATER
+    }
+
+    /**
+     * Checks if the game is over based on the legality of the current piece's position.
+     * This method determines if the game should end, typically when a new piece cannot
+     * be legally placed on the board. Observers are notified about the game-over condition.
+     * This method should be called whenever a new piece is generated and its legality needs verification.
+     *
+     * Usage:
+     *   Call this method as part of the game loop, especially after placing a new piece on the board.
+     *   It is crucial for determining the end-of-game logic.
+     */
+    private void checkGameOver() {
+        if (!isPieceLegal(myCurrentPiece)) {
+            myGameOver = true;
+            myPcs.firePropertyChange(PROPERTY_GAME_OVER, false, true);
+        }
     }
 }

@@ -1,16 +1,16 @@
 package view.Layout;
 
 import model.Board;
+import model.TetrisPiece;
+
 import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
 import static model.PaintTetromino.*;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.Shape;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
+
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
@@ -19,7 +19,7 @@ import model.PaintTetromino;
 import model.TetrisPiece;
 
 
-// TODO seems like shapes are completely random and it generating new shapes after time
+// TODO seems like shapes are completely random and it stops generating new shapes after time
 
 /**
  *Next piece panel shows the next tetromino to be played.
