@@ -26,7 +26,7 @@ import java.awt.*;
 public class TetrisGUI {
 
 
-//    private int timerCounter = 0; // DELETE LATER (ONLY USED FOR TESTING)!!!
+    private int timerCounter = 0; // DELETE LATER (ONLY USED FOR TESTING)!!!
 
     /**
      * The primary model object representing the Tetris game board.
@@ -64,7 +64,16 @@ public class TetrisGUI {
         super();
         myBoard = new Board();
         myNextPiecePanel = new NextPiecePanel();
+
+        myGameTimer = new Timer(MILLIS_PER_SEC, theEvent -> {
+            timerCounter++; // DELETE LATER (USED FOR TESTING)
+            System.out.print(timerCounter + "\n"); // DELETE LATER (USED FOR TESTING)
+            myBoard.step();
+        });
+
+
         setUpComponents();
+
 
         //SwingUtilities.invokeLater(() -> myNextPiecePanel.getNextTetrisPiece(TetrisPiece.I)); // DELETE LATER (USED TO TEST SHAPES)
 
@@ -81,7 +90,7 @@ public class TetrisGUI {
 
 //        setupGameTimer();
 
-        MainPanel mainPanel = new MainPanel(myBoard);
+        MainPanel mainPanel = new MainPanel(myBoard, myGameTimer);
 
         frame.setJMenuBar(new Menu(myBoard, myGameTimer));
         frame.add(mainPanel, BorderLayout.CENTER);
@@ -96,20 +105,21 @@ public class TetrisGUI {
         frame.setResizable(false);
     }
 
-//    /**
-//     * Adds action listeners to components.
-//     * This includes the game timer and property change listener for the game board.
-//     */
-//    private void addListeners() {
-//
-//        myBoard.addPropertyChangeListener(theEvent -> {
-//            if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName()) && (Boolean) theEvent.getNewValue()) {
-//                myGameTimer.stop();
-//            } else if (PROPERTY_NEXT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
-//                final TetrisPiece nextPiece = (TetrisPiece) theEvent.getNewValue();
-//                myNextPiecePanel.getNextTetrisPiece(nextPiece); // Update the NextPiecePanel
-//            }
-//        });
+    /**
+     * Adds action listeners to components.
+     * This includes the game timer and property change listener for the game board.
+     */
+    private void addListeners() {
+
+        myBoard.addPropertyChangeListener(theEvent -> {
+            if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName()) && (Boolean) theEvent.getNewValue()) {
+                myGameTimer.stop();
+            } else if (PROPERTY_NEXT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
+                final TetrisPiece nextPiece = (TetrisPiece) theEvent.getNewValue();
+                myNextPiecePanel.getNextTetrisPiece(nextPiece); // Update the NextPiecePanel
+            }
+        });
+    }
 //
 //
 //    }

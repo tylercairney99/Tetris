@@ -34,11 +34,11 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
      */
     private Timer myGameTimer;
 
-    public MainPanel(final Board theBoard) {
+    public MainPanel(final Board theBoard, Timer myGameTimer) {
         super();
         buildComponents(theBoard);
         layoutComponents();
-        setupGameTimer();
+        //setupGameTimer();
         addListeners();
     }
 
@@ -83,13 +83,13 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
      * Sets up the game timer.
      * Initializes the timer to trigger every second.
      */
-    private void setupGameTimer() {
-        myGameTimer = new Timer(MILLIS_PER_SEC, theEvent -> {
-            timerCounter++; // DELETE LATER (USED FOR TESTING)
-            System.out.print(timerCounter + "\n"); // DELETE LATER (USED FOR TESTING)
-            myBoard.step();
-        });
-    }
+//    private void setupGameTimer() {
+//        myGameTimer = new Timer(MILLIS_PER_SEC, theEvent -> {
+//            timerCounter++; // DELETE LATER (USED FOR TESTING)
+//            System.out.print(timerCounter + "\n"); // DELETE LATER (USED FOR TESTING)
+//            myBoard.step();
+//        });
+//    }
 
     class ControlKeyListener extends KeyAdapter {
         @Override
