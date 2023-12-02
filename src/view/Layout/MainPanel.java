@@ -97,16 +97,22 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
 
             if (theEvent.getKeyCode() == KeyEvent.VK_LEFT) {
                 myBoard.left();
+                System.out.println("left");
             } else if (theEvent.getKeyCode() == KeyEvent.VK_RIGHT) {
                 myBoard.right();
+                System.out.println("right");
             } else if (theEvent.getKeyCode() == KeyEvent.VK_DOWN) {
                 myBoard.down();
+                System.out.println("down");
             } else if (theEvent.getKeyCode() == KeyEvent.VK_Z) {
                 myBoard.rotateCCW();
+                System.out.println("rotate-counter-clockwise");
             } else if (theEvent.getKeyCode() == KeyEvent.VK_X) {
                 myBoard.rotateCW();
+                System.out.println("rotate-clockwise");
             } else if (theEvent.getKeyCode() == KeyEvent.VK_SPACE) {
                 myBoard.drop();
+                System.out.println("drop");
             } else if (theEvent.getKeyCode() == KeyEvent.VK_P) {
                 if (myGameTimer.isRunning()) {
                     myGameTimer.stop();
