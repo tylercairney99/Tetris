@@ -38,19 +38,17 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
         super();
         this.myBoard = theBoard;
         this.myGameTimer = theGameTimer;
-        buildComponents(theBoard);
+        buildComponents();
         layoutComponents();
         addListeners();
-
     }
 
-    private void buildComponents(final Board theBoard) {
+    private void buildComponents() {
         mySecondaryPanel = new JPanel();
         myGamePanel = new GamePanel();
         myNextPiecePanel = new NextPiecePanel();
         myControlPanel = new ControlPanel();
         myScorePanel = new ScorePanel();
-        myBoard = theBoard;
 
         myGamePanel.setPreferredSize(new Dimension(200, 400));
         myNextPiecePanel.setPreferredSize(new Dimension(160, 160));
@@ -81,35 +79,38 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
         requestFocus();
     }
 
-
     class ControlKeyListener extends KeyAdapter {
         @Override
         public void keyPressed(final KeyEvent theEvent) {
 
-            if (theEvent.getKeyCode() == KeyEvent.VK_LEFT) {
-                myBoard.left();
-                System.out.println("left");
-            } else if (theEvent.getKeyCode() == KeyEvent.VK_RIGHT) {
-                myBoard.right();
-                System.out.println("right");
-            } else if (theEvent.getKeyCode() == KeyEvent.VK_DOWN) {
-                myBoard.down();
-                System.out.println("down");
-            } else if (theEvent.getKeyCode() == KeyEvent.VK_Z) {
-                myBoard.rotateCCW();
-                System.out.println("rotate-counter-clockwise");
-            } else if (theEvent.getKeyCode() == KeyEvent.VK_X) {
-                myBoard.rotateCW();
-                System.out.println("rotate-clockwise");
-            } else if (theEvent.getKeyCode() == KeyEvent.VK_SPACE) {
-                myBoard.drop();
-                System.out.println("drop");
-            } else if (theEvent.getKeyCode() == KeyEvent.VK_P) {
+            if (myGameTimer.isRunning()) {
+                if (theEvent.getKeyCode() == KeyEvent.VK_LEFT) {
+                    myBoard.left();
+                    System.out.println("left");
+                } else if (theEvent.getKeyCode() == KeyEvent.VK_RIGHT) {
+                    myBoard.right();
+                    System.out.println("right");
+                } else if (theEvent.getKeyCode() == KeyEvent.VK_DOWN) {
+                    myBoard.down();
+                    System.out.println("down");
+                } else if (theEvent.getKeyCode() == KeyEvent.VK_Z) {
+                    myBoard.rotateCCW();
+                    System.out.println("rotate-counter-clockwise");
+                } else if (theEvent.getKeyCode() == KeyEvent.VK_X) {
+                    myBoard.rotateCW();
+                    System.out.println("rotate-clockwise");
+                } else if (theEvent.getKeyCode() == KeyEvent.VK_SPACE) {
+                    myBoard.drop();
+                    System.out.println("drop");
+                }
+            }
+            if (theEvent.getKeyCode() == KeyEvent.VK_P) {
                 if (myGameTimer.isRunning()) {
-                    System.out.println("paused");
                     myGameTimer.stop();
+                    System.out.println("pause");
                 } else {
                     myGameTimer.start();
+                    System.out.println("unpause");
                 }
             }
         }
