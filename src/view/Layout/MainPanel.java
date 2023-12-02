@@ -20,6 +20,7 @@ import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
 
 
 public class MainPanel extends JPanel implements PropertyChangeListener {
+    private static int count = 0;
     private int timerCounter = 0; // DELETE LATER (ONLY USED FOR TESTING)!!!
     private static final int MILLIS_PER_SEC = 100; // CHANGE BACK TO 1000 (1 second per tick of myBoard.step)
 
@@ -34,10 +35,17 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
      */
     private Timer myGameTimer;
 
-    public MainPanel(final Board theBoard, Timer theGameTimer) {
+    public MainPanel(final Board theBoard, final Timer theGameTimer, final NextPiecePanel theNextPiecePanel) {
         super();
+
+        if (count > 0) {
+            throw new IllegalArgumentException("Only one MainPanel allowed");
+        }
+        count++;
+
         this.myBoard = theBoard;
         this.myGameTimer = theGameTimer;
+        this.myNextPiecePanel = theNextPiecePanel;
         buildComponents();
         layoutComponents();
         addListeners();
@@ -46,7 +54,7 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
     private void buildComponents() {
         mySecondaryPanel = new JPanel();
         myGamePanel = new GamePanel();
-        myNextPiecePanel = new NextPiecePanel();
+        //myNextPiecePanel = new NextPiecePanel();
         myControlPanel = new ControlPanel();
         myScorePanel = new ScorePanel();
 

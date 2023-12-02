@@ -71,7 +71,6 @@ public class TetrisGUI {
             myBoard.step();
         });
 
-
         setUpComponents();
     }
 
@@ -84,7 +83,7 @@ public class TetrisGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
-        MainPanel mainPanel = new MainPanel(myBoard, myGameTimer);
+        MainPanel mainPanel = new MainPanel(myBoard, myGameTimer, myNextPiecePanel);
 
         frame.setJMenuBar(new Menu(myBoard, myGameTimer));
         frame.add(mainPanel, BorderLayout.CENTER);

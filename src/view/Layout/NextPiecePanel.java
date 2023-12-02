@@ -54,8 +54,16 @@ public final class NextPiecePanel extends JPanel implements PropertyChangeListen
      * Panel that will show the next Tetromino to be played.
      * Sets background to assigned color.
      */
+    private static int count = 0;
+
     public NextPiecePanel() {
         super();
+
+        if (count > 0) {
+            throw new IllegalArgumentException("Only one NextPiecePanel allowed");
+        }
+        count++;
+
         setBackground(Color.BLUE);
     }
 

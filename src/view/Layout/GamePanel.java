@@ -10,10 +10,16 @@ import java.awt.geom.Rectangle2D;
 public class GamePanel extends JPanel {
 
     private final int STROKE_WIDTH = 1;
-
+    private static int count = 0;
 
     public GamePanel() {
         super();
+
+        if (count > 0) {
+            throw new IllegalArgumentException("Only one GamePanel allowed");
+        }
+        count++;
+
         setBackground(Color.RED);
     }
 
