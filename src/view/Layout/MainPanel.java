@@ -34,12 +34,14 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
      */
     private Timer myGameTimer;
 
-    public MainPanel(final Board theBoard, Timer myGameTimer) {
+    public MainPanel(final Board theBoard, Timer theGameTimer) {
         super();
+        this.myBoard = theBoard;
+        this.myGameTimer = theGameTimer;
         buildComponents(theBoard);
         layoutComponents();
-        //setupGameTimer();
         addListeners();
+
     }
 
     private void buildComponents(final Board theBoard) {
@@ -79,17 +81,6 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
         requestFocus();
     }
 
-    /**
-     * Sets up the game timer.
-     * Initializes the timer to trigger every second.
-     */
-//    private void setupGameTimer() {
-//        myGameTimer = new Timer(MILLIS_PER_SEC, theEvent -> {
-//            timerCounter++; // DELETE LATER (USED FOR TESTING)
-//            System.out.print(timerCounter + "\n"); // DELETE LATER (USED FOR TESTING)
-//            myBoard.step();
-//        });
-//    }
 
     class ControlKeyListener extends KeyAdapter {
         @Override
@@ -115,6 +106,7 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
                 System.out.println("drop");
             } else if (theEvent.getKeyCode() == KeyEvent.VK_P) {
                 if (myGameTimer.isRunning()) {
+                    System.out.println("paused");
                     myGameTimer.stop();
                 } else {
                     myGameTimer.start();

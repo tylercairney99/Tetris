@@ -73,10 +73,6 @@ public class TetrisGUI {
 
 
         setUpComponents();
-
-
-        //SwingUtilities.invokeLater(() -> myNextPiecePanel.getNextTetrisPiece(TetrisPiece.I)); // DELETE LATER (USED TO TEST SHAPES)
-
     }
 
     /**
@@ -87,8 +83,6 @@ public class TetrisGUI {
         final JFrame frame = new JFrame("Tetris");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
-
-//        setupGameTimer();
 
         MainPanel mainPanel = new MainPanel(myBoard, myGameTimer);
 
@@ -120,21 +114,6 @@ public class TetrisGUI {
             }
         });
     }
-//
-//
-//    }
-//
-//    /**
-//     * Sets up the game timer.
-//     * Initializes the timer to trigger every second.
-//     */
-//    private void setupGameTimer() {
-//        myGameTimer = new Timer(MILLIS_PER_SEC, theEvent -> {
-//            timerCounter++; // DELETE LATER (USED FOR TESTING)
-//            System.out.print(timerCounter + "\n"); // DELETE LATER (USED FOR TESTING)
-//            myBoard.step();
-//        });
-//    }
 
     /**
      * Adds border panels to the frame.

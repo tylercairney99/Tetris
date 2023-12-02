@@ -19,8 +19,6 @@ import model.PaintTetromino;
 import model.TetrisPiece;
 
 
-// TODO seems like shapes are completely random and it stops generating new shapes after time
-
 /**
  *Next piece panel shows the next tetromino to be played.
  *

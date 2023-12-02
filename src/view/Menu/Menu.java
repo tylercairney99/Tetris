@@ -70,9 +70,5 @@ public class Menu extends JMenuBar {
         return aboutMenu;
     }
 
-    public void setupGameTimer(Timer myGameTimer) {
-        this.myGameTimer = myGameTimer;
-    }
-
 }
 
