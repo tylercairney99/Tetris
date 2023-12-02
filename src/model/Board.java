@@ -252,6 +252,7 @@ public class Board implements MyBoard {
             checkRows();
             if (!myGameOver) {
                 myCurrentPiece = nextMovablePiece(false);
+                notifyBoardChanges();
             }
             // TODO Publish Update!
         }
@@ -456,6 +457,7 @@ public class Board implements MyBoard {
             }
             if (complete) {
                 completeRows.add(myFrozenBlocks.indexOf(row));
+                notifyBoardChanges();
                 // TODO Publish Update!
             }
         }
@@ -731,4 +733,8 @@ public class Board implements MyBoard {
             myPcs.firePropertyChange(PROPERTY_GAME_OVER, false, true);
         }
     }
+    private void notifyBoardChanges() {
+        myPcs.firePropertyChange(PROPERTY_BOARD_CHANGES, null, getBoard());
+    }
+
 }

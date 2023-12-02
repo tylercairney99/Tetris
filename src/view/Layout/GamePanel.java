@@ -3,11 +3,13 @@ package view.Layout;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 
 // CAN MAKE INTO UTILITY CLASS TO BE USED BY NEXTPIECEPANEL FOR DRAWING SHAPES ***
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements PropertyChangeListener {
 
     private final int STROKE_WIDTH = 1;
 
@@ -201,5 +203,15 @@ public class GamePanel extends JPanel {
         theG2d.draw(tetrisBlock2);
         theG2d.draw(tetrisBlock3);
         theG2d.draw(tetrisBlock4);
+
+
+    }
+
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if ("board".equals(evt.getPropertyName())) {
+            repaint();
+        }
     }
 }
