@@ -17,6 +17,22 @@ Autumn 2023
   - Utilized layout managers to create the current version of the GUI.
 - Cam
 
+## Sprint 2 Contribution
+ - Meeting Minutes: https://docs.google.com/document/d/1IfSivwr1jRjmUcQRhgPw4htbOL42FdTojRXSS8SrZr4/edit
+
+- Tyler
+  - Implemented the Observer Design Pattern throughout the Project
+  - Worked on the NextPiecePanel with James
+  - Implemented the Timer and refactored it with Josh
+- James
+  - Refactored the graphical implemention of the tetriminos
+  - Worked on the NextPiecePanel with Tyler
+- Josh
+  - Implemented the KeyListeners used for the controls
+  - Worked on the Timer implementation with Tyler
+- Cam
+  - Implemented the notifyBoardChanges method in Board and called it in down() and checkRows()
+
 Included:
 
 - Checkstyle rule structure
