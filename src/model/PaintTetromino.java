@@ -34,11 +34,11 @@ public final class PaintTetromino extends JPanel {
 
         final Shape tetrisBlock1 = new Rectangle2D.Double(theX, theY,
                 theBlockHeight - 1, theBlockHeight - 1);
-        final Shape tetrisBlock2 = new Rectangle2D.Double(theX + 16, theY,
+        final Shape tetrisBlock2 = new Rectangle2D.Double(theX + theBlockHeight, theY,
                 theBlockHeight - 1, theBlockHeight - 1);
-        final Shape tetrisBlock3 = new Rectangle2D.Double(theX + 2 * 16, theY,
+        final Shape tetrisBlock3 = new Rectangle2D.Double(theX + 2 * theBlockHeight, theY,
                 theBlockHeight - 1, theBlockHeight - 1);
-        final Shape tetrisBlock4 = new Rectangle2D.Double(theX + 3 * 16, theY,
+        final Shape tetrisBlock4 = new Rectangle2D.Double(theX + 3 * theBlockHeight, theY,
                 theBlockHeight - 1, theBlockHeight - 1);
 
         theG2d.setPaint(Color.CYAN);
