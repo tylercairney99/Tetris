@@ -50,13 +50,15 @@ public final class NextPiecePanel extends JPanel implements PropertyChangeListen
      */
     private TetrisPiece myNextTetrisPiece = null;
 
+    private Board myBoard;
+
     /**
      * Panel that will show the next Tetromino to be played.
      * Sets background to assigned color.
      */
     private static int count = 0;
 
-    public NextPiecePanel() {
+    public NextPiecePanel(final Board theBoard) {
         super();
 
         if (count > 0) {
@@ -64,17 +66,9 @@ public final class NextPiecePanel extends JPanel implements PropertyChangeListen
         }
         count++;
 
+        this.myBoard = theBoard;
+        this.myBoard.addPropertyChangeListener(this);
         setBackground(Color.BLUE);
-    }
-
-    /**
-     * Used to aquire the next Tetromino that will be displayed in the next piece panel.
-     *
-     * @param nextPiece The next piece to be displayed.
-     */
-    public void getNextTetrisPiece(TetrisPiece nextPiece) {
-        myNextTetrisPiece = nextPiece;
-        repaint();
     }
 
     @Override

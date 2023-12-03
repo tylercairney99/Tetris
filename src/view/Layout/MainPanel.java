@@ -1,7 +1,5 @@
 package view.Layout;
 
-import static model.Board.PROPERTY_BOARD_CHANGES;
-import static model.Board.PROPERTY_ROW_CLEARED;
 import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
 import static model.Board.PROPERTY_GAME_OVER;
 
@@ -14,9 +12,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
-import static model.Board.PROPERTY_GAME_OVER;
-import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
 
 
 public class MainPanel extends JPanel implements PropertyChangeListener {
@@ -49,13 +44,14 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
         buildComponents();
         layoutComponents();
         addListeners();
+
     }
 
     private void buildComponents() {
         mySecondaryPanel = new JPanel();
-        myGamePanel = new GamePanel();
+        myGamePanel = new GamePanel(myBoard);
         //myNextPiecePanel = new NextPiecePanel();
-        myControlPanel = new ControlPanel();
+        myControlPanel= new ControlPanel();
         myScorePanel = new ScorePanel();
 
         myGamePanel.setPreferredSize(new Dimension(200, 400));
@@ -79,7 +75,6 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
                 myGameTimer.stop();
             } else if (PROPERTY_NEXT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
                 final TetrisPiece nextPiece = (TetrisPiece) theEvent.getNewValue();
-                myNextPiecePanel.getNextTetrisPiece(nextPiece); // Update the NextPiecePanel
             }
         });
         addKeyListener(new ControlKeyListener());
@@ -126,9 +121,5 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
-    }
-
-    public NextPiecePanel getNextPiecePanel() {
-        return myNextPiecePanel;
     }
 }

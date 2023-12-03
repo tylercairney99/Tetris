@@ -594,6 +594,7 @@ public class Board implements MyBoard {
             myNextPiece = myNonRandomPieces.get(mySequenceIndex++);
         }
         if (share && !myGameOver) {
+            // TODO PUBLISH UPDATE
             updateNextPiece();
         }
     }

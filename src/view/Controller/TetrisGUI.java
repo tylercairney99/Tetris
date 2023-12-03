@@ -63,7 +63,9 @@ public class TetrisGUI {
     public TetrisGUI() {
         super();
         myBoard = new Board();
-        myNextPiecePanel = new NextPiecePanel();
+        myNextPiecePanel = new NextPiecePanel(myBoard);
+
+        myBoard.addPropertyChangeListener(myNextPiecePanel);
 
         myGameTimer = new Timer(MILLIS_PER_SEC, theEvent -> {
             timerCounter++; // DELETE LATER (USED FOR TESTING)
@@ -88,30 +90,12 @@ public class TetrisGUI {
         frame.setJMenuBar(new Menu(myBoard, myGameTimer));
         frame.add(mainPanel, BorderLayout.CENTER);
 
-        myNextPiecePanel = mainPanel.getNextPiecePanel();
-
         addBorders(frame);
 
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setResizable(false);
-    }
-
-    /**
-     * Adds action listeners to components.
-     * This includes the game timer and property change listener for the game board.
-     */
-    private void addListeners() {
-
-        myBoard.addPropertyChangeListener(theEvent -> {
-            if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName()) && (Boolean) theEvent.getNewValue()) {
-                myGameTimer.stop();
-            } else if (PROPERTY_NEXT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
-                final TetrisPiece nextPiece = (TetrisPiece) theEvent.getNewValue();
-                myNextPiecePanel.getNextTetrisPiece(nextPiece); // Update the NextPiecePanel
-            }
-        });
     }
 
     /**

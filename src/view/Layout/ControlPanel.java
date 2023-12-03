@@ -21,9 +21,9 @@ public class ControlPanel extends JPanel {
         controlPanel.setOpaque(false);
         controlPanel.add(new JLabel("Move Left:"));
         controlPanel.add(new JLabel("left arrow"));
-        controlPanel.add(new JLabel("Move right"));
+        controlPanel.add(new JLabel("Move Right"));
         controlPanel.add(new JLabel("right arrow"));
-        controlPanel.add(new JLabel("Move down"));
+        controlPanel.add(new JLabel("Move Down"));
         controlPanel.add(new JLabel("down arrow"));
         controlPanel.add(new JLabel("Rotate CCW:"));
         controlPanel.add(new JLabel("Z"));
