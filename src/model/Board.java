@@ -276,7 +276,6 @@ public class Board implements MyBoard {
                 notifyBoardChanges();
             }
             // TODO Publish Update!
-            checkGameOver();
         }
     }
 
@@ -534,7 +533,7 @@ public class Board implements MyBoard {
             row[thePoint.x()] = theBlock;
         } else if (!myGameOver) {
             myGameOver = true;
-            // TODO Publish Update!
+            myPcs.firePropertyChange(PROPERTY_GAME_OVER, false, true);
         }
     }
 

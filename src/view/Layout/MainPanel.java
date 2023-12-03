@@ -79,6 +79,7 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
         myBoard.addPropertyChangeListener(theEvent -> {
             if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName()) && (Boolean) theEvent.getNewValue()) {
                 myGameTimer.stop();
+                JOptionPane.showMessageDialog(null, "Game Over U Suck!");
             } else if (PROPERTY_NEXT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
                 final TetrisPiece nextPiece = (TetrisPiece) theEvent.getNewValue();
             }

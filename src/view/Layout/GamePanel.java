@@ -71,7 +71,17 @@ public class GamePanel extends JPanel implements PropertyChangeListener {
             myCurrentTetrisPiece = (TetrisPiece) theEvent.getNewValue();
             repaint();
         }
+        if (PROPERTY_BOARD_CHANGES.equals(theEvent.getPropertyName())) {
+            setBackground(Color.PINK);
+        }
+        if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName())) {
+            setBackground(Color.BLACK);
+        }
+        if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
+            setBackground(Color.ORANGE);
+        }
     }
+
 
     /**
      *
@@ -124,8 +134,6 @@ public class GamePanel extends JPanel implements PropertyChangeListener {
                     throw new IllegalStateException("Unexpected value: "
                             + myCurrentTetrisPiece);
             }
-        } else {
-            System.out.println("null");
         }
     }
 
