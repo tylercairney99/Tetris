@@ -1,5 +1,7 @@
 package view.Layout;
 
+import static model.Board.PROPERTY_BOARD_CHANGES;
+import static model.Board.PROPERTY_ROW_CLEARED;
 import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
 import static model.Board.PROPERTY_GAME_OVER;
 
@@ -12,6 +14,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+
+import static model.Board.PROPERTY_GAME_OVER;
+import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
 
 
 public class MainPanel extends JPanel implements PropertyChangeListener {
@@ -30,7 +35,7 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
      */
     private Timer myGameTimer;
 
-    public MainPanel(final Board theBoard, final Timer theGameTimer, final NextPiecePanel theNextPiecePanel) {
+    public MainPanel(final Board theBoard, final Timer theGameTimer, final NextPiecePanel theNextPiecePanel, final GamePanel theGamePanel) {
         super();
 
         if (count > 0) {
@@ -41,6 +46,7 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
         this.myBoard = theBoard;
         this.myGameTimer = theGameTimer;
         this.myNextPiecePanel = theNextPiecePanel;
+        this.myGamePanel = theGamePanel;
         buildComponents();
         layoutComponents();
         addListeners();
@@ -49,7 +55,7 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
 
     private void buildComponents() {
         mySecondaryPanel = new JPanel();
-        myGamePanel = new GamePanel(myBoard);
+        //myGamePanel = new GamePanel(myBoard);
         //myNextPiecePanel = new NextPiecePanel();
         myControlPanel= new ControlPanel();
         myScorePanel = new ScorePanel();

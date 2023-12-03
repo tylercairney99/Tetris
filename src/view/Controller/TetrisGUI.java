@@ -5,6 +5,7 @@ import static model.Board.PROPERTY_ROW_CLEARED;
 import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
 import static model.Board.PROPERTY_GAME_OVER;
 
+import view.Layout.GamePanel;
 import view.Layout.MainPanel;
 import view.Layout.NextPiecePanel;
 import view.Menu.Menu;
@@ -35,6 +36,8 @@ public class TetrisGUI {
 
     private NextPiecePanel myNextPiecePanel;
 
+    private GamePanel myGamePanel;
+
     /**
      * Timer to manage game updates at regular intervals.
      */
@@ -64,8 +67,10 @@ public class TetrisGUI {
         super();
         myBoard = new Board();
         myNextPiecePanel = new NextPiecePanel(myBoard);
+        myGamePanel = new GamePanel(myBoard);
 
         myBoard.addPropertyChangeListener(myNextPiecePanel);
+        myBoard.addPropertyChangeListener(myGamePanel);
 
         myGameTimer = new Timer(MILLIS_PER_SEC, theEvent -> {
             timerCounter++; // DELETE LATER (USED FOR TESTING)
@@ -85,7 +90,7 @@ public class TetrisGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
-        MainPanel mainPanel = new MainPanel(myBoard, myGameTimer, myNextPiecePanel);
+        MainPanel mainPanel = new MainPanel(myBoard, myGameTimer, myNextPiecePanel, myGamePanel);
 
         frame.setJMenuBar(new Menu(myBoard, myGameTimer));
         frame.add(mainPanel, BorderLayout.CENTER);

@@ -59,7 +59,6 @@ public final class NextPiecePanel extends JPanel implements PropertyChangeListen
      */
     private TetrisPiece myNextTetrisPiece;
 
-
     private Board myBoard;
 
     /**

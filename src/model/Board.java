@@ -276,6 +276,7 @@ public class Board implements MyBoard {
                 notifyBoardChanges();
             }
             // TODO Publish Update!
+            checkGameOver();
         }
     }
 
@@ -752,6 +753,7 @@ public class Board implements MyBoard {
         if (!isPieceLegal(myCurrentPiece)) {
             myGameOver = true;
             myPcs.firePropertyChange(PROPERTY_GAME_OVER, false, true);
+            System.out.println("Game Over"); // DELETE LATER
         }
     }
     private void notifyBoardChanges() {
