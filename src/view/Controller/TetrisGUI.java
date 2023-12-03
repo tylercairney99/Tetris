@@ -64,11 +64,14 @@ public class TetrisGUI {
         super();
         myBoard = new Board();
         myNextPiecePanel = new NextPiecePanel();
+
+        myGameTimer = new Timer(MILLIS_PER_SEC, theEvent -> {
+            timerCounter++; // DELETE LATER (USED FOR TESTING)
+            System.out.print(timerCounter + "\n"); // DELETE LATER (USED FOR TESTING)
+            myBoard.step();
+        });
+
         setUpComponents();
-        addListeners();
-
-        //SwingUtilities.invokeLater(() -> myNextPiecePanel.getNextTetrisPiece(TetrisPiece.I)); // DELETE LATER (USED TO TEST SHAPES)
-
     }
 
     /**
@@ -80,9 +83,7 @@ public class TetrisGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
-        setupGameTimer();
-
-        MainPanel mainPanel = new MainPanel(new Board(10,20));
+        MainPanel mainPanel = new MainPanel(myBoard, myGameTimer, myNextPiecePanel);
 
         frame.setJMenuBar(new Menu(myBoard, myGameTimer));
         frame.add(mainPanel, BorderLayout.CENTER);
@@ -93,7 +94,6 @@ public class TetrisGUI {
 
         frame.pack();
         frame.setLocationRelativeTo(null);
-        setupGameTimer();
         frame.setVisible(true);
         frame.setResizable(false);
     }
@@ -111,20 +111,6 @@ public class TetrisGUI {
                 final TetrisPiece nextPiece = (TetrisPiece) theEvent.getNewValue();
                 myNextPiecePanel.getNextTetrisPiece(nextPiece); // Update the NextPiecePanel
             }
-        });
-
-
-    }
-
-    /**
-     * Sets up the game timer.
-     * Initializes the timer to trigger every second.
-     */
-    private void setupGameTimer() {
-        myGameTimer = new Timer(MILLIS_PER_SEC, theEvent -> {
-            timerCounter++; // DELETE LATER (USED FOR TESTING)
-            System.out.print(timerCounter + "\n"); // DELETE LATER (USED FOR TESTING)
-            myBoard.step();
         });
     }
 

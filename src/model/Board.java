@@ -39,6 +39,8 @@ public class Board implements MyBoard {
 
     // Implementation of Observer Design Pattern
 
+    private static int count = 0;
+
     /**
      * Manager for Property Change Listeners.
      */
@@ -147,6 +149,12 @@ public class Board implements MyBoard {
      */
     public Board(final int theWidth, final int theHeight) {
         super();
+
+        if (count > 0) {
+            throw new IllegalArgumentException("Only one board allowed");
+        }
+        count++;
+
         myWidth = theWidth;
         myHeight = theHeight;
         myFrozenBlocks = new LinkedList<>();
