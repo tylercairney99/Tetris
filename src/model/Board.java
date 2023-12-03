@@ -738,23 +738,6 @@ public class Board implements MyBoard {
         System.out.println("Firing next piece change: " + myNextPiece); // DELETE LATER
     }
 
-    /**
-     * Checks if the game is over based on the legality of the current piece's position.
-     * This method determines if the game should end, typically when a new piece cannot
-     * be legally placed on the board. Observers are notified about the game-over condition.
-     * This method should be called whenever a new piece is generated and its legality needs verification.
-     *
-     * Usage:
-     *   Call this method as part of the game loop, especially after placing a new piece on the board.
-     *   It is crucial for determining the end-of-game logic.
-     */
-    private void checkGameOver() {
-        if (!isPieceLegal(myCurrentPiece)) {
-            myGameOver = true;
-            myPcs.firePropertyChange(PROPERTY_GAME_OVER, false, true);
-            System.out.println("Game Over"); // DELETE LATER
-        }
-    }
     private void notifyBoardChanges() {
         myPcs.firePropertyChange(PROPERTY_BOARD_CHANGES, null, getBoard());
     }
