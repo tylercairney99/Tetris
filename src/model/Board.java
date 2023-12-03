@@ -39,12 +39,6 @@ public class Board implements MyBoard {
 
     // Implementation of Observer Design Pattern
 
-    private static int count = 0;
-
-    /**
-     * Manager for Property Change Listeners.
-     */
-    private final PropertyChangeSupport myPcs;
 
     /**
      * A property to check if the board changes.
@@ -65,6 +59,16 @@ public class Board implements MyBoard {
      * A property to check if the game is over.
      */
     public static final String PROPERTY_GAME_OVER = "The game is over.";
+
+    /**
+     * Ensures only one panel is instantiated.
+     */
+    private static int count = 0;
+
+    /**
+     * Manager for Property Change Listeners.
+     */
+    private final PropertyChangeSupport myPcs;
 
 
     // Class constants

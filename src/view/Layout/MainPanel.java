@@ -53,7 +53,7 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
 
     private void buildComponents() {
         mySecondaryPanel = new JPanel();
-        myGamePanel = new GamePanel();
+        myGamePanel = new GamePanel(myBoard);
         //myNextPiecePanel = new NextPiecePanel();
         myControlPanel = new ControlPanel();
         myScorePanel = new ScorePanel();
@@ -80,6 +80,7 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
             } else if (PROPERTY_NEXT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
                 final TetrisPiece nextPiece = (TetrisPiece) theEvent.getNewValue();
                 myNextPiecePanel.getNextTetrisPiece(nextPiece); // Update the NextPiecePanel
+
             }
         });
         addKeyListener(new ControlKeyListener());

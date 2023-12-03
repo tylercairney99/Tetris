@@ -99,22 +99,6 @@ public class TetrisGUI {
     }
 
     /**
-     * Adds action listeners to components.
-     * This includes the game timer and property change listener for the game board.
-     */
-    private void addListeners() {
-
-        myBoard.addPropertyChangeListener(theEvent -> {
-            if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName()) && (Boolean) theEvent.getNewValue()) {
-                myGameTimer.stop();
-            } else if (PROPERTY_NEXT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
-                final TetrisPiece nextPiece = (TetrisPiece) theEvent.getNewValue();
-                myNextPiecePanel.getNextTetrisPiece(nextPiece); // Update the NextPiecePanel
-            }
-        });
-    }
-
-    /**
      * Adds border panels to the frame.
      * @param theFrame The JFrame to which the borders are added.
      */
@@ -140,7 +124,6 @@ public class TetrisGUI {
      * @param theArgs Command line arguments (not used).
      */
     public static void main(final String[] theArgs) {
-
         SwingUtilities.invokeLater(TetrisGUI::new);
     }
 }
