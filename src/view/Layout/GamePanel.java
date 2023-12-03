@@ -1,8 +1,7 @@
 package view.Layout;
 
-import static model.Board.PROPERTY_BOARD_CHANGES;
-
 import model.Board;
+import model.MovableTetrisPiece;
 import model.TetrisPiece;
 
 import javax.swing.*;
@@ -11,7 +10,7 @@ import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
+import static model.Board.*;
 import static model.PaintTetromino.*;
 
 
@@ -60,6 +59,7 @@ public class GamePanel extends JPanel implements PropertyChangeListener {
             throw new IllegalArgumentException("Only one GamePanel allowed");
         }
         count++;
+
         this.myBoard = theBoard;
         this.myBoard.addPropertyChangeListener(this);
         setBackground(Color.RED);
@@ -67,7 +67,8 @@ public class GamePanel extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
-        if (PROPERTY_BOARD_CHANGES.equals(theEvent.getPropertyName())) {
+        if (PROPERTY_CURRENT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
+            myCurrentTetrisPiece = (TetrisPiece) theEvent.getNewValue();
             repaint();
         }
     }
@@ -81,7 +82,6 @@ public class GamePanel extends JPanel implements PropertyChangeListener {
         repaint();
     }
 
-
     @Override
     public void paintComponent(final Graphics theGraphics) {
         super.paintComponent(theGraphics);
@@ -93,30 +93,39 @@ public class GamePanel extends JPanel implements PropertyChangeListener {
         if (myCurrentTetrisPiece != null) {
             switch (myCurrentTetrisPiece) {
                 case I:
-                    createIShape(g2d, BLOCK_HEIGHT, getHeight(), getWidth());
+                    createIShape(g2d, BLOCK_HEIGHT, 30,
+                            (getWidth() - 4 * BLOCK_HEIGHT) / 2);
                     break;
                 case L:
-                    createLShape(g2d, BLOCK_HEIGHT, getHeight(), getWidth());
+                    createLShape(g2d, BLOCK_HEIGHT, 30,
+                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
                     break;
                 case J:
-                    createJShape(g2d, BLOCK_HEIGHT, getHeight(), getWidth());
+                    createJShape(g2d, BLOCK_HEIGHT, 30,
+                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
                     break;
                 case O:
-                    createOShape(g2d, BLOCK_HEIGHT, getHeight(), getWidth());
+                    createOShape(g2d, BLOCK_HEIGHT, 30,
+                            (getWidth() - 2 * BLOCK_HEIGHT) / 2);
                     break;
                 case S:
-                    createSShape(g2d, BLOCK_HEIGHT, getHeight(), getWidth());
+                    createSShape(g2d, BLOCK_HEIGHT, 30,
+                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
                     break;
                 case T:
-                    createTShape(g2d, BLOCK_HEIGHT, getHeight(), getWidth());
+                    createTShape(g2d, BLOCK_HEIGHT, 30,
+                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
                     break;
                 case Z:
-                    createZShape(g2d, BLOCK_HEIGHT, getHeight(), getWidth());
+                    createZShape(g2d, BLOCK_HEIGHT, 30,
+                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: "
                             + myCurrentTetrisPiece);
             }
+        } else {
+            System.out.println("null");
         }
     }
 

@@ -56,6 +56,11 @@ public class Board implements MyBoard {
     public static final String PROPERTY_NEXT_PIECE_CHANGES = "The next piece changes.";
 
     /**
+     * A property to check when / if the current piece changes.
+     */
+    public static final String PROPERTY_CURRENT_PIECE_CHANGES = "The next piece changes.";
+
+    /**
      * A property to check if the game is over.
      */
     public static final String PROPERTY_GAME_OVER = "The game is over.";
@@ -213,7 +218,9 @@ public class Board implements MyBoard {
         }
 
         myGameOver = false;
+        TetrisPiece current = myNextPiece;
         myCurrentPiece = nextMovablePiece(true);
+        myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, current);
         myDrop = false;
 
         // TODO Publish Update!
@@ -229,7 +236,9 @@ public class Board implements MyBoard {
     public void setPieceSequence(final List<TetrisPiece> thePieces) {
         myNonRandomPieces = new ArrayList<>(thePieces);
         mySequenceIndex = 0;
+        TetrisPiece current = myNextPiece;
         myCurrentPiece = nextMovablePiece(true);
+        myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, current);
     }
 
     /**
@@ -725,7 +734,6 @@ public class Board implements MyBoard {
             mySequenceIndex %= myNonRandomPieces.size();
             myNextPiece = myNonRandomPieces.get(mySequenceIndex++);
         }
-
         myPcs.firePropertyChange(PROPERTY_NEXT_PIECE_CHANGES, null, myNextPiece);
         System.out.println("Firing next piece change: " + myNextPiece); // DELETE LATER
     }
