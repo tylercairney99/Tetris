@@ -124,7 +124,6 @@ public class TetrisGUI {
      * @param theArgs Command line arguments (not used).
      */
     public static void main(final String[] theArgs) {
-
         SwingUtilities.invokeLater(TetrisGUI::new);
     }
 }
