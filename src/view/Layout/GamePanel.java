@@ -1,19 +1,96 @@
 package view.Layout;
 
+import model.Board;
+import model.MovableTetrisPiece;
+import model.TetrisPiece;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class GamePanel extends JPanel {
+import static model.Board.*;
+import static model.PaintTetromino.*;
 
-    private final int STROKE_WIDTH = 1;
+
+public class GamePanel extends JPanel implements PropertyChangeListener {
+
+    /**
+     * The width of each block being displayed.
+     */
+    private static final int BLOCK_WIDTH = 20;
+
+    /**
+     * The height of each block being displayed.
+     */
+    private static final int BLOCK_HEIGHT = 20;
+
+    /**
+     * Ensures only one panel is instantiated.
+     */
+    private static int count = 0;
+
+    /**
+     * Used for the width of Graphics2d.
+     */
+    private static final int STROKE_WIDTH = 1;
+
+    /**
+     *
+     */
+    private final Board myBoard;
 
 
-    public GamePanel() {
+    /**
+     * Current tetromino in play.
+     */
+    private TetrisPiece myCurrentTetrisPiece;
+
+    /**
+     * Panel that will show the game board with tetrominos in play.
+     * Sets background to assigned color.
+     */
+
+    public GamePanel(final Board theBoard) {
         super();
+
+        if (count > 0) {
+            throw new IllegalArgumentException("Only one GamePanel allowed");
+        }
+        count++;
+
+        this.myBoard = theBoard;
+        this.myBoard.addPropertyChangeListener(this);
         setBackground(Color.RED);
     }
 
+    @Override
+    public void propertyChange(final PropertyChangeEvent theEvent) {
+        if (PROPERTY_CURRENT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
+            myCurrentTetrisPiece = (TetrisPiece) theEvent.getNewValue();
+            repaint();
+        }
+        if (PROPERTY_BOARD_CHANGES.equals(theEvent.getPropertyName())) {
+            setBackground(Color.PINK);
+        }
+        if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName())) {
+            setBackground(Color.BLACK);
+        }
+        if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
+            setBackground(Color.ORANGE);
+        }
+    }
+
+
+    /**
+     *
+     * @param theNextPiece
+     */
+    public void getNextTetrisPiece(final TetrisPiece theNextPiece) {
+        myCurrentTetrisPiece = theNextPiece;
+        repaint();
+    }
 
     @Override
     public void paintComponent(final Graphics theGraphics) {
@@ -23,180 +100,49 @@ public class GamePanel extends JPanel {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        createIShape(g2d);
-        createLShape(g2d);
-        createJShape(g2d);
-        createOShape(g2d);
-        createSShape(g2d);
-        createTShape(g2d);
-        createZShape(g2d);
+        if (myCurrentTetrisPiece != null) {
+            switch (myCurrentTetrisPiece) {
+                case I:
+                    createIShape(g2d, BLOCK_HEIGHT, 30,
+                            (getWidth() - 4 * BLOCK_HEIGHT) / 2);
+                    break;
+                case L:
+                    createLShape(g2d, BLOCK_HEIGHT, 30,
+                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
+                    break;
+                case J:
+                    createJShape(g2d, BLOCK_HEIGHT, 30,
+                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
+                    break;
+                case O:
+                    createOShape(g2d, BLOCK_HEIGHT, 30,
+                            (getWidth() - 2 * BLOCK_HEIGHT) / 2);
+                    break;
+                case S:
+                    createSShape(g2d, BLOCK_HEIGHT, 30,
+                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
+                    break;
+                case T:
+                    createTShape(g2d, BLOCK_HEIGHT, 30,
+                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
+                    break;
+                case Z:
+                    createZShape(g2d, BLOCK_HEIGHT, 30,
+                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: "
+                            + myCurrentTetrisPiece);
+            }
+        }
     }
 
-    private void createIShape(final Graphics2D theG2d) {
-        final Shape tetrisBlock1 =
-                new Rectangle2D.Double(0, 379, 20, 20);
-        final Shape tetrisBlock2 =
-                new Rectangle2D.Double(20, 379, 20, 20);
-        final Shape tetrisBlock3 =
-                new Rectangle2D.Double(40, 379, 20, 20);
-        final Shape tetrisBlock4 =
-                new Rectangle2D.Double(60, 379, 20, 20);
-        theG2d.setPaint(Color.CYAN);
+//    @Override
+//    public void propertyChange(final PropertyChangeEvent theEvent) {
+//        if (PROPERTY_NEXT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
+//            myCurrentTetrisPiece = (TetrisPiece) theEvent.getNewValue();
+//            repaint();
+//        }
+//    }
 
-        theG2d.fill(tetrisBlock1);
-        theG2d.fill(tetrisBlock2);
-        theG2d.fill(tetrisBlock3);
-        theG2d.fill(tetrisBlock4);
-
-        theG2d.setPaint(Color.BLACK);
-
-        theG2d.draw(tetrisBlock1);
-        theG2d.draw(tetrisBlock2);
-        theG2d.draw(tetrisBlock3);
-        theG2d.draw(tetrisBlock4);
-    }
-
-    private void createLShape(final Graphics2D theG2d) {
-        final Shape tetrisBlock1 =
-                new Rectangle2D.Double(80, 379, 20, 20);
-        final Shape tetrisBlock2 =
-                new Rectangle2D.Double(100, 379, 20, 20);
-        final Shape tetrisBlock3 =
-                new Rectangle2D.Double(120, 379, 20, 20);
-        final Shape tetrisBlock4 =
-                new Rectangle2D.Double(120, 359, 20, 20);
-        theG2d.setPaint(Color.ORANGE);
-
-        theG2d.fill(tetrisBlock1);
-        theG2d.fill(tetrisBlock2);
-        theG2d.fill(tetrisBlock3);
-        theG2d.fill(tetrisBlock4);
-
-        theG2d.setPaint(Color.BLACK);
-
-        theG2d.draw(tetrisBlock1);
-        theG2d.draw(tetrisBlock2);
-        theG2d.draw(tetrisBlock3);
-        theG2d.draw(tetrisBlock4);
-    }
-
-    private void createJShape(final Graphics2D theG2d) {
-        final Shape tetrisBlock1 =
-                new Rectangle2D.Double(140, 379, 20, 20);
-        final Shape tetrisBlock2 =
-                new Rectangle2D.Double(160, 379, 20, 20);
-        final Shape tetrisBlock3 =
-                new Rectangle2D.Double(180, 379, 20, 20);
-        final Shape tetrisBlock4 =
-                new Rectangle2D.Double(140, 359, 20, 20);
-        theG2d.setPaint(Color.BLUE);
-
-        theG2d.fill(tetrisBlock1);
-        theG2d.fill(tetrisBlock2);
-        theG2d.fill(tetrisBlock3);
-        theG2d.fill(tetrisBlock4);
-
-        theG2d.setPaint(Color.BLACK);
-
-        theG2d.draw(tetrisBlock1);
-        theG2d.draw(tetrisBlock2);
-        theG2d.draw(tetrisBlock3);
-        theG2d.draw(tetrisBlock4);
-    }
-
-    private void createOShape(final Graphics2D theG2d) {
-        final Shape tetrisBlock1 =
-                new Rectangle2D.Double(160, 359, 20, 20);
-        final Shape tetrisBlock2 =
-                new Rectangle2D.Double(180, 359, 20, 20);
-        final Shape tetrisBlock3 =
-                new Rectangle2D.Double(160, 339, 20, 20);
-        final Shape tetrisBlock4 =
-                new Rectangle2D.Double(180, 339, 20, 20);
-        theG2d.setPaint(Color.YELLOW);
-
-        theG2d.fill(tetrisBlock1);
-        theG2d.fill(tetrisBlock2);
-        theG2d.fill(tetrisBlock3);
-        theG2d.fill(tetrisBlock4);
-
-        theG2d.setPaint(Color.BLACK);
-
-        theG2d.draw(tetrisBlock1);
-        theG2d.draw(tetrisBlock2);
-        theG2d.draw(tetrisBlock3);
-        theG2d.draw(tetrisBlock4);
-    }
-
-    private void createSShape(final Graphics2D theG2d) {
-        final Shape tetrisBlock1 =
-                new Rectangle2D.Double(80, 359, 20, 20);
-        final Shape tetrisBlock2 =
-                new Rectangle2D.Double(100, 359, 20, 20);
-        final Shape tetrisBlock3 =
-                new Rectangle2D.Double(100, 339, 20, 20);
-        final Shape tetrisBlock4 =
-                new Rectangle2D.Double(120, 339, 20, 20);
-        theG2d.setPaint(Color.GREEN);
-
-        theG2d.fill(tetrisBlock1);
-        theG2d.fill(tetrisBlock2);
-        theG2d.fill(tetrisBlock3);
-        theG2d.fill(tetrisBlock4);
-
-        theG2d.setPaint(Color.BLACK);
-
-        theG2d.draw(tetrisBlock1);
-        theG2d.draw(tetrisBlock2);
-        theG2d.draw(tetrisBlock3);
-        theG2d.draw(tetrisBlock4);
-    }
-
-    private void createTShape(final Graphics2D theG2d) {
-        final Shape tetrisBlock1 =
-                new Rectangle2D.Double(80, 339, 20, 20);
-        final Shape tetrisBlock2 =
-                new Rectangle2D.Double(80, 319, 20, 20);
-        final Shape tetrisBlock3 =
-                new Rectangle2D.Double(100, 319, 20, 20);
-        final Shape tetrisBlock4 =
-                new Rectangle2D.Double(60, 319, 20, 20);
-        theG2d.setPaint(Color.MAGENTA);
-
-        theG2d.fill(tetrisBlock1);
-        theG2d.fill(tetrisBlock2);
-        theG2d.fill(tetrisBlock3);
-        theG2d.fill(tetrisBlock4);
-
-        theG2d.setPaint(Color.BLACK);
-
-        theG2d.draw(tetrisBlock1);
-        theG2d.draw(tetrisBlock2);
-        theG2d.draw(tetrisBlock3);
-        theG2d.draw(tetrisBlock4);
-    }
-
-    private void createZShape(final Graphics2D theG2d) {
-        final Shape tetrisBlock1 =
-                new Rectangle2D.Double(140, 339, 20, 20);
-        final Shape tetrisBlock2 =
-                new Rectangle2D.Double(140, 319, 20, 20);
-        final Shape tetrisBlock3 =
-                new Rectangle2D.Double(160, 319, 20, 20);
-        final Shape tetrisBlock4 =
-                new Rectangle2D.Double(160, 299, 20, 20);
-        theG2d.setPaint(Color.PINK);
-
-        theG2d.fill(tetrisBlock1);
-        theG2d.fill(tetrisBlock2);
-        theG2d.fill(tetrisBlock3);
-        theG2d.fill(tetrisBlock4);
-
-        theG2d.setPaint(Color.BLACK);
-
-        theG2d.draw(tetrisBlock1);
-        theG2d.draw(tetrisBlock2);
-        theG2d.draw(tetrisBlock3);
-        theG2d.draw(tetrisBlock4);
-    }
 }

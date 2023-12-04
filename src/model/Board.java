@@ -1,12 +1,14 @@
 /*
  * TCSS 305
- * 
+ *
  * An implementation of the classic game "Tetris".
  */
 
 package model;
 
-
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,15 +30,54 @@ import model.wallkicks.WallKick;
  * <dt>{@code Boolean}</dt>
  * <dd>When true, the game is over. </dd>
  * </dl>
- * 
+ *
  * @author Charles Bryan
  * @author Alan Fowler
  * @version 1.3
  */
 public class Board implements MyBoard {
 
+    // Implementation of Observer Design Pattern
+
+
+    /**
+     * A property to check if the board changes.
+     */
+    public static final String PROPERTY_BOARD_CHANGES = "The pieces move.";
+
+    /**
+     * A property to check if a row is cleared.
+     */
+    public static final String PROPERTY_ROW_CLEARED = "A row is cleared.";
+
+    /**
+     * A property to check when / if the next piece changes.
+     */
+    public static final String PROPERTY_NEXT_PIECE_CHANGES = "The next piece changes.";
+
+    /**
+     * A property to check when / if the current piece changes.
+     */
+    public static final String PROPERTY_CURRENT_PIECE_CHANGES = "The next piece changes.";
+
+    /**
+     * A property to check if the game is over.
+     */
+    public static final String PROPERTY_GAME_OVER = "The game is over.";
+
+    /**
+     * Ensures only one panel is instantiated.
+     */
+    private static int count = 0;
+
+    /**
+     * Manager for Property Change Listeners.
+     */
+    private final PropertyChangeSupport myPcs;
+
+
     // Class constants
-    
+
     /**
      * Default width of a Tetris game board.
      */
@@ -47,9 +88,9 @@ public class Board implements MyBoard {
      */
     private static final int DEFAULT_HEIGHT = 20;
 
-    
+
     // Instance fields
-    
+
     /**
      * Width of the game board.
      */
@@ -59,12 +100,12 @@ public class Board implements MyBoard {
      * Height of the game board.
      */
     private final int myHeight;
-    
+
     /**
      * The frozen blocks on the board.
      */
     private final List<Block[]> myFrozenBlocks;
-    
+
     /**
      * The game over state.
      */
@@ -79,12 +120,12 @@ public class Board implements MyBoard {
      * The current index in the non random piece sequence.
      */
     private int mySequenceIndex;
-    
+
     /**
      * Piece that is next to play.
      */
     private TetrisPiece myNextPiece;
-    
+
     /**
      * Piece that is currently movable.
      */
@@ -96,7 +137,7 @@ public class Board implements MyBoard {
      * down movement in the drop.
      */
     private boolean myDrop;
-    
+
     // Constructors
 
     /**
@@ -105,34 +146,44 @@ public class Board implements MyBoard {
      */
     public Board() {
         this(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+
     }
+
 
     /**
      * Tetris board constructor for non-default sized boards.
-     * 
+     *
      * @param theWidth Width of the Tetris game board.
      * @param theHeight Height of the Tetris game board.
      */
     public Board(final int theWidth, final int theHeight) {
         super();
+
+        if (count > 0) {
+            throw new IllegalArgumentException("Only one board allowed");
+        }
+        count++;
+
         myWidth = theWidth;
         myHeight = theHeight;
         myFrozenBlocks = new LinkedList<>();
-         
+
         myNonRandomPieces = new ArrayList<>();
         mySequenceIndex = 0;
-        
+
+        myPcs = new PropertyChangeSupport(this);
+
         /*  myNextPiece and myCurrentPiece
          *  are initialized by the newGame() method.
          */
     }
-    
+
 
     // public queries
-    
+
     /**
      * Get the width of the board.
-     * 
+     *
      * @return Width of the board.
      */
     @Override
@@ -149,7 +200,7 @@ public class Board implements MyBoard {
     public int getHeight() {
         return myHeight;
     }
-    
+
 
 
     /**
@@ -159,7 +210,7 @@ public class Board implements MyBoard {
      */
     @Override
     public void newGame() {
-        
+
         mySequenceIndex = 0;
         myFrozenBlocks.clear();
         for (int h = 0; h < myHeight; h++) {
@@ -167,24 +218,29 @@ public class Board implements MyBoard {
         }
 
         myGameOver = false;
+        TetrisPiece current = myNextPiece;
         myCurrentPiece = nextMovablePiece(true);
+        myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, current);
         myDrop = false;
-        
+
         // TODO Publish Update!
+        prepareNextMovablePiece(); // MIGHT NEED TO CHANGE LATER
     }
 
     /**
      * Sets a non random sequence of pieces to loop through.
-     * 
+     *
      * @param thePieces the List of non random TetrisPieces.
      */
     @Override
     public void setPieceSequence(final List<TetrisPiece> thePieces) {
         myNonRandomPieces = new ArrayList<>(thePieces);
         mySequenceIndex = 0;
+        TetrisPiece current = myNextPiece;
         myCurrentPiece = nextMovablePiece(true);
+        myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, current);
     }
-    
+
     /**
      * Advances the board by one 'step'.
      * <p>
@@ -203,7 +259,7 @@ public class Board implements MyBoard {
          */
         down();
     }
-    
+
     /**
      * Try to move the movable piece down.
      * Freeze the Piece in position if down tries to move into an illegal state.
@@ -217,6 +273,7 @@ public class Board implements MyBoard {
             checkRows();
             if (!myGameOver) {
                 myCurrentPiece = nextMovablePiece(false);
+                notifyBoardChanges();
             }
             // TODO Publish Update!
         }
@@ -253,8 +310,8 @@ public class Board implements MyBoard {
             } else {
                 final MovableTetrisPiece cwPiece = myCurrentPiece.rotateCW();
                 final Point[] offsets = WallKick.getWallKicks(cwPiece.getTetrisPiece(),
-                                                    myCurrentPiece.getRotation(),
-                                                    cwPiece.getRotation());
+                        myCurrentPiece.getRotation(),
+                        cwPiece.getRotation());
                 for (final Point p : offsets) {
                     final Point offsetLocation = cwPiece.getPosition().transform(p);
                     final MovableTetrisPiece temp = cwPiece.setPosition(offsetLocation);
@@ -265,7 +322,7 @@ public class Board implements MyBoard {
             }
         }
     }
-    
+
     /**
      * Try to rotate the movable piece in the counter-clockwise direction.
      */
@@ -277,8 +334,8 @@ public class Board implements MyBoard {
             } else {
                 final MovableTetrisPiece ccwPiece = myCurrentPiece.rotateCCW();
                 final Point[] offsets = WallKick.getWallKicks(ccwPiece.getTetrisPiece(),
-                                                    myCurrentPiece.getRotation(),
-                                                    ccwPiece.getRotation());
+                        myCurrentPiece.getRotation(),
+                        ccwPiece.getRotation());
                 for (final Point p : offsets) {
                     final Point offsetLocation = ccwPiece.getPosition().transform(p);
                     final MovableTetrisPiece temp = ccwPiece.setPosition(offsetLocation);
@@ -304,7 +361,7 @@ public class Board implements MyBoard {
             down();  // move down one more time to freeze in place
         }
     }
-    
+
 
 
     @SuppressWarnings("OverlyLongMethod")
@@ -343,13 +400,13 @@ public class Board implements MyBoard {
         return sb.toString();
     }
 
-    
+
     // private helper methods
-    
+
     /**
      * Helper function to check if the current piece can be shifted to the
      * specified position.
-     * 
+     *
      * @param theMovedPiece the position to attempt to shift the current piece
      * @return True if the move succeeded
      */
@@ -371,13 +428,13 @@ public class Board implements MyBoard {
      * Illegal states:
      * - points of the piece exceed the bounds of the board
      * - points of the piece collide with frozen blocks on the board
-     * 
+     *
      * @param thePiece MovableTetrisPiece to test.
      * @return Returns true if the piece is in a legal state; false otherwise
      */
     private boolean isPieceLegal(final MovableTetrisPiece thePiece) {
         boolean result = true;
-        
+
         for (final Point p : thePiece.getBoardPoints()) {
             if (p.x() < 0 || p.x() >= myWidth) {
                 result = false;
@@ -386,7 +443,7 @@ public class Board implements MyBoard {
                 result = false;
             }
         }
-        return result && !collision(thePiece);      
+        return result && !collision(thePiece);
     }
 
     /**
@@ -394,7 +451,7 @@ public class Board implements MyBoard {
      * <p>
      * Allows a single data structure to represent the current piece
      * and the frozen blocks.
-     * 
+     *
      * @param theFrozenBlocks Board to set the piece on.
      * @param thePiece Piece to set on the board.
      */
@@ -421,7 +478,8 @@ public class Board implements MyBoard {
             }
             if (complete) {
                 completeRows.add(myFrozenBlocks.indexOf(row));
-             // TODO Publish Update!
+                notifyBoardChanges();
+                // TODO Publish Update!
             }
         }
         // loop through list backwards removing items by index
@@ -433,10 +491,10 @@ public class Board implements MyBoard {
             }
         }
     }
-    
+
     /**
      * Helper function to copy the board.
-     * 
+     *
      * @return A new copy of the board.
      */
     private List<Block[]> getBoard() {
@@ -449,19 +507,19 @@ public class Board implements MyBoard {
 
     /**
      * Determines if a point is on the game board.
-     * 
+     *
      * @param theBoard Board to test.
      * @param thePoint Point to test.
      * @return True if the point is on the board otherwise false.
      */
     private boolean isPointOnBoard(final List<Block[]> theBoard, final Point thePoint) {
         return thePoint.x() >= 0 && thePoint.x() < myWidth && thePoint.y() >= 0
-               && thePoint.y() < theBoard.size();
+                && thePoint.y() < theBoard.size();
     }
 
     /**
      * Sets a block at a board point.
-     * 
+     *
      * @param theBoard Board to set the point on.
      * @param thePoint Board point.
      * @param theBlock Block to set at board point.
@@ -469,19 +527,19 @@ public class Board implements MyBoard {
     private void setPoint(final List<Block[]> theBoard,
                           final Point thePoint,
                           final Block theBlock) {
-        
-        if (isPointOnBoard(theBoard, thePoint)) { 
+
+        if (isPointOnBoard(theBoard, thePoint)) {
             final Block[] row = theBoard.get(thePoint.y());
             row[thePoint.x()] = theBlock;
         } else if (!myGameOver) {
             myGameOver = true;
-            // TODO Publish Update!
+            myPcs.firePropertyChange(PROPERTY_GAME_OVER, false, true);
         }
     }
 
     /**
      * Returns the block at a specific board point.
-     * 
+     *
      * @param thePoint the specific Point to check
      * @return the Block type at point or null if no block exists.
      */
@@ -496,7 +554,7 @@ public class Board implements MyBoard {
     /**
      * Helper function to determine of a movable block has collided with set
      * blocks.
-     * 
+     *
      * @param theTest movable TetrisPiece to test for collision.
      * @return Returns true if any of the blocks has collided with a set board
      *         block.
@@ -513,34 +571,34 @@ public class Board implements MyBoard {
 
     /**
      * Gets the next MovableTetrisPiece.
-     * 
+     *
      * @param theRestart Restart the non random cycle.
      * @return A new MovableTetrisPiece.
      */
     private MovableTetrisPiece nextMovablePiece(final boolean theRestart) {
-        
+
         if (myNextPiece == null || theRestart) {
             prepareNextMovablePiece();
         }
-        
+
         final TetrisPiece next = myNextPiece;
-        
+
         int startY = myHeight - 1;
         if (myNextPiece == TetrisPiece.I) {
-            startY--; 
+            startY--;
         }
-        
+
         prepareNextMovablePiece();
         return new MovableTetrisPiece(
-                       next,
-                       new Point((myWidth - myNextPiece.getWidth()) / 2, startY));
+                next,
+                new Point((myWidth - myNextPiece.getWidth()) / 2, startY));
     }
-    
+
     /**
      * Prepares the Next movable piece for preview.
      */
     private void prepareNextMovablePiece() {
-        
+
         final boolean share = myNextPiece != null;
         if (myNonRandomPieces == null || myNonRandomPieces.isEmpty()) {
             myNextPiece = TetrisPiece.getRandomPiece();
@@ -549,11 +607,12 @@ public class Board implements MyBoard {
             myNextPiece = myNonRandomPieces.get(mySequenceIndex++);
         }
         if (share && !myGameOver) {
-            // TODO Publish Update!
+            // TODO PUBLISH UPDATE
+            updateNextPiece();
         }
-    }    
+    }
 
-    
+
     // Inner classes
 
     /**
@@ -561,7 +620,7 @@ public class Board implements MyBoard {
      * The board data includes the current piece and the frozen blocks.
      */
     protected final class BoardData {
-        
+
         /**
          * The board data to pass to observers.
          */
@@ -584,7 +643,7 @@ public class Board implements MyBoard {
 
         /**
          * Copy and return the board's data.
-         * 
+         *
          * @return Copy of the Board Data.
          */
         private List<Block[]> getBoardData() {
@@ -594,8 +653,93 @@ public class Board implements MyBoard {
             }
             return board;
         }
-        
-    } // end inner class BoardData
 
-    
+
+        // Implmentation of Observer Design Pattern
+
+    }  // end inner class BoardData
+
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener theListener) {
+        myPcs.addPropertyChangeListener(theListener);
+    }
+
+    @Override
+    public void addPropertyChangeListener(String thePropertyName,
+                                          PropertyChangeListener theListener) {
+        myPcs.addPropertyChangeListener(thePropertyName, theListener);
+    }
+
+    @Override
+    public void removePropertyChangeListener(PropertyChangeListener theListener) {
+        myPcs.removePropertyChangeListener(theListener);
+    }
+
+    @Override
+    public void removePropertyChangeListener(String thePropertyName,
+                                             PropertyChangeListener theListener) {
+        myPcs.removePropertyChangeListener(thePropertyName, theListener);
+    }
+    private void updateGameState() {
+        final List<Block[]> currentState = getBoard();
+        myPcs.firePropertyChange(PROPERTY_BOARD_CHANGES, null, currentState);
+    }
+
+    /**
+     * Clears complete rows from the game board and notifies observers about the cleared rows.
+     * This method checks for and clears rows that are completely filled. It should be called
+     * whenever there is a potential for row completion, such as when a piece lands.
+     * Once rows are cleared, it fires a property change event with the indices of the cleared rows.
+     * Observers such as scoring systems or GUI components can use this information to update accordingly.
+     *
+     * Usage:
+     *   Typically invoked after a piece has landed and settled on the board.
+     */
+    private void clearRows() {
+        final List<Integer> clearedRows = new ArrayList<>();
+        for (int i = 0; i < myFrozenBlocks.size(); i++) {
+            boolean isRowComplete = true;
+            for (Block block : myFrozenBlocks.get(i)) {
+                if (block == null) {
+                    isRowComplete = false;
+                    break;
+                }
+            }
+            if (isRowComplete) {
+                clearedRows.add(i);
+                myFrozenBlocks.remove(i);
+                myFrozenBlocks.add(0, new Block[myWidth]);
+            }
+        }
+
+        if (!clearedRows.isEmpty()) {
+            myPcs.firePropertyChange(PROPERTY_ROW_CLEARED, null, clearedRows.toArray(new Integer[0]));
+        }
+    }
+
+    /**
+     * Updates the next piece for the game, either from a predefined sequence or randomly.
+     * This method determines and updates the next Tetris piece. Observers are notified about
+     * the change in the next piece, allowing GUI components to display the upcoming piece.
+     * It supports both random piece generation and predefined piece sequences.
+     *
+     * Usage:
+     *   Call this method after a piece has landed to determine the next piece in the game.
+     *   It should be part of the game loop or piece settling logic.
+     */
+    private void updateNextPiece() {
+        if (myNonRandomPieces == null || myNonRandomPieces.isEmpty()) {
+            myNextPiece = TetrisPiece.getRandomPiece();
+        } else {
+            mySequenceIndex %= myNonRandomPieces.size();
+            myNextPiece = myNonRandomPieces.get(mySequenceIndex++);
+        }
+        myPcs.firePropertyChange(PROPERTY_NEXT_PIECE_CHANGES, null, myNextPiece);
+        System.out.println("Firing next piece change: " + myNextPiece); // DELETE LATER
+    }
+
+    private void notifyBoardChanges() {
+        myPcs.firePropertyChange(PROPERTY_BOARD_CHANGES, null, getBoard());
+    }
+
 }

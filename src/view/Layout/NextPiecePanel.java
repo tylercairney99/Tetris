@@ -1,17 +1,89 @@
 package view.Layout;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
+import model.Board;
+import model.TetrisPiece;
 
-public class NextPiecePanel extends JPanel {
+import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
+import static model.PaintTetromino.createIShape;
+import static model.PaintTetromino.createJShape;
+import static model.PaintTetromino.createLShape;
+import static model.PaintTetromino.createOShape;
+import static model.PaintTetromino.createSShape;
+import static model.PaintTetromino.createTShape;
+import static model.PaintTetromino.createZShape;
 
-    private final int STROKE_WIDTH = 1;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import javax.swing.JPanel;
+import model.TetrisPiece;
 
 
-    public NextPiecePanel() {
+/**
+ *Next piece panel shows the next tetromino to be played.
+ *
+ * @author James Simpson jsimp33@uw.edu
+ * @author Tyler
+ * @author Josh
+ * @author Cam
+ * @version 2.0
+ */
+public final class NextPiecePanel extends JPanel implements PropertyChangeListener {
+
+    /**
+     * The width of each block being displayed.
+     */
+    private static final int BLOCK_WIDTH = 16;
+
+    /**
+     * The height of each block being displayed.
+     */
+    private static final int BLOCK_HEIGHT = 16;
+
+    /**
+     * Used for the width of Graphics2d.
+     */
+    private static final int STROKE_WIDTH = 1;
+
+    /**
+     * Ensures only one panel is instantiated.
+     */
+    private static int count = 0;
+
+    /**
+     * The next piece to be displayed.
+     */
+    private TetrisPiece myNextTetrisPiece;
+
+    private Board myBoard;
+
+    /**
+     * Panel that will show the next Tetromino to be played.
+     * Sets background to assigned color.
+     */
+    public NextPiecePanel(final Board theBoard) {
         super();
+
+        if (count > 0) {
+            throw new IllegalArgumentException("Only one NextPiecePanel allowed");
+        }
+        count++;
+
+        this.myBoard = theBoard;
+        this.myBoard.addPropertyChangeListener(this);
         setBackground(Color.BLUE);
+    }
+
+    @Override
+    public void propertyChange(final PropertyChangeEvent theEvent) {
+        if (PROPERTY_NEXT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
+            myNextTetrisPiece = (TetrisPiece) theEvent.getNewValue();
+            repaint();
+        }
     }
 
     @Override
@@ -22,31 +94,39 @@ public class NextPiecePanel extends JPanel {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        createTShape(g2d);
-    }
-
-    private void createTShape(final Graphics2D theG2d) {
-        final Shape tetrisBlock1 =
-                new Rectangle2D.Double(72, 64, 16, 16);
-        final Shape tetrisBlock2 =
-                new Rectangle2D.Double(72, 80, 16, 16);
-        final Shape tetrisBlock3 =
-                new Rectangle2D.Double(88, 80, 16, 16);
-        final Shape tetrisBlock4 =
-                new Rectangle2D.Double(56, 80, 16, 16);
-
-        theG2d.setPaint(Color.MAGENTA);
-
-        theG2d.fill(tetrisBlock1);
-        theG2d.fill(tetrisBlock2);
-        theG2d.fill(tetrisBlock3);
-        theG2d.fill(tetrisBlock4);
-
-        theG2d.setPaint(Color.BLACK);
-
-        theG2d.draw(tetrisBlock1);
-        theG2d.draw(tetrisBlock2);
-        theG2d.draw(tetrisBlock3);
-        theG2d.draw(tetrisBlock4);
+        if (myNextTetrisPiece != null) {
+            switch (myNextTetrisPiece) {
+                case I:
+                    createIShape(g2d, BLOCK_HEIGHT, (getHeight() - BLOCK_HEIGHT) / 2
+                            , (getWidth() - 4 * BLOCK_HEIGHT) / 2);
+                    break;
+                case L:
+                    createLShape(g2d, BLOCK_HEIGHT, (getHeight() - 2 * BLOCK_HEIGHT) / 2,
+                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
+                    break;
+                case J:
+                    createJShape(g2d, BLOCK_HEIGHT, (getHeight()  - 2 * BLOCK_HEIGHT) / 2,
+                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
+                    break;
+                case O:
+                    createOShape(g2d, BLOCK_HEIGHT, (getHeight()  - 2 * BLOCK_HEIGHT) / 2,
+                            (getWidth() - 2 * BLOCK_HEIGHT) / 2);
+                    break;
+                case S:
+                    createSShape(g2d, BLOCK_HEIGHT, (getHeight() - 2 * BLOCK_HEIGHT) / 2,
+                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
+                    break;
+                case T:
+                    createTShape(g2d, BLOCK_HEIGHT, (getHeight() - 2 * BLOCK_HEIGHT) / 2,
+                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
+                    break;
+                case Z:
+                    createZShape(g2d, BLOCK_HEIGHT, (getHeight() - 2 * BLOCK_HEIGHT) / 2,
+                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + myNextTetrisPiece);
+            }
+        }
     }
 }
