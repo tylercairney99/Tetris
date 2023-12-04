@@ -105,9 +105,9 @@ public class Menu extends JMenuBar {
 
         aboutUsItem.addActionListener(theEvent ->
                 JOptionPane.showMessageDialog(null, """
-                Group 7 Tetris Project - Sprint 2
+                Group 7 Tetris Project - Sprint 3
                 Group Members: Tyler, James, Josh, Cam
-                This is version 1.1 of our Tetris project
+                This is version 1.2 of our Tetris project
                 """));
 
         return aboutMenu;
