@@ -32,6 +32,18 @@ Autumn 2023
   - Worked on the Timer implementation with Tyler
 - Cam
   - Implemented the notifyBoardChanges method in Board and called it in down() and checkRows()
+ 
+  ## Sprint 3 Contribution
+ - Meeting Minutes: https://docs.google.com/document/d/1_QcnD_l412rijxIYXIzFufNI4wChT8nzERGTuX_RlQY/edit?usp=sharing
+
+- Tyler
+  
+- James
+
+- Josh
+  
+- Cam
+
 
 Included:
 
