@@ -31,7 +31,7 @@ public class ControlPanel extends JPanel {
         controlPanel.add(new JLabel("X"));
         controlPanel.add(new JLabel("Drop:"));
         controlPanel.add(new JLabel("space"));
-        controlPanel.add(new JLabel("Pause"));
+        controlPanel.add(new JLabel("Pause:"));
         controlPanel.add(new JLabel("P"));
 
         add(controlPanel, BorderLayout.PAGE_START);
