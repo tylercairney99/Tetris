@@ -55,11 +55,14 @@ public final class PaintTetromino extends JPanel {
 
         final Shape tetrisBlock1 = new Rectangle2D.Double(theX, theY + theBlockHeight,
                 theBlockHeight - 1, theBlockHeight - 1);
-        final Shape tetrisBlock2 = new Rectangle2D.Double(theX + theBlockHeight , theY + theBlockHeight,
+        final Shape tetrisBlock2 = new Rectangle2D.Double(
+                theX + theBlockHeight , theY + theBlockHeight,
                 theBlockHeight - 1, theBlockHeight - 1);
-        final Shape tetrisBlock3 = new Rectangle2D.Double(theX + theBlockHeight * 2, theY,
+        final Shape tetrisBlock3 = new Rectangle2D.Double(
+                theX + theBlockHeight * 2, theY,
                 theBlockHeight - 1, theBlockHeight - 1);
-        final Shape tetrisBlock4 = new Rectangle2D.Double(theX + theBlockHeight * 2, theY + theBlockHeight,
+        final Shape tetrisBlock4 = new Rectangle2D.Double(
+                theX + theBlockHeight * 2, theY + theBlockHeight,
                 theBlockHeight - 1, theBlockHeight - 1);
 
         theG2d.setPaint(Color.ORANGE);
@@ -76,11 +79,14 @@ public final class PaintTetromino extends JPanel {
 
         final Shape tetrisBlock1 = new Rectangle2D.Double(theX, theY,
                 theBlockHeight - 1, theBlockHeight - 1);
-        final Shape tetrisBlock2 = new Rectangle2D.Double(theX + theBlockHeight, theY + theBlockHeight,
+        final Shape tetrisBlock2 = new Rectangle2D.Double(
+                theX + theBlockHeight, theY + theBlockHeight,
                 theBlockHeight - 1, theBlockHeight - 1);
-        final Shape tetrisBlock3 = new Rectangle2D.Double(theX + 2 * theBlockHeight, theY + theBlockHeight,
+        final Shape tetrisBlock3 = new Rectangle2D.Double(
+                theX + 2 * theBlockHeight, theY + theBlockHeight,
                 theBlockHeight - 1, theBlockHeight - 1);
-        final Shape tetrisBlock4 = new Rectangle2D.Double(theX, theY + theBlockHeight,
+        final Shape tetrisBlock4 = new Rectangle2D.Double(
+                theX, theY + theBlockHeight,
                 theBlockHeight - 1, theBlockHeight - 1);
 
         theG2d.setPaint(Color.BLUE);
@@ -97,11 +103,14 @@ public final class PaintTetromino extends JPanel {
 
         final Shape tetrisBlock1 = new Rectangle2D.Double(theX, theY,
                 theBlockHeight - 1, theBlockHeight - 1);
-        final Shape tetrisBlock2 = new Rectangle2D.Double(theX + theBlockHeight, theY,
+        final Shape tetrisBlock2 = new Rectangle2D.Double(
+                theX + theBlockHeight, theY,
                 theBlockHeight - 1, theBlockHeight - 1);
-        final Shape tetrisBlock3 = new Rectangle2D.Double(theX, theY + theBlockHeight,
+        final Shape tetrisBlock3 = new Rectangle2D.Double(
+                theX, theY + theBlockHeight,
                 theBlockHeight - 1, theBlockHeight - 1);
-        final Shape tetrisBlock4 = new Rectangle2D.Double(theX + theBlockHeight, theY + theBlockHeight,
+        final Shape tetrisBlock4 = new Rectangle2D.Double(
+                theX + theBlockHeight, theY + theBlockHeight,
                 theBlockHeight - 1, theBlockHeight - 1);
 
         theG2d.setPaint(Color.YELLOW);
@@ -118,11 +127,14 @@ public final class PaintTetromino extends JPanel {
 
         final Shape tetrisBlock1 = new Rectangle2D.Double(theX + theBlockHeight, theY,
                 theBlockHeight - 1, theBlockHeight - 1);
-        final Shape tetrisBlock2 = new Rectangle2D.Double(theX + 2 * theBlockHeight, theY,
+        final Shape tetrisBlock2 = new Rectangle2D.Double(
+                theX + 2 * theBlockHeight, theY,
                 theBlockHeight - 1, theBlockHeight - 1);
-        final Shape tetrisBlock3 = new Rectangle2D.Double(theX, theY + theBlockHeight,
+        final Shape tetrisBlock3 = new Rectangle2D.Double(
+                theX, theY + theBlockHeight,
                 theBlockHeight - 1, theBlockHeight - 1);
-        final Shape tetrisBlock4 = new Rectangle2D.Double(theX + theBlockHeight, theY + theBlockHeight,
+        final Shape tetrisBlock4 = new Rectangle2D.Double(
+                theX + theBlockHeight, theY + theBlockHeight,
                 theBlockHeight - 1, theBlockHeight - 1);
 
         theG2d.setPaint(Color.GREEN);
@@ -140,11 +152,14 @@ public final class PaintTetromino extends JPanel {
 
         final Shape tetrisBlock1 = new Rectangle2D.Double(theX, theY + theBlockHeight,
                 theBlockHeight - 1, theBlockHeight - 1);
-        final Shape tetrisBlock2 = new Rectangle2D.Double(theX + theBlockHeight, theY,
+        final Shape tetrisBlock2 = new Rectangle2D.Double(
+                theX + theBlockHeight, theY,
                 theBlockHeight - 1, theBlockHeight - 1);
-        final Shape tetrisBlock3 = new Rectangle2D.Double(theX + theBlockHeight, theY + theBlockHeight,
+        final Shape tetrisBlock3 = new Rectangle2D.Double(
+                theX + theBlockHeight, theY + theBlockHeight,
                 theBlockHeight - 1, theBlockHeight - 1);
-        final Shape tetrisBlock4 = new Rectangle2D.Double(theX + 2 * theBlockHeight, theY + theBlockHeight,
+        final Shape tetrisBlock4 = new Rectangle2D.Double(
+                theX + 2 * theBlockHeight, theY + theBlockHeight,
                 theBlockHeight - 1, theBlockHeight - 1);
 
         theG2d.setPaint(Color.MAGENTA);
@@ -161,11 +176,14 @@ public final class PaintTetromino extends JPanel {
 
         final Shape tetrisBlock1 = new Rectangle2D.Double(theX, theY,
                 theBlockHeight - 1, theBlockHeight - 1);
-        final Shape tetrisBlock2 = new Rectangle2D.Double(theX + theBlockHeight, theY,
+        final Shape tetrisBlock2 = new Rectangle2D.Double(
+                theX + theBlockHeight, theY,
                 theBlockHeight - 1, theBlockHeight - 1);
-        final Shape tetrisBlock3 = new Rectangle2D.Double(theX + theBlockHeight, theY + theBlockHeight,
+        final Shape tetrisBlock3 = new Rectangle2D.Double(
+                theX + theBlockHeight, theY + theBlockHeight,
                 theBlockHeight - 1, theBlockHeight - 1);
-        final Shape tetrisBlock4 = new Rectangle2D.Double(theX + 2 * theBlockHeight, theY + theBlockHeight,
+        final Shape tetrisBlock4 = new Rectangle2D.Double(
+                theX + 2 * theBlockHeight, theY + theBlockHeight,
                 theBlockHeight - 1, theBlockHeight - 1);
 
         theG2d.setPaint(Color.PINK);
@@ -181,7 +199,8 @@ public final class PaintTetromino extends JPanel {
      * @param theS3 Shape 3 to be painted.
      * @param theS4 Shape 4 to be painted.
      */
-    private static void paintShape(final Graphics2D theG2d, final Shape theS1, final Shape theS2,
+    private static void paintShape(final Graphics2D theG2d,
+                                   final Shape theS1, final Shape theS2,
                                    final Shape theS3, final Shape theS4) {
         theG2d.fill(theS1);
         theG2d.fill(theS2);
