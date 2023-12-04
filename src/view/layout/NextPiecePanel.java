@@ -1,4 +1,4 @@
-package view.Layout;
+package view.layout;
 
 import model.Board;
 import model.TetrisPiece;
@@ -20,7 +20,6 @@ import java.awt.RenderingHints;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
-import model.TetrisPiece;
 
 
 /**

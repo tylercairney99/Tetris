@@ -1,10 +1,29 @@
-package view.Layout;
+package view.layout;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
+/**
+ * Control panel shows the controls for the game.
+ *
+ * @author Group 7
+ * @version Autumn 2023
+ */
 public class ControlPanel extends JPanel {
-    private static int count = 0;
+    /**
+     * static int shared amongst all control panel objects to ensure that
+     * there is only ever one instance.
+     */
+    private static int count;
+
+    /**
+     * Constructs a ControlPanel object.
+     *
+     * @throws IllegalArgumentException if more than one ControlPanel is instantiated.
+     */
     public ControlPanel() {
         super();
 
@@ -12,12 +31,18 @@ public class ControlPanel extends JPanel {
             throw new IllegalArgumentException("Only one ControlPanel allowed");
         }
         count++;
+        setUpPanel();
+    }
 
+    /**
+     * Sets up the labels for the control panel.
+     */
+    private void setUpPanel() {
         setBackground(Color.GREEN);
 
         setLayout(new BorderLayout());
 
-        JPanel controlPanel = new JPanel(new GridLayout(7,2));
+        final JPanel controlPanel = new JPanel(new GridLayout(7, 2));
         controlPanel.setOpaque(false);
         controlPanel.add(new JLabel("Move Left:"));
         controlPanel.add(new JLabel("left arrow"));
@@ -33,7 +58,6 @@ public class ControlPanel extends JPanel {
         controlPanel.add(new JLabel("space"));
         controlPanel.add(new JLabel("Pause:"));
         controlPanel.add(new JLabel("P"));
-
         add(controlPanel, BorderLayout.PAGE_START);
     }
 }
