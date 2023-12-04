@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import model.Board;
+import model.DifficultyChanger;
 import view.Layout.GamePanel;
 import view.Layout.MainPanel;
 import view.Layout.NextPiecePanel;
@@ -22,8 +23,22 @@ import view.menu.Menu;
  * @version 1.0.2
  *
  */
-public class TetrisGUI {
+public class TetrisGUI implements DifficultyChanger {
 
+    /**
+     * Sets the mode to easy difficulty (base difficulty).
+     */
+    public static final int EASY_DIFFICULTY = 1000;
+
+    /**
+     * Sets the mode to medium difficulty.
+     */
+    public static final int MEDIUM_DIFFICULTY = 500;
+
+    /**
+     * Sets the mode to hard difficulty.
+     */
+    public static final int HARD_DIFFICULTY = 100;
     /**
      * The height of the border around the game window.
      */
@@ -35,10 +50,9 @@ public class TetrisGUI {
     private static final int BORDER_SIZE_WIDTH = 10;
 
     /**
-     * The number of milliseconds in one second.
-     * This constant defines the interval for the game's timer tick.
+     * The current difficulty set to easy originally.
      */
-    private static final int MILLIS_PER_SEC = 100; // CHANGE BACK TO 1000
+    private int myCurrentDifficulty = EASY_DIFFICULTY;
 
     private int timerCounter = 0; // DELETE LATER (ONLY USED FOR TESTING)!!!
 
@@ -62,6 +76,8 @@ public class TetrisGUI {
      */
     private final Timer myGameTimer;
 
+    //private final TetrisGUI myTetrisGUI;
+
     /**
      * Constructs a new TetrisGUI object.
      * Initializes the game board, sets up GUI components, and adds necessary listeners.
@@ -75,7 +91,7 @@ public class TetrisGUI {
         myBoard.addPropertyChangeListener(myNextPiecePanel);
         myBoard.addPropertyChangeListener(myGamePanel);
 
-        myGameTimer = new Timer(MILLIS_PER_SEC, theEvent -> {
+        myGameTimer = new Timer(EASY_DIFFICULTY, theEvent -> {
             timerCounter++; // DELETE LATER (USED FOR TESTING)
             System.out.print(timerCounter + "\n"); // DELETE LATER (USED FOR TESTING)
             myBoard.step();
@@ -96,7 +112,7 @@ public class TetrisGUI {
         final MainPanel mainPanel = new MainPanel(myBoard, myGameTimer,
                 myNextPiecePanel, myGamePanel);
 
-        frame.setJMenuBar(new Menu(myBoard, myGameTimer));
+        frame.setJMenuBar(new Menu(myBoard, myGameTimer, this));
         frame.add(mainPanel, BorderLayout.CENTER);
 
         addBorders(frame);
@@ -127,6 +143,42 @@ public class TetrisGUI {
         theFrame.add(top, BorderLayout.NORTH);
         theFrame.add(bottom, BorderLayout.SOUTH);
     }
+
+    /**
+     * This method sets the new difficulty for the game,
+     * adjusts the game timer's delay accordingly, restarts
+     * the game board to apply the new difficulty, and restarts the game timer.
+     *
+     * @param theNewDifficulty The new difficulty level to set.
+     *                      This should be one of the predefined constants: EASY_DIFFICULTY,
+     *                      MEDIUM_DIFFICULTY, or HARD_DIFFICULTY.
+     */
+    @Override
+    public void changeDifficulty(final int theNewDifficulty) {
+        myCurrentDifficulty = theNewDifficulty;
+        myGameTimer.setDelay(theNewDifficulty);
+        myBoard.newGame();
+        myGameTimer.start();
+    }
+
+    /**
+     * This method returns a string representation of the current difficulty level.
+     * It maps the internal numeric difficulty value to a human-readable format.
+     *
+     * @return A string representing the current difficulty level. Possible values are "Easy",
+     *         "Medium", "Hard". If the current difficulty does not match any of the predefined
+     *         levels, it defaults to "Easy".
+     */
+    @Override
+    public String getCurrentDifficulty() {
+        return switch (myCurrentDifficulty) {
+            case EASY_DIFFICULTY -> "Easy";
+            case MEDIUM_DIFFICULTY -> "Medium";
+            case HARD_DIFFICULTY -> "Hard";
+            default -> "Default difficulty is easy";
+        };
+    }
+
 
     /**
      * The main method to run the Tetris GUI.
