@@ -163,11 +163,8 @@ public class TetrisGUI implements DifficultyChanger {
 
     /**
      * This method returns a string representation of the current difficulty level.
-     * It maps the internal numeric difficulty value to a human-readable format.
      *
-     * @return A string representing the current difficulty level. Possible values are "Easy",
-     *         "Medium", "Hard". If the current difficulty does not match any of the predefined
-     *         levels, it defaults to "Easy".
+     * @return Easy / Medium / Hard / if none are chosen defaults to easy.
      */
     @Override
     public String getCurrentDifficulty() {
