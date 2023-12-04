@@ -102,6 +102,11 @@ public class Menu extends JMenuBar {
         return gameMenu;
     }
 
+    /**
+     * Builds the difficulty menu.
+     *
+     * @return The difficulty menu.
+     */
     private JMenu buildDifficultyMenu() {
         final JMenu difficultyMenu = new JMenu("Difficulty");
         difficultyMenu.setMnemonic(KeyEvent.VK_D);
