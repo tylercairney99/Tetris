@@ -8,9 +8,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import model.Board;
 import model.DifficultyChanger;
-import view.Layout.GamePanel;
-import view.Layout.MainPanel;
-import view.Layout.NextPiecePanel;
+import view.layout.GamePanel;
+import view.layout.MainPanel;
+import view.layout.NextPiecePanel;
 import view.menu.Menu;
 
 
