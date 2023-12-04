@@ -1,23 +1,17 @@
-package view.Layout;
+package view.layout;
 
-import static model.Board.PROPERTY_BOARD_CHANGES;
-import static model.Board.PROPERTY_ROW_CLEARED;
 import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
 import static model.Board.PROPERTY_GAME_OVER;
 
 import model.Board;
 import model.TetrisPiece;
 
-import javax.naming.ldap.Control;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
-import static model.Board.PROPERTY_GAME_OVER;
-import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
 
 
 public class MainPanel extends JPanel implements PropertyChangeListener {
