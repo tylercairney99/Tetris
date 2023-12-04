@@ -1,0 +1,40 @@
+package view.Layout;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class ControlAndScorePanel extends JPanel {
+    public ControlAndScorePanel() {
+        super();
+        setBackground(Color.GREEN);
+        setLayout(new BorderLayout());
+
+        JPanel controlPanel = new JPanel(new GridLayout(7,2));
+        controlPanel.setOpaque(false);
+        controlPanel.add(new JLabel("Move Left:"));
+        controlPanel.add(new JLabel("left arrow"));
+        controlPanel.add(new JLabel("Move right"));
+        controlPanel.add(new JLabel("right arrow"));
+        controlPanel.add(new JLabel("Move down"));
+        controlPanel.add(new JLabel("down arrow"));
+        controlPanel.add(new JLabel("Rotate CCW:"));
+        controlPanel.add(new JLabel("Z"));
+        controlPanel.add(new JLabel("Rotate CW:"));
+        controlPanel.add(new JLabel("X"));
+        controlPanel.add(new JLabel("Drop:"));
+        controlPanel.add(new JLabel("space"));
+        controlPanel.add(new JLabel("Pause"));
+        controlPanel.add(new JLabel("P"));
+
+        add(controlPanel, BorderLayout.PAGE_START);
+
+
+        // Separator line
+        JSeparator separator = new JSeparator(JSeparator.HORIZONTAL);
+        separator.setForeground(Color.BLACK); // Set the separator color to match the image
+        add(separator, BorderLayout.CENTER);
+
+
+
+    }
+}

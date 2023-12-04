@@ -8,6 +8,7 @@ import static model.Board.PROPERTY_GAME_OVER;
 import model.Board;
 import model.TetrisPiece;
 
+import javax.naming.ldap.Control;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -25,10 +26,11 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
     private static final int MILLIS_PER_SEC = 100; // CHANGE BACK TO 1000 (1 second per tick of myBoard.step)
 
     private JPanel mySecondaryPanel;
-    private JPanel myGamePanel;
+    private GamePanel myGamePanel;
     private NextPiecePanel myNextPiecePanel;
-    private JPanel myControlPanel;
-    private JPanel myScorePanel;
+    //private JPanel myControlPanel;
+    //private JPanel myScorePanel;
+    private ControlAndScorePanel myControlAndScorePanel;
     private Board myBoard;
     /**
      * Timer to manage game updates at regular intervals.
@@ -57,13 +59,15 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
         mySecondaryPanel = new JPanel();
         //myGamePanel = new GamePanel(myBoard);
         //myNextPiecePanel = new NextPiecePanel();
-        myControlPanel= new ControlPanel();
-        myScorePanel = new ScorePanel();
+        //myControlPanel= new ControlPanel();
+        //myScorePanel = new ScorePanel();
+        myControlAndScorePanel = new ControlAndScorePanel();
 
         myGamePanel.setPreferredSize(new Dimension(200, 400));
         myNextPiecePanel.setPreferredSize(new Dimension(160, 160));
-        myControlPanel.setPreferredSize(new Dimension(160, 110));
-        myScorePanel.setPreferredSize(new Dimension(160, 110));
+        //myControlPanel.setPreferredSize(new Dimension(160, 110));
+        //myScorePanel.setPreferredSize(new Dimension(160, 110));
+        myControlAndScorePanel.setPreferredSize(new Dimension(160, 220));
     }
     private void layoutComponents() {
         setLayout(new BorderLayout(5, 10));
@@ -72,8 +76,9 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
 
         mySecondaryPanel.setLayout(new BorderLayout(10, 10));
         mySecondaryPanel.add(myNextPiecePanel, BorderLayout.NORTH);
-        mySecondaryPanel.add(myControlPanel, BorderLayout.CENTER);
-        mySecondaryPanel.add(myScorePanel, BorderLayout.SOUTH);
+        //mySecondaryPanel.add(myControlPanel, BorderLayout.CENTER);
+        //mySecondaryPanel.add(myScorePanel, BorderLayout.SOUTH);
+        mySecondaryPanel.add(myControlAndScorePanel, BorderLayout.SOUTH);
     }
     private void addListeners() {
         myBoard.addPropertyChangeListener(theEvent -> {
