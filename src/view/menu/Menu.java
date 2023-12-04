@@ -51,7 +51,7 @@ public class Menu extends JMenuBar {
         initializeMenu();
         myBoard = theBoard;
         myGameTimer = theGameTimer;
-        this.myTetrisGUI = theTetrisGUI;
+        myTetrisGUI = theTetrisGUI;
     }
 
     private void initializeMenu() {
