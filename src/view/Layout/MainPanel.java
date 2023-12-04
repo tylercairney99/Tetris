@@ -28,9 +28,8 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
     private JPanel mySecondaryPanel;
     private GamePanel myGamePanel;
     private NextPiecePanel myNextPiecePanel;
-    //private JPanel myControlPanel;
-    //private JPanel myScorePanel;
-    private ControlAndScorePanel myControlAndScorePanel;
+    private JPanel myControlPanel;
+    private JPanel myScorePanel;
     private Board myBoard;
     /**
      * Timer to manage game updates at regular intervals.
@@ -59,15 +58,13 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
         mySecondaryPanel = new JPanel();
         //myGamePanel = new GamePanel(myBoard);
         //myNextPiecePanel = new NextPiecePanel();
-        //myControlPanel= new ControlPanel();
-        //myScorePanel = new ScorePanel();
-        myControlAndScorePanel = new ControlAndScorePanel();
+        myControlPanel= new ControlPanel();
+        myScorePanel = new ScorePanel();
 
         myGamePanel.setPreferredSize(new Dimension(200, 400));
         myNextPiecePanel.setPreferredSize(new Dimension(160, 160));
-        //myControlPanel.setPreferredSize(new Dimension(160, 110));
-        //myScorePanel.setPreferredSize(new Dimension(160, 110));
-        myControlAndScorePanel.setPreferredSize(new Dimension(160, 220));
+        myControlPanel.setPreferredSize(new Dimension(160, 110));
+        myScorePanel.setPreferredSize(new Dimension(160, 110));
     }
     private void layoutComponents() {
         setLayout(new BorderLayout(5, 10));
@@ -76,9 +73,8 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
 
         mySecondaryPanel.setLayout(new BorderLayout(10, 10));
         mySecondaryPanel.add(myNextPiecePanel, BorderLayout.NORTH);
-        //mySecondaryPanel.add(myControlPanel, BorderLayout.CENTER);
-        //mySecondaryPanel.add(myScorePanel, BorderLayout.SOUTH);
-        mySecondaryPanel.add(myControlAndScorePanel, BorderLayout.SOUTH);
+        mySecondaryPanel.add(myControlPanel, BorderLayout.CENTER);
+        mySecondaryPanel.add(myScorePanel, BorderLayout.SOUTH);
     }
     private void addListeners() {
         myBoard.addPropertyChangeListener(theEvent -> {
