@@ -103,31 +103,31 @@ public class GamePanel extends JPanel implements PropertyChangeListener {
         if (myCurrentTetrisPiece != null) {
             switch (myCurrentTetrisPiece) {
                 case I:
-                    createIShape(g2d, BLOCK_HEIGHT, 30,
+                    createIShape(g2d, BLOCK_HEIGHT, 0,
                             (getWidth() - 4 * BLOCK_HEIGHT) / 2);
                     break;
                 case L:
-                    createLShape(g2d, BLOCK_HEIGHT, 30,
+                    createLShape(g2d, BLOCK_HEIGHT, 0,
                             (getWidth() - 3 * BLOCK_HEIGHT) / 2);
                     break;
                 case J:
-                    createJShape(g2d, BLOCK_HEIGHT, 30,
+                    createJShape(g2d, BLOCK_HEIGHT, 0,
                             (getWidth() - 3 * BLOCK_HEIGHT) / 2);
                     break;
                 case O:
-                    createOShape(g2d, BLOCK_HEIGHT, 30,
+                    createOShape(g2d, BLOCK_HEIGHT, 0,
                             (getWidth() - 2 * BLOCK_HEIGHT) / 2);
                     break;
                 case S:
-                    createSShape(g2d, BLOCK_HEIGHT, 30,
+                    createSShape(g2d, BLOCK_HEIGHT, 0,
                             (getWidth() - 3 * BLOCK_HEIGHT) / 2);
                     break;
                 case T:
-                    createTShape(g2d, BLOCK_HEIGHT, 30,
+                    createTShape(g2d, BLOCK_HEIGHT, 0,
                             (getWidth() - 3 * BLOCK_HEIGHT) / 2);
                     break;
                 case Z:
-                    createZShape(g2d, BLOCK_HEIGHT, 30,
+                    createZShape(g2d, BLOCK_HEIGHT, 0,
                             (getWidth() - 3 * BLOCK_HEIGHT) / 2);
                     break;
                 default:
@@ -136,13 +136,4 @@ public class GamePanel extends JPanel implements PropertyChangeListener {
             }
         }
     }
-
-//    @Override
-//    public void propertyChange(final PropertyChangeEvent theEvent) {
-//        if (PROPERTY_NEXT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
-//            myCurrentTetrisPiece = (TetrisPiece) theEvent.getNewValue();
-//            repaint();
-//        }
-//    }
-
 }
