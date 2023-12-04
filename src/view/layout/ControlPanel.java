@@ -21,6 +21,8 @@ public class ControlPanel extends JPanel {
 
     /**
      * Constructs a ControlPanel object.
+     *
+     * @throws IllegalArgumentException if more than one ControlPanel is instantiated.
      */
     public ControlPanel() {
         super();

@@ -68,10 +68,13 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
 
     /**
      * Constructs a MainPanel object.
+     *
      * @param theBoard theBoard
      * @param theGameTimer theGameTimer
      * @param theNextPiecePanel theNextPiecePanel which has already been constructed
      * @param theGamePanel theGamePanel which has already been constructed
+     *
+     * @throws IllegalArgumentException if more than one ControlPanel is instantiated.
      */
 
     public MainPanel(final Board theBoard, final Timer theGameTimer, final NextPiecePanel theNextPiecePanel, final GamePanel theGamePanel) {
