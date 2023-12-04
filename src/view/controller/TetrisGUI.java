@@ -1,18 +1,16 @@
-package view.Controller;
+package view.controller;
 
-import static model.Board.PROPERTY_BOARD_CHANGES;
-import static model.Board.PROPERTY_ROW_CLEARED;
-import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
-import static model.Board.PROPERTY_GAME_OVER;
-
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.Timer;
+import model.Board;
 import view.Layout.GamePanel;
 import view.Layout.MainPanel;
 import view.Layout.NextPiecePanel;
-import view.Menu.Menu;
-import model.Board;
-import model.TetrisPiece;
-import javax.swing.*;
-import java.awt.*;
+import view.menu.Menu;
 
 
 /**
@@ -25,23 +23,6 @@ import java.awt.*;
  *
  */
 public class TetrisGUI {
-
-
-    private int timerCounter = 0; // DELETE LATER (ONLY USED FOR TESTING)!!!
-
-    /**
-     * The primary model object representing the Tetris game board.
-     */
-    private final Board myBoard;
-
-    private NextPiecePanel myNextPiecePanel;
-
-    private GamePanel myGamePanel;
-
-    /**
-     * Timer to manage game updates at regular intervals.
-     */
-    private Timer myGameTimer;
 
     /**
      * The height of the border around the game window.
@@ -57,7 +38,29 @@ public class TetrisGUI {
      * The number of milliseconds in one second.
      * This constant defines the interval for the game's timer tick.
      */
-    private static final int MILLIS_PER_SEC = 100; // CHANGE BACK TO 1000 (1 second per tick of myBoard.step)
+    private static final int MILLIS_PER_SEC = 100; // CHANGE BACK TO 1000
+
+    private int timerCounter = 0; // DELETE LATER (ONLY USED FOR TESTING)!!!
+
+    /**
+     * The primary model object representing the Tetris game board.
+     */
+    private final Board myBoard;
+
+    /**
+     * next piece panel object representing the panel where the next piece is shown.
+     */
+    private final NextPiecePanel myNextPiecePanel;
+
+    /**
+     * game panel object representing the panel where game is played.
+     */
+    private final GamePanel myGamePanel;
+
+    /**
+     * Timer to manage game updates at regular intervals.
+     */
+    private final Timer myGameTimer;
 
     /**
      * Constructs a new TetrisGUI object.
@@ -90,7 +93,8 @@ public class TetrisGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
-        MainPanel mainPanel = new MainPanel(myBoard, myGameTimer, myNextPiecePanel, myGamePanel);
+        final MainPanel mainPanel = new MainPanel(myBoard, myGameTimer,
+                myNextPiecePanel, myGamePanel);
 
         frame.setJMenuBar(new Menu(myBoard, myGameTimer));
         frame.add(mainPanel, BorderLayout.CENTER);

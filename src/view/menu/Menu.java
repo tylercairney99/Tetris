@@ -39,6 +39,7 @@ public class Menu extends JMenuBar {
      */
     public Menu(final Board theBoard, final Timer theGameTimer) {
         super();
+        initializeMenu();
         myBoard = theBoard;
         myGameTimer = theGameTimer;
     }
@@ -104,10 +105,10 @@ public class Menu extends JMenuBar {
 
         aboutUsItem.addActionListener(theEvent ->
                 JOptionPane.showMessageDialog(null, """
-                    Group 7 Tetris Project - Sprint 2
-                    Group Members: Tyler, James, Josh, Cam
-                    This is version 1.1 of our Tetris project
-                    """));
+                Group 7 Tetris Project - Sprint 2
+                Group Members: Tyler, James, Josh, Cam
+                This is version 1.1 of our Tetris project
+                """));
 
         return aboutMenu;
     }
