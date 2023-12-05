@@ -1,17 +1,32 @@
 package view.layout;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import javax.swing.JPanel;
+import static model.Board.PROPERTY_BOARD_CHANGES;
+import static model.Board.PROPERTY_CURRENT_PIECE_CHANGES;
+import static model.Board.PROPERTY_GAME_OVER;
+import static model.Board.PROPERTY_ROW_CLEARED;
+import static model.PaintTetromino.createIShape;
+import static model.PaintTetromino.createJShape;
+import static model.PaintTetromino.createLShape;
+import static model.PaintTetromino.createOShape;
+import static model.PaintTetromino.createSShape;
+import static model.PaintTetromino.createTShape;
+import static model.PaintTetromino.createZShape;
+
 import model.Board;
 import model.TetrisPiece;
 
-import javax.swing.*;
-import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
-import static model.Board.*;
-import static model.PaintTetromino.*;
-
-
+/**
+ * Game panel shows the board and tetrominos in play.
+ */
 public class GamePanel extends JPanel implements PropertyChangeListener {
 
     /**
@@ -35,10 +50,9 @@ public class GamePanel extends JPanel implements PropertyChangeListener {
     private static final int STROKE_WIDTH = 1;
 
     /**
-     *
+     * The game board associated with this menu.
      */
     private final Board myBoard;
-
 
     /**
      * Current tetromino in play.
@@ -82,8 +96,9 @@ public class GamePanel extends JPanel implements PropertyChangeListener {
 
 
     /**
+     * Gets the next tetromino to be played.
      *
-     * @param theNextPiece
+     * @param theNextPiece the next tetromino to be played.
      */
     public void getNextTetrisPiece(final TetrisPiece theNextPiece) {
         myCurrentTetrisPiece = theNextPiece;
