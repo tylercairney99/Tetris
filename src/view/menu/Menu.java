@@ -151,14 +151,30 @@ public class Menu extends JMenuBar {
         aboutMenu.setMnemonic(KeyEvent.VK_A);
 
         final JMenuItem aboutUsItem = new JMenuItem("About Us");
+        final JMenuItem scoreItem = new JMenuItem("Scoring Info");
 
         aboutMenu.add(aboutUsItem);
+        aboutMenu.addSeparator();
+        aboutMenu.add(scoreItem);
 
         aboutUsItem.addActionListener(theEvent ->
                 JOptionPane.showMessageDialog(null, """
                 Group 7 Tetris Project - Sprint 3
                 Group Members: Tyler, James, Josh, Cam
                 This is version 1.2 of our Tetris project
+                """));
+
+        scoreItem.addActionListener(theEvent ->
+                JOptionPane.showMessageDialog(null, """
+                How the scoring works:
+                Points are awarded based on the amount of lines cleared,
+                and the level that you are currently on.
+                Every 5 lines cleared, you progress 1 level.
+                For example, given that you are on level n,
+                1 line cleared = 40 * n points awarded.
+                2 lines cleared = 100 * n points awarded.
+                3 lines cleared = 300 * n points awarded.
+                4 lines cleared = 1200 * n points awarded.
                 """));
 
         return aboutMenu;
