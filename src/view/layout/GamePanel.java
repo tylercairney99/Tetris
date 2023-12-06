@@ -1,12 +1,10 @@
-package view.Layout;
+package view.layout;
 
 import model.Board;
-import model.MovableTetrisPiece;
 import model.TetrisPiece;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
