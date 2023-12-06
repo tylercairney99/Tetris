@@ -55,6 +55,16 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     private int myScore;
 
     /**
+     * Number of lines cleared by the player.
+     */
+    private int myLinesCleared;
+
+    /**
+     * The level of the game.
+     */
+    private int myLevel;
+
+    /**
      * Panel used to display the player's score.
      * Sets background color.
      *
@@ -63,6 +73,8 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     public ScorePanel() {
         super();
         myScore = 0;
+        myLinesCleared = 0;
+        myLevel = 1;
 
         if (count > 0) {
             throw new IllegalArgumentException("Only one ScorePanel allowed");
@@ -91,10 +103,32 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
         theGraphics.drawString("Score: " + myScore, TEXT_X, TEXT_Y);
     }
 
+    private void calculateScore() {
+        int score = 0;
+        switch (myLinesCleared) {
+            case 1:
+                score = 40;
+                break;
+            case 2:
+                score = 100;
+                break;
+            case 3:
+                score = 300;
+                break;
+            case 4:
+                score = 1200;
+                break;
+            default: //this should never happen
+                break;
+        }
+        myScore += score * myLevel;
+    }
+
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
         if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
-            myScore += SCORE_GAIN; //multiply by rows cleared.
+            myLinesCleared++;
+            calculateScore();
             repaint();
         }
     }
