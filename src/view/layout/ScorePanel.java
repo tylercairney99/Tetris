@@ -144,7 +144,7 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
         if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
-            myLinesCleared++;
+            //TODO need to update the level and the number of lines cleared here?
             calculateScore();
             repaint();
         }
