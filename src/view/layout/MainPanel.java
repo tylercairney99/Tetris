@@ -26,7 +26,7 @@ import model.TetrisPiece;
  * @author Group 7
  * @version Autumn 2023
  */
-public class MainPanel extends JPanel implements PropertyChangeListener {
+public class MainPanel extends JPanel {
 
     /**
      * Ensures only one panel is instantiated.
@@ -80,11 +80,10 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
     /**
      * Constructs a MainPanel object.
      *
-     * @param theBoard theBoard
-     * @param theGameTimer theGameTimer
+     * @param theBoard          theBoard
+     * @param theGameTimer      theGameTimer
      * @param theNextPiecePanel theNextPiecePanel which has already been constructed
-     * @param theGamePanel theGamePanel which has already been constructed
-     *
+     * @param theGamePanel      theGamePanel which has already been constructed
      * @throws IllegalArgumentException if more than one ControlPanel is instantiated.
      */
 
@@ -115,7 +114,7 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
      */
     private void buildComponents() {
         mySecondaryPanel = new JPanel();
-        myControlPanel= new ControlPanel();
+        myControlPanel = new ControlPanel();
         myScorePanel = new ScorePanel(myGameTimer);
 
         myGamePanel.setPreferredSize(new Dimension(200, 400));
@@ -159,23 +158,32 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
 
     class ControlKeyListener extends KeyAdapter {
 
-        private final Map<Integer, Runnable> myKeyMappings;
-
         ControlKeyListener() {
             super();
-            myKeyMappings = new HashMap<>();
-            mapKeys();
         }
 
-        private void mapKeys() {
-            myKeyMappings.put(KeyEvent.VK_RIGHT, myBoard::right);
-            myKeyMappings.put(KeyEvent.VK_D, myBoard::right);
-            myKeyMappings.put(KeyEvent.VK_DOWN, myBoard::down);
-            myKeyMappings.put(KeyEvent.VK_S, myBoard::down);
-            myKeyMappings.put(KeyEvent.VK_UP, myBoard::rotateCW);
-            myKeyMappings.put(KeyEvent.VK_W, myBoard::rotateCW);
-            myKeyMappings.put(KeyEvent.VK_SPACE, myBoard::drop);
-            myKeyMappings.put(KeyEvent.VK_P, () -> {
+        @Override
+        public void keyPressed(final KeyEvent theEvent) {
+            if (myGameTimer.isRunning()) {
+                if (theEvent.getKeyCode() == KeyEvent.VK_RIGHT || theEvent.getKeyCode() == KeyEvent.VK_D) {
+                    myBoard.right();
+                    System.out.println("right");
+                } else if (theEvent.getKeyCode() == KeyEvent.VK_LEFT || theEvent.getKeyCode() == KeyEvent.VK_A) {
+                    myBoard.left();
+                    System.out.println("left");
+                } else if (theEvent.getKeyCode() == KeyEvent.VK_DOWN || theEvent.getKeyCode() == KeyEvent.VK_S) {
+                    myBoard.down();
+                    System.out.println("down");
+                } else if (theEvent.getKeyCode() == KeyEvent.VK_UP || theEvent.getKeyCode() == KeyEvent.VK_W) {
+                    myBoard.rotateCW();
+                    System.out.println("rotate");
+                } else if (theEvent.getKeyCode() == KeyEvent.VK_SPACE) {
+                    myBoard.drop();
+                    System.out.println("drop");
+                }
+            }
+            if (theEvent.getKeyCode() == KeyEvent.VK_P) {
+                System.out.println("pause");
                 if (myGameTimer.isRunning()) {
                     myGameTimer.stop();
                     pauseMusic();
@@ -183,22 +191,50 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
                     myGameTimer.start();
                     playMusic();
                 }
-            });
-        }
-
-        @Override
-        public void keyPressed(final KeyEvent theEvent) {
-            if (myKeyMappings.containsKey(theEvent.getKeyCode()) && myGameTimer.isRunning()) {
-                myKeyMappings.get(theEvent.getKeyCode()).run();
-            } else if (theEvent.getKeyCode() == KeyEvent.VK_P) {
-                myKeyMappings.get(theEvent.getKeyCode()).run();
             }
         }
     }
 
-    @Override
-    public void propertyChange(final PropertyChangeEvent theEvent) {
-    }
+//    class ControlKeyListener extends KeyAdapter {
+//
+//        private final Map<Integer, Runnable> myKeyMappings;
+//
+//        ControlKeyListener() {
+//            super();
+//            myKeyMappings = new HashMap<>();
+//            mapKeys();
+//        }
+//
+//        private void mapKeys() {
+//            myKeyMappings.put(KeyEvent.VK_RIGHT, myBoard::right);
+//            myKeyMappings.put(KeyEvent.VK_D, myBoard::right);
+//            myKeyMappings.put(KeyEvent.VK_LEFT, myBoard::left);
+//            myKeyMappings.put(KeyEvent.VK_A, myBoard::left);
+//            myKeyMappings.put(KeyEvent.VK_DOWN, myBoard::down);
+//            myKeyMappings.put(KeyEvent.VK_S, myBoard::down);
+//            myKeyMappings.put(KeyEvent.VK_UP, myBoard::rotateCW);
+//            myKeyMappings.put(KeyEvent.VK_W, myBoard::rotateCW);
+//            myKeyMappings.put(KeyEvent.VK_SPACE, myBoard::drop);
+//            myKeyMappings.put(KeyEvent.VK_P, () -> {
+//                if (myGameTimer.isRunning()) {
+//                    myGameTimer.stop();
+//                    pauseMusic();
+//                } else {
+//                    myGameTimer.start();
+//                    playMusic();
+//                }
+//            });
+//        }
+//
+//        @Override
+//        public void keyPressed(final KeyEvent theEvent) {
+//            if (myKeyMappings.containsKey(theEvent.getKeyCode()) && myGameTimer.isRunning()) {
+//                myKeyMappings.get(theEvent.getKeyCode()).run();
+//            } else if (theEvent.getKeyCode() == KeyEvent.VK_P) {
+//                myKeyMappings.get(theEvent.getKeyCode()).run();
+//            }
+//        }
+//     }
 
     private void createMusic(final File theMusicFile) {
         try {
