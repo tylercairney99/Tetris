@@ -9,6 +9,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -142,30 +144,38 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
     }
 
     class ControlKeyListener extends KeyAdapter {
-        @Override
-        public void keyPressed(final KeyEvent theEvent) {
 
-            if (myGameTimer.isRunning()) {
-                if (theEvent.getKeyCode() == KeyEvent.VK_LEFT) {
-                    myBoard.left();
-                } else if (theEvent.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    myBoard.right();
-                } else if (theEvent.getKeyCode() == KeyEvent.VK_DOWN) {
-                    myBoard.down();
-                } else if (theEvent.getKeyCode() == KeyEvent.VK_Z) {
-                    myBoard.rotateCCW();
-                } else if (theEvent.getKeyCode() == KeyEvent.VK_X) {
-                    myBoard.rotateCW();
-                } else if (theEvent.getKeyCode() == KeyEvent.VK_SPACE) {
-                    myBoard.drop();
-                }
-            }
-            if (theEvent.getKeyCode() == KeyEvent.VK_P) {
+        private final Map<Integer, Runnable> myKeyMappings;
+
+        ControlKeyListener() {
+            super();
+            myKeyMappings = new HashMap<>();
+            mapKeys();
+        }
+
+        private void mapKeys() {
+            myKeyMappings.put(KeyEvent.VK_RIGHT, myBoard::right);
+            myKeyMappings.put(KeyEvent.VK_D, myBoard::right);
+            myKeyMappings.put(KeyEvent.VK_DOWN, myBoard::down);
+            myKeyMappings.put(KeyEvent.VK_S, myBoard::down);
+            myKeyMappings.put(KeyEvent.VK_UP, myBoard::rotateCW);
+            myKeyMappings.put(KeyEvent.VK_W, myBoard::rotateCW);
+            myKeyMappings.put(KeyEvent.VK_SPACE, myBoard::drop);
+            myKeyMappings.put(KeyEvent.VK_P, () -> {
                 if (myGameTimer.isRunning()) {
                     myGameTimer.stop();
                 } else {
                     myGameTimer.start();
                 }
+            });
+        }
+
+        @Override
+        public void keyPressed(final KeyEvent theEvent) {
+            if (myKeyMappings.containsKey(theEvent.getKeyCode()) && myGameTimer.isRunning()) {
+                myKeyMappings.get(theEvent.getKeyCode()).run();
+            } else if (theEvent.getKeyCode() == KeyEvent.VK_P) {
+                myKeyMappings.get(theEvent.getKeyCode()).run();
             }
         }
     }

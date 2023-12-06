@@ -1,8 +1,6 @@
 package view.layout;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridLayout;
+import java.awt.*;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -39,25 +37,38 @@ public class ControlPanel extends JPanel {
      */
     private void setUpPanel() {
         setBackground(Color.GREEN);
-
         setLayout(new BorderLayout());
+        final JLabel controlLabel = new JLabel(" Controls:");
+        add(controlLabel, BorderLayout.NORTH);
 
-        final JPanel controlPanel = new JPanel(new GridLayout(7, 2));
-        controlPanel.setOpaque(false);
-        controlPanel.add(new JLabel("Move Left:"));
-        controlPanel.add(new JLabel("left arrow"));
-        controlPanel.add(new JLabel("Move Right"));
-        controlPanel.add(new JLabel("right arrow"));
-        controlPanel.add(new JLabel("Move Down"));
-        controlPanel.add(new JLabel("down arrow"));
-        controlPanel.add(new JLabel("Rotate CCW:"));
-        controlPanel.add(new JLabel("Z"));
-        controlPanel.add(new JLabel("Rotate CW:"));
-        controlPanel.add(new JLabel("X"));
-        controlPanel.add(new JLabel("Drop:"));
-        controlPanel.add(new JLabel("space"));
-        controlPanel.add(new JLabel("Pause:"));
-        controlPanel.add(new JLabel("P"));
-        add(controlPanel, BorderLayout.PAGE_START);
+        setUpLeftPanel();
+        setUpRightPanel();
+    }
+    private void setUpLeftPanel() {
+        final JPanel leftPanel = new JPanel(new GridLayout(6, 1));
+        add(leftPanel, BorderLayout.WEST);
+        leftPanel.setPreferredSize(new Dimension(50, 100));
+        leftPanel.setOpaque(false);
+
+        leftPanel.add(new JLabel(" Left:"));
+        leftPanel.add(new JLabel(" Right:"));
+        leftPanel.add(new JLabel(" Down:"));
+        leftPanel.add(new JLabel(" Rotate:"));
+        leftPanel.add(new JLabel(" Drop:"));
+        leftPanel.add(new JLabel(" Pause:"));
+    }
+
+    private void setUpRightPanel() {
+        final JPanel rightPanel = new JPanel(new GridLayout(6, 1));
+        add(rightPanel, BorderLayout.EAST);
+        rightPanel.setPreferredSize(new Dimension(110, 100));
+        rightPanel.setOpaque(false);
+
+        rightPanel.add(new JLabel(" left arrow / A"));
+        rightPanel.add(new JLabel(" right arrow / D"));
+        rightPanel.add(new JLabel(" down arrow / S"));
+        rightPanel.add(new JLabel(" up arrow / W"));
+        rightPanel.add(new JLabel(" space"));
+        rightPanel.add(new JLabel(" P"));
     }
 }
