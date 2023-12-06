@@ -143,10 +143,6 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
         }
     }
 
-    private void changeDifficulty() {
-
-    }
-
     /**
      * Updates the score when a row is cleared.
      */
