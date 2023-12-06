@@ -145,9 +145,10 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
 
     class ControlKeyListener extends KeyAdapter {
 
-        private Map<Integer, Runnable> myKeyMappings;
+        private final Map<Integer, Runnable> myKeyMappings;
 
         ControlKeyListener() {
+            super();
             myKeyMappings = new HashMap<>();
             mapKeys();
         }
