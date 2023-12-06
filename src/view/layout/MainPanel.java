@@ -171,7 +171,9 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
 
         @Override
         public void keyPressed(final KeyEvent theEvent) {
-            if (myKeyMappings.containsKey(theEvent.getKeyCode())) {
+            if (myKeyMappings.containsKey(theEvent.getKeyCode()) && myGameTimer.isRunning()) {
+                myKeyMappings.get(theEvent.getKeyCode()).run();
+            } else if (theEvent.getKeyCode() == KeyEvent.VK_P) {
                 myKeyMappings.get(theEvent.getKeyCode()).run();
             }
         }
