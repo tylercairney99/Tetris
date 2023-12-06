@@ -45,6 +45,28 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     private static final int SCORE_GAIN = 10;
 
     /**
+     * Score gained for one row cleared.
+     */
+    private static final int ONE_LINE_CLEARED = 40;
+    /**
+     * Score gained for two rows cleared.
+     */
+    private static final int TWO_LINES_CLEARED = 100;
+    /**
+     * Score gained for three rows cleared.
+     */
+    private static final int THREE_LINES_CLEARED = 300;
+    /**
+     * Score gained for four rows cleared.
+     */
+    private static final int FOUR_LINES_CLEARED = 1200;
+
+    /**
+     * Level up every 5 rows cleared.
+     */
+    private static final int LEVEL_UP = 5;
+
+    /**
      * Ensures only one panel is instantiated.
      */
     private static int count;
@@ -55,6 +77,16 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     private int myScore;
 
     /**
+     * Number of lines cleared by the player.
+     */
+    private int myLinesCleared;
+
+    /**
+     * The level of the game.
+     */
+    private int myLevel;
+
+    /**
      * Panel used to display the player's score.
      * Sets background color.
      *
@@ -63,6 +95,8 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     public ScorePanel() {
         super();
         myScore = 0;
+        myLinesCleared = 0;
+        myLevel = 1;
 
         if (count > 0) {
             throw new IllegalArgumentException("Only one ScorePanel allowed");
@@ -91,10 +125,41 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
         theGraphics.drawString("Score: " + myScore, TEXT_X, TEXT_Y);
     }
 
+    /**
+     * Updates the score when a 5 rows are cleared.
+     */
+    private void calculateLevel() {
+        if (myLinesCleared % LEVEL_UP == 0) {
+            myLevel++;
+        }
+    }
+
+    private void calculateScore() {
+        int score = 0;
+        switch (myLinesCleared) {
+            case 1:
+                score = ONE_LINE_CLEARED;
+                break;
+            case 2:
+                score = TWO_LINES_CLEARED;
+                break;
+            case 3:
+                score = THREE_LINES_CLEARED;
+                break;
+            case 4:
+                score = FOUR_LINES_CLEARED;
+                break;
+            default: //this should never happen
+                break;
+        }
+        myScore += score * myLevel;
+    }
+
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
         if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
-            myScore += SCORE_GAIN; //multiply by rows cleared.
+            calculateLevel();
+            calculateScore();
             repaint();
         }
     }

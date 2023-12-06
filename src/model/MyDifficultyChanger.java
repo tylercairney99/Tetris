@@ -6,7 +6,7 @@ package model;
  * @author Group 7
  * @version 1.0
  */
-public interface DifficultyChanger  {
+public interface MyDifficultyChanger {
 
     /**
      * This method sets the new difficulty for the game,
