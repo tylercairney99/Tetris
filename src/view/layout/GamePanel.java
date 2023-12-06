@@ -74,9 +74,6 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
 
     private int myY;
 
-
-
-
     /**
      * Panel that will show the game board with tetrominos in play.
      * Sets background to assigned color.
@@ -105,6 +102,16 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
             myY = tempPoint.y();
             repaint();
         }
+        if (PROPERTY_BOARD_CHANGES.equals(theEvent.getPropertyName())) {
+            setBackground(Color.PINK);
+            repaint();
+        }
+        if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName())) {
+            setBackground(Color.BLACK);
+        }
+        if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
+            setBackground(Color.ORANGE);
+        }
     }
 
     @Override
@@ -116,33 +123,36 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
         if (myCurrentTetrisPiece != null) {
+            System.out.println(myX);
+            System.out.println(myY);
+
             switch (myCurrentTetrisPiece) {
                 case I:
-                    createIShape(g2d, BLOCK_HEIGHT, myY,
+                    createIShape(g2d, BLOCK_HEIGHT, getHeight() - myY * BLOCK_HEIGHT,
                             myX);
                     break;
                 case L:
-                    createLShape(g2d, BLOCK_HEIGHT, myY,
+                    createLShape(g2d, BLOCK_HEIGHT, getHeight() - myY * BLOCK_HEIGHT,
                             myX);
                     break;
                 case J:
-                    createJShape(g2d, BLOCK_HEIGHT, myY,
+                    createJShape(g2d, BLOCK_HEIGHT, getHeight() - myY * BLOCK_HEIGHT,
                             myX);
                     break;
                 case O:
-                    createOShape(g2d, BLOCK_HEIGHT, myY,
+                    createOShape(g2d, BLOCK_HEIGHT, getHeight() - myY * BLOCK_HEIGHT,
                             myX);
                     break;
                 case S:
-                    createSShape(g2d, BLOCK_HEIGHT, myY,
+                    createSShape(g2d, BLOCK_HEIGHT, getHeight() - myY * BLOCK_HEIGHT,
                             myX);
                     break;
                 case T:
-                    createTShape(g2d, BLOCK_HEIGHT, myY,
+                    createTShape(g2d, BLOCK_HEIGHT, getHeight() - myY * BLOCK_HEIGHT,
                             myX);
                     break;
                 case Z:
-                    createZShape(g2d, BLOCK_HEIGHT, myY,
+                    createZShape(g2d, BLOCK_HEIGHT, getHeight() - myY * BLOCK_HEIGHT,
                             myX);
                     break;
                 default:

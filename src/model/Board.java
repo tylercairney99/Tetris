@@ -223,7 +223,7 @@ public class Board implements MyBoard {
         myDrop = false;
 
         // TODO Publish Update!
-        //prepareNextMovablePiece(); // MIGHT NEED TO CHANGE LATER
+//        prepareNextMovablePiece(); // MIGHT NEED TO CHANGE LATER
     }
 
     /**
@@ -236,7 +236,6 @@ public class Board implements MyBoard {
         myNonRandomPieces = new ArrayList<>(thePieces);
         mySequenceIndex = 0;
         myCurrentPiece = nextMovablePiece(true);
-        myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, myCurrentPiece);
     }
 
     /**
@@ -482,6 +481,7 @@ public class Board implements MyBoard {
             if (complete) {
                 completeRows.add(myFrozenBlocks.indexOf(row));
                 notifyBoardChanges();
+                clearRows();
                 // TODO Publish Update!
             }
         }
@@ -741,11 +741,8 @@ public class Board implements MyBoard {
         System.out.println("Firing next piece change: " + myNextPiece); // DELETE LATER
     }
 
-
     private void notifyBoardChanges() {
         myPcs.firePropertyChange(PROPERTY_BOARD_CHANGES, null, getBoard());
     }
-
-
 
 }
