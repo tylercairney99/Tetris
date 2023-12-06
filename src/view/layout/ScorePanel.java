@@ -9,7 +9,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 
 /**
@@ -66,6 +66,8 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
      */
     private static final int LEVEL_UP = 5;
 
+    private static final int LEVEL_UP_TIMER_CHANGE = 100;
+
     /**
      * Ensures only one panel is instantiated.
      */
@@ -79,7 +81,7 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     /**
      * Number of lines cleared by the player.
      */
-    private int myLinesCleared;
+    private final int myLinesCleared;
 
     /**
      * The level of the game.
@@ -87,16 +89,22 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     private int myLevel;
 
     /**
+     * Timer to manage game updates at regular intervals.
+     */
+    private final Timer myGameTimer;
+
+    /**
      * Panel used to display the player's score.
      * Sets background color.
      *
      * @throws IllegalArgumentException if more than one ScorePanel is instantiated.
      */
-    public ScorePanel() {
+    public ScorePanel(final Timer theGameTimer) {
         super();
         myScore = 0;
         myLinesCleared = 0;
         myLevel = 1;
+        this.myGameTimer = theGameTimer;
 
         if (count > 0) {
             throw new IllegalArgumentException("Only one ScorePanel allowed");
@@ -126,14 +134,22 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     }
 
     /**
-     * Updates the score when a 5 rows are cleared.
+     * Updates the score and timer when a 5 rows are cleared.
      */
     private void calculateLevel() {
         if (myLinesCleared % LEVEL_UP == 0) {
             myLevel++;
+            myGameTimer.setDelay(myGameTimer.getDelay() - LEVEL_UP_TIMER_CHANGE);
         }
     }
 
+    private void changeDifficulty() {
+
+    }
+
+    /**
+     * Updates the score when a row is cleared.
+     */
     private void calculateScore() {
         int score = 0;
         switch (myLinesCleared) {

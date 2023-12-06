@@ -118,7 +118,7 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
     private void buildComponents() {
         mySecondaryPanel = new JPanel();
         myControlPanel= new ControlPanel();
-        myScorePanel = new ScorePanel();
+        myScorePanel = new ScorePanel(myGameTimer);
 
         myGamePanel.setPreferredSize(new Dimension(200, 400));
         myNextPiecePanel.setPreferredSize(new Dimension(160, 160));
