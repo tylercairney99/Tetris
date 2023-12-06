@@ -63,6 +63,23 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
      * The level of the game.
      */
     private int myLevel;
+    /**
+     * Score gained for one row cleared.
+     */
+    private final int ONE_LINE_CLEARED = 40;
+    /**
+     * Score gained for two rows cleared.
+     */
+    private final int TWO_LINES_CLEARED = 100;
+    /**
+     * Score gained for three rows cleared.
+     */
+    private final int THREE_LINES_CLEARED = 300;
+    /**
+     * Score gained for four rows cleared.
+     */
+    private final int FOUR_LINES_CLEARED = 1200;
+
 
     /**
      * Panel used to display the player's score.
@@ -107,16 +124,16 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
         int score = 0;
         switch (myLinesCleared) {
             case 1:
-                score = 40;
+                score = ONE_LINE_CLEARED;
                 break;
             case 2:
-                score = 100;
+                score = TWO_LINES_CLEARED;
                 break;
             case 3:
-                score = 300;
+                score = THREE_LINES_CLEARED;
                 break;
             case 4:
-                score = 1200;
+                score = FOUR_LINES_CLEARED;
                 break;
             default: //this should never happen
                 break;
