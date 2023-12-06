@@ -3,7 +3,6 @@ package view.layout;
 import java.awt.*;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.font.TextAttribute;
 
 /**
  * Control panel shows the controls for the game.
@@ -38,20 +37,18 @@ public class ControlPanel extends JPanel {
      */
     private void setUpPanel() {
         setBackground(Color.GREEN);
-
         setLayout(new BorderLayout());
+        final JLabel controlLabel = new JLabel(" Controls:");
+        add(controlLabel, BorderLayout.NORTH);
 
-        final JPanel leftPanel = new JPanel(new GridLayout(7, 1));
-        final JPanel rightPanel = new JPanel(new GridLayout(7,1));
-        final JLabel controlLabel = new JLabel("<HTML><U>Controls:</U></HTML>");
-
-        add (controlLabel, BorderLayout.NORTH);
+        setUpLeftPanel();
+        setUpRightPanel();
+    }
+    private void setUpLeftPanel() {
+        final JPanel leftPanel = new JPanel(new GridLayout(6, 1));
         add(leftPanel, BorderLayout.WEST);
-        add(rightPanel, BorderLayout.EAST);
         leftPanel.setPreferredSize(new Dimension(50, 100));
-        rightPanel.setPreferredSize(new Dimension(110, 100));
         leftPanel.setOpaque(false);
-        rightPanel.setOpaque(false);
 
         leftPanel.add(new JLabel(" Left:"));
         leftPanel.add(new JLabel(" Right:"));
@@ -59,14 +56,19 @@ public class ControlPanel extends JPanel {
         leftPanel.add(new JLabel(" Rotate:"));
         leftPanel.add(new JLabel(" Drop:"));
         leftPanel.add(new JLabel(" Pause:"));
+    }
 
-        rightPanel.add(new JLabel("left arrow / A"));
-        rightPanel.add(new JLabel("right arrow / D"));
-        rightPanel.add(new JLabel("down arrow / S"));
-        rightPanel.add(new JLabel("up arrow / W"));
-        rightPanel.add(new JLabel("space"));
-        rightPanel.add(new JLabel("P"));
+    private void setUpRightPanel() {
+        final JPanel rightPanel = new JPanel(new GridLayout(6, 1));
+        add(rightPanel, BorderLayout.EAST);
+        rightPanel.setPreferredSize(new Dimension(110, 100));
+        rightPanel.setOpaque(false);
 
-        //add(controlPanel, BorderLayout.PAGE_START);
+        rightPanel.add(new JLabel(" left arrow / A"));
+        rightPanel.add(new JLabel(" right arrow / D"));
+        rightPanel.add(new JLabel(" down arrow / S"));
+        rightPanel.add(new JLabel(" up arrow / W"));
+        rightPanel.add(new JLabel(" space"));
+        rightPanel.add(new JLabel(" P"));
     }
 }
