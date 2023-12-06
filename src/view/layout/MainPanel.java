@@ -154,11 +154,12 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
         }
 
         private void mapKeys() {
-            myKeyMappings.put(KeyEvent.VK_LEFT, myBoard::left);
             myKeyMappings.put(KeyEvent.VK_RIGHT, myBoard::right);
+            myKeyMappings.put(KeyEvent.VK_D, myBoard::right);
             myKeyMappings.put(KeyEvent.VK_DOWN, myBoard::down);
-            myKeyMappings.put(KeyEvent.VK_Z, myBoard::rotateCCW);
-            myKeyMappings.put(KeyEvent.VK_X, myBoard::rotateCW);
+            myKeyMappings.put(KeyEvent.VK_S, myBoard::down);
+            myKeyMappings.put(KeyEvent.VK_UP, myBoard::rotateCW);
+            myKeyMappings.put(KeyEvent.VK_W, myBoard::rotateCW);
             myKeyMappings.put(KeyEvent.VK_SPACE, myBoard::drop);
             myKeyMappings.put(KeyEvent.VK_P, () -> {
                 if (myGameTimer.isRunning()) {
