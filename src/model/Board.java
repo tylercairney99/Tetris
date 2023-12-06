@@ -58,7 +58,7 @@ public class Board implements MyBoard {
     /**
      * A property to check when / if the current piece changes.
      */
-    public static final String PROPERTY_CURRENT_PIECE_CHANGES = "The next piece changes.";
+    public static final String PROPERTY_CURRENT_PIECE_CHANGES = "The current piece changes.";
 
     /**
      * A property to check if the game is over.
@@ -219,10 +219,7 @@ public class Board implements MyBoard {
 
         myGameOver = false;
         myCurrentPiece = nextMovablePiece(true);
-        final Point currentPosition = myCurrentPiece.getPosition();
-        final int currentX = currentPosition.x();
-        final int currentY = currentPosition.y();
-        myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, currentY, currentX);
+        myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, myCurrentPiece);
         myDrop = false;
 
         // TODO Publish Update!
@@ -239,10 +236,7 @@ public class Board implements MyBoard {
         myNonRandomPieces = new ArrayList<>(thePieces);
         mySequenceIndex = 0;
         myCurrentPiece = nextMovablePiece(true);
-        final Point currentPosition = myCurrentPiece.getPosition();
-        final int currentX = currentPosition.x();
-        final int currentY = currentPosition.y();
-        myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, currentY, currentX);
+        myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, myCurrentPiece);
     }
 
     /**

@@ -63,16 +63,19 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
     /**
      * Current tetromino in play of type MovableTetrisPiece.
      */
-    private MovableTetrisPiece myCurrentTetrisPiece;
+    private MovableTetrisPiece myMovableTetrisPiece;
 
     /**
      * Current tetromino in play of type TetrisPiece.
      */
-    private TetrisPiece myCurrentPiece;
+    private TetrisPiece myCurrentTetrisPiece;
 
-    private int myCurrentX;
+    private int myX;
 
-    private int myCurrentY;
+    private int myY;
+
+
+
 
     /**
      * Panel that will show the game board with tetrominos in play.
@@ -94,18 +97,13 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
-        if (PROPERTY_CURRENT_PIECE_CHANGES.equals(theEvent.getPropertyName())) { //fired in Board line 225 & 245
-
-            myCurrentX = (int) theEvent.getNewValue(); //newValue should be x int of point
-            myCurrentY = (int) theEvent.getOldValue(); //oldValue should be y int of point neither accepts cast.
-
+        if (PROPERTY_CURRENT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
+            myMovableTetrisPiece = (MovableTetrisPiece) theEvent.getNewValue();
+            myCurrentTetrisPiece = myMovableTetrisPiece.getTetrisPiece();
+            Point tempPoint = myMovableTetrisPiece.getPosition();
+            myX = tempPoint.x();
+            myY = tempPoint.y();
             repaint();
-
-
-
-//previous code keeping just in case ------
-//            myCurrentTetrisPiece = (MovableTetrisPiece) theEvent.getNewValue();
-//            myCurrentPiece = myCurrentTetrisPiece.getTetrisPiece();
         }
         if (PROPERTY_BOARD_CHANGES.equals(theEvent.getPropertyName())) {
             setBackground(Color.PINK);
@@ -119,50 +117,86 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
     }
 
     @Override
-    public void paintComponent(final Graphics theGraphics) { //Should paint piece at current location.
+    public void paintComponent(final Graphics theGraphics) {
         super.paintComponent(theGraphics);
         final Graphics2D g2d = (Graphics2D) theGraphics;
         g2d.setStroke(new BasicStroke(STROKE_WIDTH));
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        if (myCurrentPiece != null) {
-            final Point currentPoints = myCurrentTetrisPiece.getPosition();
-//            final int currentX = currentPoints.x();
-//            final int currentY = currentPoints.y();
-            switch (myCurrentPiece) {
+        if (myCurrentTetrisPiece != null) {
+            switch (myCurrentTetrisPiece) {
                 case I:
-                    createIShape(g2d, BLOCK_HEIGHT, myCurrentY,
-                            myCurrentX);
+                    createIShape(g2d, BLOCK_HEIGHT, myY,
+                            myX);
                     break;
                 case L:
-                    createLShape(g2d, BLOCK_HEIGHT, myCurrentY,
-                            myCurrentX);
+                    createLShape(g2d, BLOCK_HEIGHT, myY,
+                            myX);
                     break;
                 case J:
-                    createJShape(g2d, BLOCK_HEIGHT, myCurrentY,
-                            myCurrentX);
+                    createJShape(g2d, BLOCK_HEIGHT, myY,
+                            myX);
                     break;
                 case O:
-                    createOShape(g2d, BLOCK_HEIGHT, myCurrentY,
-                            myCurrentX);
+                    createOShape(g2d, BLOCK_HEIGHT, myY,
+                            myX);
                     break;
                 case S:
-                    createSShape(g2d, BLOCK_HEIGHT, myCurrentY,
-                            myCurrentX);
+                    createSShape(g2d, BLOCK_HEIGHT, myY,
+                            myX);
                     break;
                 case T:
-                    createTShape(g2d, BLOCK_HEIGHT, myCurrentY,
-                            myCurrentX);
+                    createTShape(g2d, BLOCK_HEIGHT, myY,
+                            myX);
                     break;
                 case Z:
-                    createZShape(g2d, BLOCK_HEIGHT, myCurrentY,
-                            myCurrentX);
+                    createZShape(g2d, BLOCK_HEIGHT, myY,
+                            myX);
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: "
                             + myCurrentTetrisPiece);
             }
         }
-    }
+
+//        if (myCurrentPiece != null) {
+//        final Point currentPoints = myCurrentTetrisPiece.getPosition();
+////            final int currentX = currentPoints.x();
+////            final int currentY = currentPoints.y();
+//        switch (myCurrentPiece) {
+//            case I:
+//                createIShape(g2d, BLOCK_HEIGHT, myCurrentY,
+//                        myCurrentX);
+//                break;
+//            case L:
+//                createLShape(g2d, BLOCK_HEIGHT, myCurrentY,
+//                        myCurrentX);
+//                break;
+//            case J:
+//                createJShape(g2d, BLOCK_HEIGHT, myCurrentY,
+//                        myCurrentX);
+//                break;
+//            case O:
+//                createOShape(g2d, BLOCK_HEIGHT, myCurrentY,
+//                        myCurrentX);
+//                break;
+//            case S:
+//                createSShape(g2d, BLOCK_HEIGHT, myCurrentY,
+//                        myCurrentX);
+//                break;
+//            case T:
+//                createTShape(g2d, BLOCK_HEIGHT, myCurrentY,
+//                        myCurrentX);
+//                break;
+//            case Z:
+//                createZShape(g2d, BLOCK_HEIGHT, myCurrentY,
+//                        myCurrentX);
+//                break;
+//            default:
+//                throw new IllegalStateException("Unexpected value: "
+//                        + myCurrentTetrisPiece);
+//        }
+//    }
+}
 }

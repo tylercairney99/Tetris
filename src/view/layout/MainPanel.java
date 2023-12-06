@@ -9,8 +9,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -69,6 +73,12 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
     private final Timer myGameTimer;
 
     /**
+     * Clip of music to be played.
+     */
+    private Clip myClip;
+
+
+    /**
      * Constructs a MainPanel object.
      *
      * @param theBoard theBoard
@@ -79,7 +89,9 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
      * @throws IllegalArgumentException if more than one ControlPanel is instantiated.
      */
 
-    public MainPanel(final Board theBoard, final Timer theGameTimer, final NextPiecePanel theNextPiecePanel, final GamePanel theGamePanel) {
+    public MainPanel(final Board theBoard, final Timer theGameTimer,
+                     final NextPiecePanel theNextPiecePanel, final GamePanel theGamePanel,
+                     final File theMusicFile) {
         super();
 
         if (count > 0) {
@@ -87,10 +99,13 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
         }
         count++;
 
-        this.myBoard = theBoard;
+        this.myBoard = theBoard;  //Can we remove the this.s
         this.myGameTimer = theGameTimer;
         this.myNextPiecePanel = theNextPiecePanel;
         this.myGamePanel = theGamePanel;
+
+        createMusic(theMusicFile);
+
         buildComponents();
         layoutComponents();
         addListeners();
@@ -133,6 +148,8 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
             if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName())
                     && (Boolean) theEvent.getNewValue()) {
                 myGameTimer.stop();
+                pauseMusic();
+
                 JOptionPane.showMessageDialog(null, "Game Over U Suck!");
             } else if (PROPERTY_NEXT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
                 final TetrisPiece nextPiece = (TetrisPiece) theEvent.getNewValue();
@@ -164,8 +181,10 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
             myKeyMappings.put(KeyEvent.VK_P, () -> {
                 if (myGameTimer.isRunning()) {
                     myGameTimer.stop();
+                    pauseMusic();
                 } else {
                     myGameTimer.start();
+                    playMusic();
                 }
             });
         }
@@ -182,5 +201,24 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
+    }
+
+    private void createMusic(final File theMusicFile) {
+        try {
+            final AudioInputStream audioInput = AudioSystem.getAudioInputStream(theMusicFile);
+            myClip = AudioSystem.getClip();
+            myClip.open(audioInput);
+        } catch (final Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    private void playMusic() {
+        myClip.start();
+        System.out.println("music play");
+    }
+
+    private void pauseMusic() {
+        myClip.stop();
     }
 }

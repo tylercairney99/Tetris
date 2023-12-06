@@ -2,6 +2,7 @@ package view.controller;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.io.File;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -76,6 +77,11 @@ public class TetrisGUI implements DifficultyChanger {
      */
     private final Timer myGameTimer;
 
+    /**
+     * Location of music in the file.
+     */
+    private final File myMusicFile;
+
     //private final TetrisGUI myTetrisGUI;
 
     /**
@@ -87,6 +93,9 @@ public class TetrisGUI implements DifficultyChanger {
         myBoard = new Board();
         myNextPiecePanel = new NextPiecePanel(myBoard);
         myGamePanel = new GamePanel(myBoard);
+
+        myMusicFile = new File("src/music/music.wav");
+
 
         myBoard.addPropertyChangeListener(myNextPiecePanel);
         myBoard.addPropertyChangeListener(myGamePanel);
@@ -110,7 +119,7 @@ public class TetrisGUI implements DifficultyChanger {
         frame.setLayout(new BorderLayout());
 
         final MainPanel mainPanel = new MainPanel(myBoard, myGameTimer,
-                myNextPiecePanel, myGamePanel);
+                myNextPiecePanel, myGamePanel, myMusicFile);
 
         frame.setJMenuBar(new Menu(myBoard, myGameTimer, this));
         frame.add(mainPanel, BorderLayout.CENTER);
