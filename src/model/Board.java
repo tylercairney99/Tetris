@@ -218,9 +218,11 @@ public class Board implements MyBoard {
         }
 
         myGameOver = false;
-        TetrisPiece current = myNextPiece;
         myCurrentPiece = nextMovablePiece(true);
-        myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, current);
+        final Point currentPosition = myCurrentPiece.getPosition();
+        final int currentX = currentPosition.x();
+        final int currentY = currentPosition.y();
+        myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, currentY, currentX);
         myDrop = false;
 
         // TODO Publish Update!
@@ -236,9 +238,11 @@ public class Board implements MyBoard {
     public void setPieceSequence(final List<TetrisPiece> thePieces) {
         myNonRandomPieces = new ArrayList<>(thePieces);
         mySequenceIndex = 0;
-        TetrisPiece current = myNextPiece;
         myCurrentPiece = nextMovablePiece(true);
-        myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, current);
+        final Point currentPosition = myCurrentPiece.getPosition();
+        final int currentX = currentPosition.x();
+        final int currentY = currentPosition.y();
+        myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, currentY, currentX);
     }
 
     /**
