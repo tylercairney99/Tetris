@@ -4,10 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import model.Board;
-import model.DifficultyChanger;
+import model.MyDifficultyChanger;
 import view.layout.GamePanel;
 import view.layout.MainPanel;
 import view.layout.NextPiecePanel;
@@ -23,7 +24,7 @@ import view.menu.Menu;
  * @version 1.0.2
  *
  */
-public class TetrisGUI implements DifficultyChanger {
+public class TetrisGUI implements MyDifficultyChanger {
 
     /**
      * Sets the mode to easy difficulty (base difficulty).
@@ -155,10 +156,13 @@ public class TetrisGUI implements DifficultyChanger {
      */
     @Override
     public void changeDifficulty(final int theNewDifficulty) {
-        myCurrentDifficulty = theNewDifficulty;
-        myGameTimer.setDelay(theNewDifficulty);
-        myBoard.newGame();
-        myGameTimer.start();
+        if (myCurrentDifficulty != theNewDifficulty) {
+            myCurrentDifficulty = theNewDifficulty;
+            myGameTimer.setDelay(theNewDifficulty);
+
+        }
+        //myBoard.newGame();
+        JOptionPane.showMessageDialog(null, "Current Difficulty: " + getCurrentDifficulty());
     }
 
     /**
@@ -172,7 +176,7 @@ public class TetrisGUI implements DifficultyChanger {
             case EASY_DIFFICULTY -> "Easy";
             case MEDIUM_DIFFICULTY -> "Medium";
             case HARD_DIFFICULTY -> "Hard";
-            default -> "Default difficulty is easy";
+            default -> "Default difficulty is Easy";
         };
     }
 

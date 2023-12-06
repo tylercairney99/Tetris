@@ -117,18 +117,12 @@ public class Menu extends JMenuBar {
 
         difficultyEasyItem.addActionListener(theEvent -> {
             myTetrisGUI.changeDifficulty(TetrisGUI.EASY_DIFFICULTY);
-            JOptionPane.showMessageDialog(null,
-                    "A new game is starting on Easy difficulty!");
         });
         difficultyMediumItem.addActionListener(theEvent ->  {
             myTetrisGUI.changeDifficulty(TetrisGUI.MEDIUM_DIFFICULTY);
-            JOptionPane.showMessageDialog(null,
-                    "A new game is starting on Medium difficulty!");
         });
         difficultyHardItem.addActionListener(theEvent ->  {
             myTetrisGUI.changeDifficulty(TetrisGUI.HARD_DIFFICULTY);
-            JOptionPane.showMessageDialog(null,
-                    "A new game is starting on Hard difficulty!");
         });
 
         difficultyMenu.add(difficultyEasyItem);
