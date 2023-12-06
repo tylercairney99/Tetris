@@ -1,13 +1,5 @@
 package view.layout;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import javax.swing.JPanel;
 import static model.Board.PROPERTY_BOARD_CHANGES;
 import static model.Board.PROPERTY_CURRENT_PIECE_CHANGES;
 import static model.Board.PROPERTY_GAME_OVER;
@@ -20,14 +12,26 @@ import static model.PaintTetromino.createSShape;
 import static model.PaintTetromino.createTShape;
 import static model.PaintTetromino.createZShape;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import javax.swing.JPanel;
 import model.Board;
 import model.TetrisPiece;
 
-
 /**
- * Game panel shows the board and tetrominos in play.
+ * Panel that displays the Tetris game.
+ *
+ * @author James
+ * @author Josh
+ * @author Tyler
+ * @version 3.0
  */
-public class GamePanel extends JPanel implements PropertyChangeListener {
+public final class GamePanel extends JPanel implements PropertyChangeListener {
 
     /**
      * The width of each block being displayed.
@@ -53,6 +57,7 @@ public class GamePanel extends JPanel implements PropertyChangeListener {
      * The game board associated with this menu.
      */
     private final Board myBoard;
+
 
     /**
      * Current tetromino in play.
@@ -92,17 +97,6 @@ public class GamePanel extends JPanel implements PropertyChangeListener {
         if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
             setBackground(Color.ORANGE);
         }
-    }
-
-
-    /**
-     * Gets the next tetromino to be played.
-     *
-     * @param theNextPiece the next tetromino to be played.
-     */
-    public void getNextTetrisPiece(final TetrisPiece theNextPiece) {
-        myCurrentTetrisPiece = theNextPiece;
-        repaint();
     }
 
     @Override

@@ -1,8 +1,5 @@
 package view.layout;
 
-import model.Board;
-import model.TetrisPiece;
-
 import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
 import static model.PaintTetromino.createIShape;
 import static model.PaintTetromino.createJShape;
@@ -20,7 +17,8 @@ import java.awt.RenderingHints;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
-
+import model.Board;
+import model.TetrisPiece;
 
 /**
  *Next piece panel shows the next tetromino to be played.
@@ -29,7 +27,7 @@ import javax.swing.JPanel;
  * @author Tyler
  * @author Josh
  * @author Cam
- * @version 2.0
+ * @version 3.0
  */
 public final class NextPiecePanel extends JPanel implements PropertyChangeListener {
 
@@ -59,7 +57,7 @@ public final class NextPiecePanel extends JPanel implements PropertyChangeListen
     private TetrisPiece myNextTetrisPiece;
 
     /**
-     * The game board.
+     * The game board used to display next piece.
      */
     private Board myBoard;
 
