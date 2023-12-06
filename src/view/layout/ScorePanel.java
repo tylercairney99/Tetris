@@ -62,6 +62,11 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     private static final int FOUR_LINES_CLEARED = 1200;
 
     /**
+     * Level up every 5 rows cleared.
+     */
+    private static final int LEVEL_UP = 5;
+
+    /**
      * Ensures only one panel is instantiated.
      */
     private static int count;
@@ -120,6 +125,15 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
         theGraphics.drawString("Score: " + myScore, TEXT_X, TEXT_Y);
     }
 
+    /**
+     * Updates the score when a 5 rows are cleared.
+     */
+    private void calculateLevel() {
+        if (myLinesCleared % LEVEL_UP == 0) {
+            myLevel++;
+        }
+    }
+
     private void calculateScore() {
         int score = 0;
         switch (myLinesCleared) {
@@ -144,7 +158,7 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
         if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
-            //TODO need to update the level and the number of lines cleared here?
+            calculateLevel();
             calculateScore();
             repaint();
         }

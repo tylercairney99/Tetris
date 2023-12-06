@@ -58,7 +58,7 @@ public class Board implements MyBoard {
     /**
      * A property to check when / if the current piece changes.
      */
-    public static final String PROPERTY_CURRENT_PIECE_CHANGES = "The next piece changes.";
+    public static final String PROPERTY_CURRENT_PIECE_CHANGES = "The current piece changes.";
 
     /**
      * A property to check if the game is over.
