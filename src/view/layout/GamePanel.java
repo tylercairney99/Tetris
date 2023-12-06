@@ -128,32 +128,32 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
 
             switch (myCurrentTetrisPiece) {
                 case I:
-                    createIShape(g2d, BLOCK_HEIGHT, getHeight() - myY * BLOCK_HEIGHT,
-                            myX);
+                    createIShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 1) * BLOCK_HEIGHT,
+                            myX * BLOCK_HEIGHT);
                     break;
                 case L:
-                    createLShape(g2d, BLOCK_HEIGHT, getHeight() - myY * BLOCK_HEIGHT,
-                            myX);
+                    createLShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 1) * BLOCK_HEIGHT,
+                            myX * BLOCK_HEIGHT);
                     break;
                 case J:
-                    createJShape(g2d, BLOCK_HEIGHT, getHeight() - myY * BLOCK_HEIGHT,
-                            myX);
+                    createJShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 1) * BLOCK_HEIGHT,
+                            myX * BLOCK_HEIGHT);
                     break;
                 case O:
-                    createOShape(g2d, BLOCK_HEIGHT, getHeight() - myY * BLOCK_HEIGHT,
-                            myX);
+                    createOShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 1) * BLOCK_HEIGHT,
+                            myX * BLOCK_HEIGHT);
                     break;
                 case S:
-                    createSShape(g2d, BLOCK_HEIGHT, getHeight() - myY * BLOCK_HEIGHT,
-                            myX);
+                    createSShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 1) * BLOCK_HEIGHT,
+                            myX * BLOCK_HEIGHT);
                     break;
                 case T:
-                    createTShape(g2d, BLOCK_HEIGHT, getHeight() - myY * BLOCK_HEIGHT,
-                            myX);
+                    createTShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 1) * BLOCK_HEIGHT,
+                            myX * BLOCK_HEIGHT);
                     break;
                 case Z:
-                    createZShape(g2d, BLOCK_HEIGHT, getHeight() - myY * BLOCK_HEIGHT,
-                            myX);
+                    createZShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 1) * BLOCK_HEIGHT,
+                            myX * BLOCK_HEIGHT);
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: "
