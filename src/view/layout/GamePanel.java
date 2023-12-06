@@ -21,6 +21,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
 import model.Board;
+import model.MovableTetrisPiece;
+import model.Point;
 import model.TetrisPiece;
 
 /**
@@ -58,11 +60,19 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
      */
     private final Board myBoard;
 
+    /**
+     * Current tetromino in play of type MovableTetrisPiece.
+     */
+    private MovableTetrisPiece myCurrentTetrisPiece;
 
     /**
-     * Current tetromino in play.
+     * Current tetromino in play of type TetrisPiece.
      */
-    private TetrisPiece myCurrentTetrisPiece;
+    private TetrisPiece myCurrentPiece;
+
+    private int myCurrentX;
+
+    private int myCurrentY;
 
     /**
      * Panel that will show the game board with tetrominos in play.
@@ -84,9 +94,18 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
-        if (PROPERTY_CURRENT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
-            myCurrentTetrisPiece = (TetrisPiece) theEvent.getNewValue();
+        if (PROPERTY_CURRENT_PIECE_CHANGES.equals(theEvent.getPropertyName())) { //fired in Board line 225 & 245
+
+            myCurrentX = (int) theEvent.getNewValue(); //newValue should be x int of point
+            myCurrentY = (int) theEvent.getOldValue(); //oldValue should be y int of point neither accepts cast.
+
             repaint();
+
+
+
+//previous code keeping just in case ------
+//            myCurrentTetrisPiece = (MovableTetrisPiece) theEvent.getNewValue();
+//            myCurrentPiece = myCurrentTetrisPiece.getTetrisPiece();
         }
         if (PROPERTY_BOARD_CHANGES.equals(theEvent.getPropertyName())) {
             setBackground(Color.PINK);
@@ -100,42 +119,45 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
     }
 
     @Override
-    public void paintComponent(final Graphics theGraphics) {
+    public void paintComponent(final Graphics theGraphics) { //Should paint piece at current location.
         super.paintComponent(theGraphics);
         final Graphics2D g2d = (Graphics2D) theGraphics;
         g2d.setStroke(new BasicStroke(STROKE_WIDTH));
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        if (myCurrentTetrisPiece != null) {
-            switch (myCurrentTetrisPiece) {
+        if (myCurrentPiece != null) {
+            final Point currentPoints = myCurrentTetrisPiece.getPosition();
+//            final int currentX = currentPoints.x();
+//            final int currentY = currentPoints.y();
+            switch (myCurrentPiece) {
                 case I:
-                    createIShape(g2d, BLOCK_HEIGHT, 0,
-                            (getWidth() - 4 * BLOCK_HEIGHT) / 2);
+                    createIShape(g2d, BLOCK_HEIGHT, myCurrentY,
+                            myCurrentX);
                     break;
                 case L:
-                    createLShape(g2d, BLOCK_HEIGHT, 0,
-                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
+                    createLShape(g2d, BLOCK_HEIGHT, myCurrentY,
+                            myCurrentX);
                     break;
                 case J:
-                    createJShape(g2d, BLOCK_HEIGHT, 0,
-                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
+                    createJShape(g2d, BLOCK_HEIGHT, myCurrentY,
+                            myCurrentX);
                     break;
                 case O:
-                    createOShape(g2d, BLOCK_HEIGHT, 0,
-                            (getWidth() - 2 * BLOCK_HEIGHT) / 2);
+                    createOShape(g2d, BLOCK_HEIGHT, myCurrentY,
+                            myCurrentX);
                     break;
                 case S:
-                    createSShape(g2d, BLOCK_HEIGHT, 0,
-                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
+                    createSShape(g2d, BLOCK_HEIGHT, myCurrentY,
+                            myCurrentX);
                     break;
                 case T:
-                    createTShape(g2d, BLOCK_HEIGHT, 0,
-                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
+                    createTShape(g2d, BLOCK_HEIGHT, myCurrentY,
+                            myCurrentX);
                     break;
                 case Z:
-                    createZShape(g2d, BLOCK_HEIGHT, 0,
-                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
+                    createZShape(g2d, BLOCK_HEIGHT, myCurrentY,
+                            myCurrentX);
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: "
