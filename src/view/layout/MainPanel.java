@@ -3,8 +3,7 @@ package view.layout;
 import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
 import static model.Board.PROPERTY_GAME_OVER;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
@@ -109,7 +108,6 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
         buildComponents();
         layoutComponents();
         addListeners();
-
     }
 
     /**
@@ -145,8 +143,7 @@ public class MainPanel extends JPanel implements PropertyChangeListener {
      */
     private void addListeners() {
         myBoard.addPropertyChangeListener(theEvent -> {
-            if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName())
-                    && (Boolean) theEvent.getNewValue()) {
+            if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName()) && (Boolean) theEvent.getNewValue()) {
                 myGameTimer.stop();
                 pauseMusic();
 

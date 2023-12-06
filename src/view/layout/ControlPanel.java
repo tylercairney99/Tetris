@@ -36,7 +36,7 @@ public class ControlPanel extends JPanel {
      * Sets up the labels for the control panel.
      */
     private void setUpPanel() {
-        setBackground(Color.GREEN);
+        setBackground(Color.ORANGE);
         setLayout(new BorderLayout());
         final JLabel controlLabel = new JLabel(" Controls:");
         add(controlLabel, BorderLayout.NORTH);

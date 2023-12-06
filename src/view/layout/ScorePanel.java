@@ -103,7 +103,7 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
         }
         count++;
 
-        setBackground(Color.GREEN);
+        setBackground(Color.ORANGE);
         setLayout(new BorderLayout());
         final JPanel scorePanel = new JPanel(new FlowLayout());
         scorePanel.setOpaque(false);

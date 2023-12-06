@@ -91,8 +91,8 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
         count++;
 
         this.myBoard = theBoard;
-        this.myBoard.addPropertyChangeListener(this);
-        setBackground(Color.RED);
+        this.myBoard.addPropertyChangeListener( this);
+        setBackground(Color.BLACK);
     }
 
     @Override
@@ -104,15 +104,6 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
             myX = tempPoint.x();
             myY = tempPoint.y();
             repaint();
-        }
-        if (PROPERTY_BOARD_CHANGES.equals(theEvent.getPropertyName())) {
-            setBackground(Color.PINK);
-        }
-        if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName())) {
-            setBackground(Color.BLACK);
-        }
-        if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
-            setBackground(Color.ORANGE);
         }
     }
 
@@ -159,44 +150,5 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
                             + myCurrentTetrisPiece);
             }
         }
-
-//        if (myCurrentPiece != null) {
-//        final Point currentPoints = myCurrentTetrisPiece.getPosition();
-////            final int currentX = currentPoints.x();
-////            final int currentY = currentPoints.y();
-//        switch (myCurrentPiece) {
-//            case I:
-//                createIShape(g2d, BLOCK_HEIGHT, myCurrentY,
-//                        myCurrentX);
-//                break;
-//            case L:
-//                createLShape(g2d, BLOCK_HEIGHT, myCurrentY,
-//                        myCurrentX);
-//                break;
-//            case J:
-//                createJShape(g2d, BLOCK_HEIGHT, myCurrentY,
-//                        myCurrentX);
-//                break;
-//            case O:
-//                createOShape(g2d, BLOCK_HEIGHT, myCurrentY,
-//                        myCurrentX);
-//                break;
-//            case S:
-//                createSShape(g2d, BLOCK_HEIGHT, myCurrentY,
-//                        myCurrentX);
-//                break;
-//            case T:
-//                createTShape(g2d, BLOCK_HEIGHT, myCurrentY,
-//                        myCurrentX);
-//                break;
-//            case Z:
-//                createZShape(g2d, BLOCK_HEIGHT, myCurrentY,
-//                        myCurrentX);
-//                break;
-//            default:
-//                throw new IllegalStateException("Unexpected value: "
-//                        + myCurrentTetrisPiece);
-//        }
-//    }
-}
+    }
 }

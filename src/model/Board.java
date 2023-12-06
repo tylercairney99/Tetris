@@ -223,7 +223,7 @@ public class Board implements MyBoard {
         myDrop = false;
 
         // TODO Publish Update!
-        prepareNextMovablePiece(); // MIGHT NEED TO CHANGE LATER
+        //prepareNextMovablePiece(); // MIGHT NEED TO CHANGE LATER
     }
 
     /**
@@ -271,9 +271,11 @@ public class Board implements MyBoard {
             checkRows();
             if (!myGameOver) {
                 myCurrentPiece = nextMovablePiece(false);
-                notifyBoardChanges();
             }
             // TODO Publish Update!
+            myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, myCurrentPiece);
+
+
         }
     }
 
@@ -284,6 +286,8 @@ public class Board implements MyBoard {
     public void left() {
         if (myCurrentPiece != null) {
             move(myCurrentPiece.left());
+            myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, myCurrentPiece);
+
         }
     }
 
@@ -294,6 +298,7 @@ public class Board implements MyBoard {
     public void right() {
         if (myCurrentPiece != null) {
             move(myCurrentPiece.right());
+            myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, myCurrentPiece);
         }
     }
 
@@ -736,8 +741,11 @@ public class Board implements MyBoard {
         System.out.println("Firing next piece change: " + myNextPiece); // DELETE LATER
     }
 
+
     private void notifyBoardChanges() {
         myPcs.firePropertyChange(PROPERTY_BOARD_CHANGES, null, getBoard());
     }
+
+
 
 }
