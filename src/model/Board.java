@@ -495,9 +495,7 @@ public class Board implements MyBoard {
             }
             if (complete) {
                 completeRows.add(myFrozenBlocks.indexOf(row));
-                notifyBoardChanges();
-                clearRows();
-                // TODO Publish Update!
+                // TODO Publish Update.
             }
         }
         // loop through list backwards removing items by index
@@ -758,6 +756,12 @@ public class Board implements MyBoard {
 
     private void notifyBoardChanges() {
         myPcs.firePropertyChange(PROPERTY_BOARD_CHANGES, null, getBoard());
+    }
+
+
+    // Added by tyler to get frozen blocks
+    public List<Block[]> getFrozenBlocks() {
+        return myFrozenBlocks;
     }
 
 }

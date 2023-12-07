@@ -19,6 +19,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
 
+import java.util.*;
+
 import model.*;
 
 /**
@@ -100,16 +102,7 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
             myY = tempPoint.y();
             myRotation = myMovableTetrisPiece.getRotation();
             repaint();
-        }
-        if (PROPERTY_BOARD_CHANGES.equals(theEvent.getPropertyName())) {
-            setBackground(Color.PINK);
-            repaint();
-        }
-        if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName())) {
-            setBackground(Color.BLACK);
-        }
-        if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
-            setBackground(Color.ORANGE);
+
         }
         if (PROPERTY_PIECE_ROTATES.equals(theEvent.getPropertyName())) {
             myRotation = (Rotation) theEvent.getNewValue();
@@ -160,5 +153,42 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
                             + myCurrentTetrisPiece);
             }
         }
+
+        // Draw the frozen blocks on the game panel.
+        List<Block[]> frozenBlocks = myBoard.getFrozenBlocks();
+        if (frozenBlocks != null) {
+            for (int row = 0; row < frozenBlocks.size(); row++) {
+                for (int col = 0; col < frozenBlocks.get(row).length; col++) {
+                    Block block = frozenBlocks.get(row)[col];
+                    if (block != null) {
+                        g2d.setColor(getColorForBlock(block)); // Set color based on block type
+                        int x = col * BLOCK_WIDTH;
+                        int y = (frozenBlocks.size() - row - 1) * BLOCK_HEIGHT; // Invert y-axis
+                        g2d.fillRect(x, y, BLOCK_WIDTH, BLOCK_HEIGHT);
+                        g2d.setColor(Color.BLACK); // Set color for block border
+                        g2d.drawRect(x, y, BLOCK_WIDTH, BLOCK_HEIGHT); // Draw block border
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Returns the color associated with the specified type of block.
+     *
+     * @param block The type for which the color is required.
+     * @return The color associated with the specified block type.
+     */
+    private Color getColorForBlock(Block block) {
+        return switch (block) {
+            case I -> Color.CYAN;
+            case J -> Color.BLUE;
+            case L -> Color.ORANGE;
+            case O -> Color.YELLOW;
+            case S -> Color.GREEN;
+            case T -> Color.MAGENTA;
+            case Z -> Color.PINK;
+            default -> Color.GRAY;
+        };
     }
 }
