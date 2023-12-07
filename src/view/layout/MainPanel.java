@@ -1,8 +1,5 @@
 package view.layout;
 
-import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
-import static model.Board.PROPERTY_GAME_OVER;
-
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -19,6 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import model.Board;
 import model.TetrisPiece;
+
+import static model.Board.*;
 
 /**
  * A class representing the main panel for a Tetris game.
@@ -149,6 +148,10 @@ public class MainPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Game Over U Suck!");
             } else if (PROPERTY_NEXT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
                 final TetrisPiece nextPiece = (TetrisPiece) theEvent.getNewValue();
+            }
+            if (PROPERTY_NEW_GAME.equals(theEvent.getPropertyName())) {
+                myClip.setMicrosecondPosition(0);
+                myClip.start();
             }
         });
         addKeyListener(new ControlKeyListener());

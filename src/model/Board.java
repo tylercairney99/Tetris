@@ -66,6 +66,11 @@ public class Board implements MyBoard {
     public static final String PROPERTY_GAME_OVER = "The game is over.";
 
     /**
+     * A property to check if a new game has started.
+     */
+    public static final String PROPERTY_NEW_GAME = "A new game has begun.";
+
+    /**
      * Ensures only one panel is instantiated.
      */
     private static int count = 0;
@@ -220,6 +225,7 @@ public class Board implements MyBoard {
         myGameOver = false;
         myCurrentPiece = nextMovablePiece(true);
         myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, myCurrentPiece);
+        myPcs.firePropertyChange(PROPERTY_NEW_GAME, null, null);
         myDrop = false;
 
         // TODO Publish Update!
