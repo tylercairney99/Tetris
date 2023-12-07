@@ -33,24 +33,7 @@ public final class PaintO implements model.PaintTetromino {
      */
     public static void createOShape(final Graphics2D theG2d, final int theBlockHeight,
                                     final int theY, final int theX, final Rotation theRotation) {
-        switch (theRotation) {
-            case NONE -> {
-                rotation0(theG2d, theBlockHeight,
-                        theY, theX);
-            }
-            case QUARTER -> {
-                rotation90(theG2d, theBlockHeight,
-                        theY, theX);
-            }
-            case HALF -> {
-                rotation180(theG2d, theBlockHeight,
-                        theY, theX);
-            }
-            case THREEQUARTER -> {
-                rotation270(theG2d, theBlockHeight,
-                        theY, theX);
-            }
-        }
+        rotation0(theG2d, theBlockHeight, theY, theX);
     }
 
     /**
@@ -69,29 +52,5 @@ public final class PaintO implements model.PaintTetromino {
 
         theG2d.setPaint(Color.YELLOW);
         PaintTetromino.paintShape(theG2d, tetrisBlock1, tetrisBlock2, tetrisBlock3, tetrisBlock4);
-    }
-
-    /**
-     * Paints tetromino with 90 degree rotation.
-     */
-    public static void rotation90(final Graphics2D theG2d, final int theBlockHeight,
-                                  final int theY, final int theX) {
-
-    }
-
-    /**
-     * Paints tetromino with 180 degree rotation.
-     */
-    public static void rotation180(final Graphics2D theG2d, final int theBlockHeight,
-                                   final int theY, final int theX) {
-
-    }
-
-    /**
-     * Paints tetromino with 270 degree rotation.
-     */
-    public static void rotation270(final Graphics2D theG2d, final int theBlockHeight,
-                                   final int theY, final int theX) {
-
     }
 }
