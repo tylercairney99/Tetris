@@ -113,6 +113,7 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
         }
         if (PROPERTY_PIECE_ROTATES.equals(theEvent.getPropertyName())) {
             myRotation = (Rotation) theEvent.getNewValue();
+            repaint();
         }
     }
 
