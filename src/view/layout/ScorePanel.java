@@ -182,14 +182,14 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
         if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
-            if ((int) theEvent.getNewValue() == 1 || (int) theEvent.getNewValue() == 2
-                    || (int) theEvent.getNewValue() == 3
-                    || (int) theEvent.getNewValue() == 4) {
-                myLinesCleared += (int) theEvent.getNewValue();
-                calculateLevel();
-                calculateScore((int) theEvent.getNewValue());
-                repaint();
-            }
+            myLinesCleared += (int) theEvent.getNewValue();
+            calculateLevel();
+            calculateScore((int) theEvent.getNewValue());
+
+            System.out.println(myLinesCleared);
+            System.out.println(myLevel);
+            System.out.println(myScore);
+            repaint();
         }
     }
 }

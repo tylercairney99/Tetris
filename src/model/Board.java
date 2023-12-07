@@ -495,8 +495,7 @@ public class Board implements MyBoard {
             }
             if (complete) {
                 completeRows.add(myFrozenBlocks.indexOf(row));
-                // TODO Publish Update!
-                clearRows();
+                myPcs.firePropertyChange(PROPERTY_ROW_CLEARED, null, completeRows.size() + 1);
             }
         }
         // loop through list backwards removing items by index
@@ -677,24 +676,24 @@ public class Board implements MyBoard {
     }  // end inner class BoardData
 
     @Override
-    public void addPropertyChangeListener(PropertyChangeListener theListener) {
+    public void addPropertyChangeListener(final PropertyChangeListener theListener) {
         myPcs.addPropertyChangeListener(theListener);
     }
 
     @Override
-    public void addPropertyChangeListener(String thePropertyName,
-                                          PropertyChangeListener theListener) {
+    public void addPropertyChangeListener(final String thePropertyName,
+                                          final PropertyChangeListener theListener) {
         myPcs.addPropertyChangeListener(thePropertyName, theListener);
     }
 
     @Override
-    public void removePropertyChangeListener(PropertyChangeListener theListener) {
+    public void removePropertyChangeListener(final PropertyChangeListener theListener) {
         myPcs.removePropertyChangeListener(theListener);
     }
 
     @Override
-    public void removePropertyChangeListener(String thePropertyName,
-                                             PropertyChangeListener theListener) {
+    public void removePropertyChangeListener(final String thePropertyName,
+                                             final PropertyChangeListener theListener) {
         myPcs.removePropertyChangeListener(thePropertyName, theListener);
     }
     private void updateGameState() {
