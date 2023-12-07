@@ -10,16 +10,13 @@ import static model.paint.PaintT.createTShape;
 import static model.paint.PaintZ.createZShape;
 
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import model.*;
+import model.Point;
 
 /**
  * Panel that displays the Tetris game.
@@ -86,8 +83,8 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
         count++;
 
         this.myBoard = theBoard;
-        this.myBoard.addPropertyChangeListener( this);
-        setBackground(Color.BLACK);
+        this.myBoard.addPropertyChangeListener(this);
+
     }
 
     @Override
@@ -124,6 +121,16 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
         g2d.setStroke(new BasicStroke(STROKE_WIDTH));
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
+
+        final int w = getWidth();
+        final int h = getHeight();
+        final Color color1 = Color.PINK;
+        final Color color2 = Color.MAGENTA;
+        final LinearGradientPaint gp = new LinearGradientPaint(0, 0, w, h,
+                new float[]{0.0f, 0.5f, 1.0f}, new Color[]{color1, color2, color1});
+        g2d.setPaint(gp);
+        g2d.fillRect(0, 0, w, h);
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
         if (myCurrentTetrisPiece != null) {
             switch (myCurrentTetrisPiece) {

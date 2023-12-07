@@ -1,12 +1,9 @@
 package view.layout;
 
+import static model.Board.PROPERTY_NUMBER_OF_ROWS_CLEARED;
 import static model.Board.PROPERTY_ROW_CLEARED;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.*;
@@ -66,7 +63,7 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
      */
     private static final int LEVEL_UP = 5;
 
-    private static final int LEVEL_UP_TIMER_CHANGE = 100;
+    private static final int LEVEL_UP_TIMER_CHANGE = 2;
 
     /**
      * Ensures only one panel is instantiated.
@@ -120,8 +117,18 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     @Override
     public void paintComponent(final Graphics theGraphics) {
         super.paintComponent(theGraphics);
+        final Graphics2D g2d = (Graphics2D) theGraphics;
         theGraphics.setFont(new Font("" + theGraphics.getFont(), Font.PLAIN, TEXT_SIZE));
         showScore(theGraphics);
+
+        final int w = getWidth();
+        final int h = getHeight();
+        final Color color1 = Color.PINK;
+        final Color color2 = Color.MAGENTA;
+        final GradientPaint gp = new GradientPaint(0, 0, color1, 0, h, color2);
+        g2d.setPaint(gp);
+        g2d.fillRect(0, 0, w, h);
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
     }
 
     /**
@@ -139,7 +146,7 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     private void calculateLevel() {
         if (myLinesCleared % LEVEL_UP == 0) {
             myLevel++;
-            myGameTimer.setDelay(myGameTimer.getDelay() - LEVEL_UP_TIMER_CHANGE);
+            myGameTimer.setDelay(myGameTimer.getDelay() / LEVEL_UP_TIMER_CHANGE);
         }
     }
 
@@ -175,4 +182,12 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
             repaint();
         }
     }
+//    @Override
+//    public void propertyChange(final PropertyChangeEvent theEvent) {
+//        if (PROPERTY_NUMBER_OF_ROWS_CLEARED.equals(theEvent.)) {
+//            calculateLevel();
+//            calculateScore();
+//            repaint();
+//        }
+//    }
 }

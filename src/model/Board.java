@@ -48,7 +48,12 @@ public class Board implements MyBoard {
     /**
      * A property to check if a row is cleared.
      */
-    public static final String PROPERTY_ROW_CLEARED = "A row is cleared.";
+    public static final String PROPERTY_ROW_CLEARED = "a row has been cleared.";
+
+    /**
+     * A property to check how many rows are cleared.
+     */
+    public static final Integer PROPERTY_NUMBER_OF_ROWS_CLEARED = 0;
 
     /**
      * A property to check when / if the next piece changes.
@@ -498,6 +503,7 @@ public class Board implements MyBoard {
                 notifyBoardChanges();
                 clearRows();
                 // TODO Publish Update!
+                clearRows();
             }
         }
         // loop through list backwards removing items by index
