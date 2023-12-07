@@ -141,8 +141,8 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
      */
     private void showScores(final Graphics theGraphics) {
         theGraphics.drawString("Score: " + myScore, TEXT_X, TEXT_Y + 7);
-        theGraphics.drawString("Level: " + myLevel, TEXT_X, TEXT_Y + TEXT_SIZE + 17);
-        theGraphics.drawString("Lines: " + myLinesCleared, TEXT_X, TEXT_Y + TEXT_SIZE * 2 + 27);
+        theGraphics.drawString("Level:  " + myLevel, TEXT_X, TEXT_Y + TEXT_SIZE + 17);
+        theGraphics.drawString("Lines:  " + myLinesCleared, TEXT_X, TEXT_Y + TEXT_SIZE * 2 + 27);
 //        final JLabel scoreLabel = new JLabel(" Score: " + myScore);
 //        scoreLabel.setFont(new Font("" + theGraphics.getFont(), Font.PLAIN, TEXT_SIZE));
 //        final JLabel levelLabel = new JLabel(" Level: " + myLevel);
