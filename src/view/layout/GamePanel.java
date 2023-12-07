@@ -15,7 +15,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.*;
 
-import java.util.*;
+import java.util.List;
 
 import model.*;
 import model.Point;
