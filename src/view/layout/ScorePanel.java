@@ -108,12 +108,26 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
         }
         count++;
 
-        setBackground(Color.ORANGE);
         setLayout(new BorderLayout());
         final JPanel scorePanel = new JPanel(new FlowLayout());
         scorePanel.setOpaque(false);
+        setUpLabels();
     }
 
+    /**
+     * Sets up the labels for the score panel.
+     */
+    private void setUpLabels() {
+        final JLabel scoreLabel = new JLabel(" Score: " + myScore);
+        scoreLabel.setFont(new Font("" + scoreLabel.getFont(), Font.PLAIN, TEXT_SIZE));
+        add(scoreLabel, BorderLayout.NORTH);
+        final JLabel levelLabel = new JLabel(" Level: " + myLevel);
+        levelLabel.setFont(new Font("" + levelLabel.getFont(), Font.PLAIN, TEXT_SIZE));
+        add(levelLabel, BorderLayout.CENTER);
+        final JLabel linesClearedLabel = new JLabel(" Lines: " + myLinesCleared);
+        linesClearedLabel.setFont(new Font("" + linesClearedLabel.getFont(), Font.PLAIN, TEXT_SIZE));
+        add(linesClearedLabel, BorderLayout.SOUTH);
+    }
     @Override
     public void paintComponent(final Graphics theGraphics) {
         super.paintComponent(theGraphics);
@@ -127,18 +141,6 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
         g2d.setPaint(gp);
         g2d.fillRect(0, 0, w, h);
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-
-        theGraphics.setFont(new Font("" + theGraphics.getFont(), Font.PLAIN, TEXT_SIZE));
-        showScore(theGraphics);
-    }
-
-    /**
-     * Displays player's score in score panel.
-     *
-     * @param theGraphics Graphics object used to display text.
-     */
-    private void showScore(final Graphics theGraphics) {
-        theGraphics.drawString("Score: " + myScore, TEXT_X, TEXT_Y);
     }
 
     /**
