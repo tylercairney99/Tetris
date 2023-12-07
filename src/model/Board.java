@@ -51,11 +51,6 @@ public class Board implements MyBoard {
     public static final String PROPERTY_ROW_CLEARED = "a row has been cleared.";
 
     /**
-     * A property to check how many rows are cleared.
-     */
-    public static final Integer PROPERTY_NUMBER_OF_ROWS_CLEARED = 0;
-
-    /**
      * A property to check when / if the next piece changes.
      */
     public static final String PROPERTY_NEXT_PIECE_CHANGES = "The next piece changes.";
@@ -735,7 +730,7 @@ public class Board implements MyBoard {
         }
 
         if (!clearedRows.isEmpty()) {
-            myPcs.firePropertyChange(PROPERTY_ROW_CLEARED, null, clearedRows.toArray(new Integer[0]));
+            myPcs.firePropertyChange(PROPERTY_ROW_CLEARED, null, clearedRows.size());
         }
     }
 

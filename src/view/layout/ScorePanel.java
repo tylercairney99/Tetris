@@ -77,7 +77,7 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     /**
      * Number of lines cleared by the player.
      */
-    private final int myLinesCleared;
+    private int myLinesCleared;
 
     /**
      * The level of the game.
@@ -143,15 +143,6 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
         theGraphics.drawString("Score: " + myScore, TEXT_X, TEXT_Y + 7);
         theGraphics.drawString("Level:  " + myLevel, TEXT_X, TEXT_Y + TEXT_SIZE + 17);
         theGraphics.drawString("Lines:  " + myLinesCleared, TEXT_X, TEXT_Y + TEXT_SIZE * 2 + 27);
-//        final JLabel scoreLabel = new JLabel(" Score: " + myScore);
-//        scoreLabel.setFont(new Font("" + theGraphics.getFont(), Font.PLAIN, TEXT_SIZE));
-//        final JLabel levelLabel = new JLabel(" Level: " + myLevel);
-//        levelLabel.setFont(new Font("" + theGraphics.getFont(), Font.PLAIN, TEXT_SIZE));
-//        final JLabel linesLabel = new JLabel(" Lines: " + myLinesCleared);
-//        linesLabel.setFont(new Font("" + theGraphics.getFont(), Font.PLAIN, TEXT_SIZE));
-//        add(scoreLabel, BorderLayout.NORTH);
-//        add(levelLabel, BorderLayout.CENTER);
-//        add(linesLabel, BorderLayout.SOUTH);
     }
 
     /**
@@ -188,20 +179,17 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
         myScore += score * myLevel;
     }
 
-//    @Override
-//    public void propertyChange(final PropertyChangeEvent theEvent) {
-//        if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
-//            calculateLevel();
-//            calculateScore();
-//            repaint();
-//        }
-//    }
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
-        if (PROPERTY_NUMBER_OF_ROWS_CLEARED.equals(theEvent.getPropertyName())) {
-            calculateLevel();
-            calculateScore((int) theEvent.getNewValue());
-            repaint();
+        if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
+            if ((int) theEvent.getNewValue() == 1 || (int) theEvent.getNewValue() == 2
+                    || (int) theEvent.getNewValue() == 3
+                    || (int) theEvent.getNewValue() == 4) {
+                myLinesCleared += (int) theEvent.getNewValue();
+                calculateLevel();
+                calculateScore((int) theEvent.getNewValue());
+                repaint();
+            }
         }
     }
 }
