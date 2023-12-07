@@ -71,6 +71,11 @@ public class Board implements MyBoard {
     public static final String PROPERTY_NEW_GAME = "A new game has begun.";
 
     /**
+     * A property to check if a piece has rotated.
+     */
+    public static final String PROPERTY_PIECE_ROTATES = "A piece has rotates.";
+
+    /**
      * Ensures only one panel is instantiated.
      */
     private static int count = 0;
@@ -315,6 +320,7 @@ public class Board implements MyBoard {
         if (myCurrentPiece != null) {
             if (myCurrentPiece.getTetrisPiece() == TetrisPiece.O) {
                 move(myCurrentPiece.rotateCW());
+                myPcs.firePropertyChange(PROPERTY_PIECE_ROTATES, null, myCurrentPiece.getRotation());
             } else {
                 final MovableTetrisPiece cwPiece = myCurrentPiece.rotateCW();
                 final Point[] offsets = WallKick.getWallKicks(cwPiece.getTetrisPiece(),
@@ -341,6 +347,7 @@ public class Board implements MyBoard {
                 move(myCurrentPiece.rotateCCW());
             } else {
                 final MovableTetrisPiece ccwPiece = myCurrentPiece.rotateCCW();
+                myPcs.firePropertyChange(PROPERTY_PIECE_ROTATES, null, myCurrentPiece.getRotation());
                 final Point[] offsets = WallKick.getWallKicks(ccwPiece.getTetrisPiece(),
                         myCurrentPiece.getRotation(),
                         ccwPiece.getRotation());

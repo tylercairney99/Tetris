@@ -1,13 +1,13 @@
 package view.layout;
 
 import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
-import static model.PaintTetromino.createIShape;
-import static model.PaintTetromino.createJShape;
-import static model.PaintTetromino.createLShape;
-import static model.PaintTetromino.createOShape;
-import static model.PaintTetromino.createSShape;
-import static model.PaintTetromino.createTShape;
-import static model.PaintTetromino.createZShape;
+import static model.paint.CreateIShape.createIShape;
+import static model.paint.PaintJ.createJShape;
+import static model.paint.PaintL.createLShape;
+import static model.paint.PaintO.createOShape;
+import static model.paint.PaintS.createSShape;
+import static model.paint.PaintT.createTShape;
+import static model.paint.PaintZ.createZShape;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -45,6 +45,11 @@ public final class NextPiecePanel extends JPanel implements PropertyChangeListen
      * Used for the width of Graphics2d.
      */
     private static final int STROKE_WIDTH = 1;
+
+    /**
+     * The rotation of the next piece
+     */
+    private static final int ROTATION = 0;
 
     /**
      * Ensures only one panel is instantiated.
@@ -98,31 +103,31 @@ public final class NextPiecePanel extends JPanel implements PropertyChangeListen
             switch (myNextTetrisPiece) {
                 case I:
                     createIShape(g2d, BLOCK_HEIGHT, (getHeight() - BLOCK_HEIGHT) / 2
-                            , (getWidth() - 4 * BLOCK_HEIGHT) / 2);
+                            , (getWidth() - 4 * BLOCK_HEIGHT) / 2, ROTATION);
                     break;
                 case L:
                     createLShape(g2d, BLOCK_HEIGHT, (getHeight() - 2 * BLOCK_HEIGHT) / 2,
-                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
+                            (getWidth() - 3 * BLOCK_HEIGHT) / 2, ROTATION);
                     break;
                 case J:
                     createJShape(g2d, BLOCK_HEIGHT, (getHeight()  - 2 * BLOCK_HEIGHT) / 2,
-                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
+                            (getWidth() - 3 * BLOCK_HEIGHT) / 2, ROTATION);
                     break;
                 case O:
                     createOShape(g2d, BLOCK_HEIGHT, (getHeight()  - 2 * BLOCK_HEIGHT) / 2,
-                            (getWidth() - 2 * BLOCK_HEIGHT) / 2);
+                            (getWidth() - 2 * BLOCK_HEIGHT) / 2, ROTATION);
                     break;
                 case S:
                     createSShape(g2d, BLOCK_HEIGHT, (getHeight() - 2 * BLOCK_HEIGHT) / 2,
-                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
+                            (getWidth() - 3 * BLOCK_HEIGHT) / 2, ROTATION);
                     break;
                 case T:
                     createTShape(g2d, BLOCK_HEIGHT, (getHeight() - 2 * BLOCK_HEIGHT) / 2,
-                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
+                            (getWidth() - 3 * BLOCK_HEIGHT) / 2, ROTATION);
                     break;
                 case Z:
                     createZShape(g2d, BLOCK_HEIGHT, (getHeight() - 2 * BLOCK_HEIGHT) / 2,
-                            (getWidth() - 3 * BLOCK_HEIGHT) / 2);
+                            (getWidth() - 3 * BLOCK_HEIGHT) / 2, ROTATION);
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + myNextTetrisPiece);

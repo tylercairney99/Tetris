@@ -1,16 +1,14 @@
 package view.layout;
 
-import static model.Board.PROPERTY_BOARD_CHANGES;
-import static model.Board.PROPERTY_CURRENT_PIECE_CHANGES;
-import static model.Board.PROPERTY_GAME_OVER;
-import static model.Board.PROPERTY_ROW_CLEARED;
-import static model.PaintTetromino.createIShape;
-import static model.PaintTetromino.createJShape;
-import static model.PaintTetromino.createLShape;
-import static model.PaintTetromino.createOShape;
-import static model.PaintTetromino.createSShape;
-import static model.PaintTetromino.createTShape;
-import static model.PaintTetromino.createZShape;
+import static model.Board.*;
+import static model.paint.CreateIShape.createIShape;
+import static model.paint.PaintJ.createJShape;
+import static model.paint.PaintL.createLShape;
+import static model.paint.PaintO.createOShape;
+import static model.paint.PaintS.createSShape;
+import static model.paint.PaintT.createTShape;
+import static model.paint.PaintZ.createZShape;
+
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -74,6 +72,8 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
 
     private int myY;
 
+    private int myRotation;
+
     /**
      * Panel that will show the game board with tetrominos in play.
      * Sets background to assigned color.
@@ -112,6 +112,9 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
         if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
             setBackground(Color.ORANGE);
         }
+        if (PROPERTY_PIECE_ROTATES.equals(theEvent.getPropertyName())) {
+            myRotation = (int) theEvent.getNewValue();
+        }
     }
 
     @Override
@@ -128,32 +131,32 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
 
             switch (myCurrentTetrisPiece) {
                 case I:
-                    CreateIShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
-                            myX * BLOCK_HEIGHT);
+                    createIShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
+                            myX * BLOCK_HEIGHT, myRotation);
                     break;
                 case L:
                     createLShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
-                            myX * BLOCK_HEIGHT);
+                            myX * BLOCK_HEIGHT, myRotation);
                     break;
                 case J:
                     createJShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
-                            myX * BLOCK_HEIGHT);
+                            myX * BLOCK_HEIGHT, myRotation);
                     break;
                 case O:
                     createOShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
-                            (myX + 1) * BLOCK_HEIGHT);
+                            (myX + 1) * BLOCK_HEIGHT, myRotation);
                     break;
                 case S:
                     createSShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
-                            myX * BLOCK_HEIGHT);
+                            myX * BLOCK_HEIGHT, myRotation);
                     break;
                 case T:
                     createTShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
-                            myX * BLOCK_HEIGHT);
+                            myX * BLOCK_HEIGHT, myRotation);
                     break;
                 case Z:
                     createZShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
-                            myX * BLOCK_HEIGHT);
+                            myX * BLOCK_HEIGHT, myRotation);
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: "
