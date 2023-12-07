@@ -75,8 +75,6 @@ public class MainPanel extends JPanel {
      */
     private Clip myClip;
 
-
-
     /**
      * Constructs a MainPanel object.
      *
@@ -242,6 +240,10 @@ public class MainPanel extends JPanel {
 //        }
 //     }
 
+    /**
+     * Creates the music.
+     * @param theMusicFile theMusicFile
+     */
     private void createMusic(final File theMusicFile) {
         try {
             final AudioInputStream audioInput = AudioSystem.getAudioInputStream(theMusicFile);
@@ -252,11 +254,17 @@ public class MainPanel extends JPanel {
         }
     }
 
+    /**
+     * Plays the music.
+     */
     private void playMusic() {
         myClip.start();
         System.out.println("music play");
     }
 
+    /**
+     * Pauses the music.
+     */
     private void pauseMusic() {
         myClip.stop();
     }

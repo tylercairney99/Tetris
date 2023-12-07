@@ -79,6 +79,8 @@ public final class NextPiecePanel extends JPanel implements PropertyChangeListen
         this.myBoard = theBoard;
         this.myBoard.addPropertyChangeListener(this);
         setBackground(Color.BLUE);
+        final JLabel nextPieceLabel = new JLabel("Next Piece");
+        add(nextPieceLabel, BorderLayout.NORTH);
     }
 
     @Override

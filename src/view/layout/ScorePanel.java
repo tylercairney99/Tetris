@@ -1,12 +1,11 @@
 package view.layout;
 
-import static model.Board.PROPERTY_NUMBER_OF_ROWS_CLEARED;
-import static model.Board.PROPERTY_ROW_CLEARED;
-
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.*;
+
+import static model.Board.*;
 
 
 /**
@@ -24,12 +23,12 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     /**
      * x coord of score text.
      */
-    private static final int TEXT_X = 15;
+    private static final int TEXT_X = 5;
 
     /**
      * y coord of score text.
      */
-    private static final int TEXT_Y = 55;
+    private static final int TEXT_Y = 25;
 
     /**
      * Size of score text.
@@ -108,30 +107,18 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
         }
         count++;
 
+        setBackground(Color.YELLOW);
         setLayout(new BorderLayout());
         final JPanel scorePanel = new JPanel(new FlowLayout());
         scorePanel.setOpaque(false);
-        setUpLabels();
     }
 
-    /**
-     * Sets up the labels for the score panel.
-     */
-    private void setUpLabels() {
-        final JLabel scoreLabel = new JLabel(" Score: " + myScore);
-        scoreLabel.setFont(new Font("" + scoreLabel.getFont(), Font.PLAIN, TEXT_SIZE));
-        add(scoreLabel, BorderLayout.NORTH);
-        final JLabel levelLabel = new JLabel(" Level: " + myLevel);
-        levelLabel.setFont(new Font("" + levelLabel.getFont(), Font.PLAIN, TEXT_SIZE));
-        add(levelLabel, BorderLayout.CENTER);
-        final JLabel linesClearedLabel = new JLabel(" Lines: " + myLinesCleared);
-        linesClearedLabel.setFont(new Font("" + linesClearedLabel.getFont(), Font.PLAIN, TEXT_SIZE));
-        add(linesClearedLabel, BorderLayout.SOUTH);
-    }
     @Override
     public void paintComponent(final Graphics theGraphics) {
         super.paintComponent(theGraphics);
         final Graphics2D g2d = (Graphics2D) theGraphics;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
 
         final int w = getWidth();
         final int h = getHeight();
@@ -141,6 +128,30 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
         g2d.setPaint(gp);
         g2d.fillRect(0, 0, w, h);
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+
+        theGraphics.setFont(new Font("" + theGraphics.getFont(), Font.PLAIN, TEXT_SIZE));
+        g2d.setPaint(Color.BLACK);
+        showScores(theGraphics);
+    }
+
+    /**
+     * Displays player's score in score panel.
+     *
+     * @param theGraphics Graphics object used to display text.
+     */
+    private void showScores(final Graphics theGraphics) {
+        theGraphics.drawString("Score: " + myScore, TEXT_X, TEXT_Y + 7);
+        theGraphics.drawString("Level: " + myLevel, TEXT_X, TEXT_Y + TEXT_SIZE + 17);
+        theGraphics.drawString("Lines: " + myLinesCleared, TEXT_X, TEXT_Y + TEXT_SIZE * 2 + 27);
+//        final JLabel scoreLabel = new JLabel(" Score: " + myScore);
+//        scoreLabel.setFont(new Font("" + theGraphics.getFont(), Font.PLAIN, TEXT_SIZE));
+//        final JLabel levelLabel = new JLabel(" Level: " + myLevel);
+//        levelLabel.setFont(new Font("" + theGraphics.getFont(), Font.PLAIN, TEXT_SIZE));
+//        final JLabel linesLabel = new JLabel(" Lines: " + myLinesCleared);
+//        linesLabel.setFont(new Font("" + theGraphics.getFont(), Font.PLAIN, TEXT_SIZE));
+//        add(scoreLabel, BorderLayout.NORTH);
+//        add(levelLabel, BorderLayout.CENTER);
+//        add(linesLabel, BorderLayout.SOUTH);
     }
 
     /**
@@ -156,9 +167,9 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     /**
      * Updates the score when a row is cleared.
      */
-    private void calculateScore() {
+    private void calculateScore(final int theNumberOfRowsCleared) {
         int score = 0;
-        switch (myLinesCleared) {
+        switch (theNumberOfRowsCleared) {
             case 1:
                 score = ONE_LINE_CLEARED;
                 break;
@@ -171,26 +182,26 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
             case 4:
                 score = FOUR_LINES_CLEARED;
                 break;
-            default: //this should never happen
-                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + theNumberOfRowsCleared);
         }
         myScore += score * myLevel;
     }
 
-    @Override
-    public void propertyChange(final PropertyChangeEvent theEvent) {
-        if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
-            calculateLevel();
-            calculateScore();
-            repaint();
-        }
-    }
 //    @Override
 //    public void propertyChange(final PropertyChangeEvent theEvent) {
-//        if (PROPERTY_NUMBER_OF_ROWS_CLEARED.equals(theEvent.)) {
+//        if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
 //            calculateLevel();
 //            calculateScore();
 //            repaint();
 //        }
 //    }
+    @Override
+    public void propertyChange(final PropertyChangeEvent theEvent) {
+        if (PROPERTY_NUMBER_OF_ROWS_CLEARED.equals(theEvent.getPropertyName())) {
+            calculateLevel();
+            calculateScore((int) theEvent.getNewValue());
+            repaint();
+        }
+    }
 }
