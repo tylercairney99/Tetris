@@ -117,8 +117,8 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
 
         final int w = getWidth();
         final int h = getHeight();
-        final Color color1 = Color.PINK;
-        final Color color2 = Color.MAGENTA;
+        final Color color1 = Color.CYAN;
+        final Color color2 = Color.YELLOW;
         final LinearGradientPaint gp = new LinearGradientPaint(0, 0, w, h,
                 new float[]{0.0f, 0.5f, 1.0f}, new Color[]{color1, color2, color1});
         g2d.setPaint(gp);

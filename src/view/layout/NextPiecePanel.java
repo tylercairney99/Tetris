@@ -99,8 +99,8 @@ public final class NextPiecePanel extends JPanel implements PropertyChangeListen
 
         final int w = getWidth();
         final int h = getHeight();
-        final Color color1 = Color.MAGENTA;
-        final Color color2 = Color.PINK;
+        final Color color1 = Color.CYAN;
+        final Color color2 = Color.YELLOW;
         final GradientPaint gp = new GradientPaint(0, 0, color1, 0, h, color2);
         g2d.setPaint(gp);
         g2d.fillRect(0, 0, w, h);
