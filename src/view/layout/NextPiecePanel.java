@@ -9,14 +9,11 @@ import static model.paint.PaintS.createSShape;
 import static model.paint.PaintT.createTShape;
 import static model.paint.PaintZ.createZShape;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import javax.swing.JPanel;
+import javax.swing.*;
+
 import model.Board;
 import model.Rotation;
 import model.TetrisPiece;
@@ -99,6 +96,15 @@ public final class NextPiecePanel extends JPanel implements PropertyChangeListen
         g2d.setStroke(new BasicStroke(STROKE_WIDTH));
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
+
+        final int w = getWidth();
+        final int h = getHeight();
+        final Color color1 = Color.MAGENTA;
+        final Color color2 = Color.PINK;
+        final GradientPaint gp = new GradientPaint(0, 0, color1, 0, h, color2);
+        g2d.setPaint(gp);
+        g2d.fillRect(0, 0, w, h);
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
         if (myNextTetrisPiece != null) {
             switch (myNextTetrisPiece) {

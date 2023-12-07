@@ -1,8 +1,7 @@
 package view.layout;
 
 import java.awt.*;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  * Control panel shows the controls for the game.
@@ -36,7 +35,8 @@ public class ControlPanel extends JPanel {
      * Sets up the labels for the control panel.
      */
     private void setUpPanel() {
-        setBackground(Color.ORANGE);
+        setBackground(Color.PINK);
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         setLayout(new BorderLayout());
         final JLabel controlLabel = new JLabel(" Controls:");
         add(controlLabel, BorderLayout.NORTH);
