@@ -265,7 +265,9 @@ public class Board implements MyBoard {
          * However, more code could be added to this method
          * to implement additional functionality
          */
+        System.out.println("Step method is called");
         down();
+
     }
 
     /**
@@ -282,12 +284,10 @@ public class Board implements MyBoard {
             if (!myGameOver) {
                 myCurrentPiece = nextMovablePiece(false);
             }
-            // TODO Publish Update!
             myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, myCurrentPiece);
-
-
         }
     }
+
 
     /**
      * Try to move the movable piece left.
@@ -374,6 +374,7 @@ public class Board implements MyBoard {
             }
             myDrop = false;
             down();  // move down one more time to freeze in place
+            myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, myCurrentPiece);
         }
     }
 
@@ -432,6 +433,7 @@ public class Board implements MyBoard {
             result = true;
             if (!myDrop) {
                 // TODO Publish Update!
+                myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, myCurrentPiece);
             }
         }
         return result;

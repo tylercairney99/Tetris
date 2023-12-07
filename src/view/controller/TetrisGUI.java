@@ -91,9 +91,11 @@ public class TetrisGUI implements MyDifficultyChanger {
      */
     public TetrisGUI() {
         super();
+
         myBoard = new Board();
-        myNextPiecePanel = new NextPiecePanel(myBoard);
         myGamePanel = new GamePanel(myBoard);
+        myNextPiecePanel = new NextPiecePanel(myBoard);
+        //myGamePanel = new GamePanel(myBoard);
 
         myMusicFile = new File("src/music/music.wav");
 
@@ -105,6 +107,7 @@ public class TetrisGUI implements MyDifficultyChanger {
             timerCounter++; // DELETE LATER (USED FOR TESTING)
             System.out.print(timerCounter + "\n"); // DELETE LATER (USED FOR TESTING)
             myBoard.step();
+            //myGamePanel.repaint();
         });
 
         setUpComponents();
