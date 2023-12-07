@@ -76,6 +76,7 @@ public class MainPanel extends JPanel {
     private Clip myClip;
 
 
+
     /**
      * Constructs a MainPanel object.
      *
@@ -176,6 +177,7 @@ public class MainPanel extends JPanel {
                     System.out.println("left");
                 } else if (theEvent.getKeyCode() == KeyEvent.VK_DOWN || theEvent.getKeyCode() == KeyEvent.VK_S) {
                     myBoard.down();
+                    myGamePanel.repaint(); //  ADDED BY TYLER TO REPAINT EVERYTIME DOWN KEY IS PRESSED.
                     System.out.println("down");
                 } else if (theEvent.getKeyCode() == KeyEvent.VK_UP || theEvent.getKeyCode() == KeyEvent.VK_W) {
                     myBoard.rotateCW();
@@ -183,6 +185,7 @@ public class MainPanel extends JPanel {
                 } else if (theEvent.getKeyCode() == KeyEvent.VK_SPACE) {
                     myBoard.drop();
                     System.out.println("drop");
+                    myGamePanel.repaint();
                 }
             }
             if (theEvent.getKeyCode() == KeyEvent.VK_P) {
