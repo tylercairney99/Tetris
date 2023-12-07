@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 import model.PaintTetromino;
+import model.Rotation;
 
 
 /**
@@ -31,21 +32,21 @@ public final class PaintT implements model.PaintTetromino {
      * @param theG2d Graphics2d object used for painting shapes.
      */
     public static void createTShape(final Graphics2D theG2d, final int theBlockHeight,
-                                    final int theY, final int theX, final int theRotation) {
+                                    final int theY, final int theX, final Rotation theRotation) {
         switch (theRotation) {
-            case 0 -> {
+            case NONE -> {
                 rotation0(theG2d, theBlockHeight,
                         theY, theX);
             }
-            case 90 -> {
+            case QUARTER -> {
                 rotation90(theG2d, theBlockHeight,
                         theY, theX);
             }
-            case 180 -> {
+            case HALF -> {
                 rotation180(theG2d, theBlockHeight,
                         theY, theX);
             }
-            case 270 -> {
+            case THREEQUARTER -> {
                 rotation270(theG2d, theBlockHeight,
                         theY, theX);
             }

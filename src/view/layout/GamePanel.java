@@ -1,7 +1,7 @@
 package view.layout;
 
 import static model.Board.*;
-import static model.paint.CreateIShape.createIShape;
+import static model.paint.PaintI.createIShape;
 import static model.paint.PaintJ.createJShape;
 import static model.paint.PaintL.createLShape;
 import static model.paint.PaintO.createOShape;
@@ -18,10 +18,8 @@ import java.awt.RenderingHints;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
-import model.Board;
-import model.MovableTetrisPiece;
-import model.Point;
-import model.TetrisPiece;
+
+import model.*;
 
 /**
  * Panel that displays the Tetris game.
@@ -72,7 +70,7 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
 
     private int myY;
 
-    private int myRotation;
+    private Rotation myRotation = Rotation.NONE;
 
     /**
      * Panel that will show the game board with tetrominos in play.
@@ -100,6 +98,7 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
             Point tempPoint = myMovableTetrisPiece.getPosition();
             myX = tempPoint.x();
             myY = tempPoint.y();
+            myRotation = myMovableTetrisPiece.getRotation();
             repaint();
         }
         if (PROPERTY_BOARD_CHANGES.equals(theEvent.getPropertyName())) {
@@ -113,7 +112,7 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
             setBackground(Color.ORANGE);
         }
         if (PROPERTY_PIECE_ROTATES.equals(theEvent.getPropertyName())) {
-            myRotation = (int) theEvent.getNewValue();
+            myRotation = (Rotation) theEvent.getNewValue();
         }
     }
 
@@ -126,9 +125,6 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
         if (myCurrentTetrisPiece != null) {
-            System.out.println(myX);
-            System.out.println(myY);
-
             switch (myCurrentTetrisPiece) {
                 case I:
                     createIShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,

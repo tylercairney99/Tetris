@@ -1,5 +1,7 @@
 package model.paint;
 
+import model.Rotation;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
@@ -11,19 +13,17 @@ import java.awt.geom.Rectangle2D;
  * @author James Simpson jsimp33@uw.edu
  * @version 3.0
  */
-public final class CreateIShape implements model.PaintTetromino {
+public final class PaintI implements model.PaintTetromino {
 
     /**
      * Private constructor to prevent instantiation of this utility class.
      *
      * @throws AssertionError (if instantiation is attempted)
      */
-    private CreateIShape() {
+    private PaintI() {
         super();
 
         throw new AssertionError("Utility classes cannot be instantiated");
-
-
     }
 
     /**
@@ -32,21 +32,21 @@ public final class CreateIShape implements model.PaintTetromino {
      * @param theG2d Graphics2d object used for painting shapes.
      */
     public static void createIShape(final Graphics2D theG2d, final int theBlockHeight,
-                                    final int theY, final int theX, final int theRotation) {
+                                    final int theY, final int theX, final Rotation theRotation) {
         switch (theRotation) {
-            case 0 -> {
+            case NONE -> {
                 rotation0(theG2d, theBlockHeight,
                         theY, theX);
             }
-            case 90 -> {
+            case QUARTER -> {
                 rotation90(theG2d, theBlockHeight,
                         theY, theX);
             }
-            case 180 -> {
+            case HALF -> {
                 rotation180(theG2d, theBlockHeight,
                         theY, theX);
             }
-            case 270 -> {
+            case THREEQUARTER -> {
                 rotation270(theG2d, theBlockHeight,
                         theY, theX);
             }

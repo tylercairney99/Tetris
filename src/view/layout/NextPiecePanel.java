@@ -1,7 +1,7 @@
 package view.layout;
 
 import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
-import static model.paint.CreateIShape.createIShape;
+import static model.paint.PaintI.createIShape;
 import static model.paint.PaintJ.createJShape;
 import static model.paint.PaintL.createLShape;
 import static model.paint.PaintO.createOShape;
@@ -18,6 +18,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import javax.swing.JPanel;
 import model.Board;
+import model.Rotation;
 import model.TetrisPiece;
 
 /**
@@ -49,7 +50,7 @@ public final class NextPiecePanel extends JPanel implements PropertyChangeListen
     /**
      * The rotation of the next piece
      */
-    private static final int ROTATION = 0;
+    private static final Rotation ROTATION = Rotation.NONE;
 
     /**
      * Ensures only one panel is instantiated.
