@@ -87,7 +87,7 @@ public class MainPanel extends JPanel {
 
     public MainPanel(final Board theBoard, final Timer theGameTimer,
                      final NextPiecePanel theNextPiecePanel, final GamePanel theGamePanel,
-                     final File theMusicFile) {
+                     final ScorePanel theScorePanel, final File theMusicFile) {
         super();
 
         if (count > 0) {
@@ -99,6 +99,7 @@ public class MainPanel extends JPanel {
         this.myGameTimer = theGameTimer;
         this.myNextPiecePanel = theNextPiecePanel;
         this.myGamePanel = theGamePanel;
+        this.myScorePanel = theScorePanel;
 
         createMusic(theMusicFile);
 
@@ -113,7 +114,6 @@ public class MainPanel extends JPanel {
     private void buildComponents() {
         mySecondaryPanel = new JPanel();
         myControlPanel = new ControlPanel();
-        myScorePanel = new ScorePanel(myGameTimer);
 
         myGamePanel.setPreferredSize(new Dimension(200, 400));
         myNextPiecePanel.setPreferredSize(new Dimension(160, 160));

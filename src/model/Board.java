@@ -495,7 +495,7 @@ public class Board implements MyBoard {
             }
             if (complete) {
                 completeRows.add(myFrozenBlocks.indexOf(row));
-                myPcs.firePropertyChange(PROPERTY_ROW_CLEARED, null, completeRows.size() + 1);
+                myPcs.firePropertyChange(PROPERTY_ROW_CLEARED, null, completeRows.size());
             }
         }
         // loop through list backwards removing items by index

@@ -12,6 +12,7 @@ import model.MyDifficultyChanger;
 import view.layout.GamePanel;
 import view.layout.MainPanel;
 import view.layout.NextPiecePanel;
+import view.layout.ScorePanel;
 import view.menu.Menu;
 
 
@@ -73,6 +74,11 @@ public class TetrisGUI implements MyDifficultyChanger {
     private final GamePanel myGamePanel;
 
     /**
+     * score panel object representing the panel where the score is shown.
+     */
+    private final ScorePanel myScorePanel;
+
+    /**
      * Timer to manage game updates at regular intervals.
      */
     private final Timer myGameTimer;
@@ -94,7 +100,6 @@ public class TetrisGUI implements MyDifficultyChanger {
         myBoard = new Board();
         myGamePanel = new GamePanel(myBoard);
         myNextPiecePanel = new NextPiecePanel(myBoard);
-        //myGamePanel = new GamePanel(myBoard);
 
         myMusicFile = new File("src/music/music.wav");
 
@@ -102,12 +107,16 @@ public class TetrisGUI implements MyDifficultyChanger {
         myBoard.addPropertyChangeListener(myNextPiecePanel);
         myBoard.addPropertyChangeListener(myGamePanel);
 
+
         myGameTimer = new Timer(EASY_DIFFICULTY, theEvent -> {
             timerCounter++; // DELETE LATER (USED FOR TESTING)
             System.out.print(timerCounter + "\n"); // DELETE LATER (USED FOR TESTING)
             myBoard.step();
             //myGamePanel.repaint();
         });
+
+        myScorePanel = new ScorePanel(myBoard, myGameTimer);
+        myBoard.addPropertyChangeListener(myScorePanel);
 
         setUpComponents();
     }
@@ -122,7 +131,7 @@ public class TetrisGUI implements MyDifficultyChanger {
         frame.setLayout(new BorderLayout());
 
         final MainPanel mainPanel = new MainPanel(myBoard, myGameTimer,
-                myNextPiecePanel, myGamePanel, myMusicFile);
+                myNextPiecePanel, myGamePanel, myScorePanel, myMusicFile);
 
         frame.setJMenuBar(new Menu(myBoard, myGameTimer, this));
         frame.add(mainPanel, BorderLayout.CENTER);

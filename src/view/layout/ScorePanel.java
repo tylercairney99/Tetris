@@ -1,5 +1,7 @@
 package view.layout;
 
+import model.Board;
+
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -90,24 +92,36 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     private final Timer myGameTimer;
 
     /**
+     *  The game board associated with this menu.
+     */
+    private Board myBoard;
+
+    /**
+     * The original delay of the timer.
+     */
+    private final int myOriginalDelay;
+
+    /**
      * Panel used to display the player's score.
      * Sets background color.
      *
      * @throws IllegalArgumentException if more than one ScorePanel is instantiated.
      */
-    public ScorePanel(final Timer theGameTimer) {
+    public ScorePanel(final Board theBoard, final Timer theGameTimer) {
         super();
+        myBoard = theBoard;
         myScore = 0;
         myLinesCleared = 0;
         myLevel = 1;
+        myOriginalDelay = theGameTimer.getDelay();
         this.myGameTimer = theGameTimer;
+        this.myBoard.addPropertyChangeListener(this);
 
         if (count > 0) {
             throw new IllegalArgumentException("Only one ScorePanel allowed");
         }
         count++;
 
-        setBackground(Color.YELLOW);
         setLayout(new BorderLayout());
         final JPanel scorePanel = new JPanel(new FlowLayout());
         scorePanel.setOpaque(false);
@@ -182,13 +196,21 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
         if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
-            myLinesCleared += (int) theEvent.getNewValue();
-            calculateLevel();
-            calculateScore((int) theEvent.getNewValue());
+            if ((int) theEvent.getNewValue() == 1 || (int) theEvent.getNewValue() == 2 ||
+                    (int) theEvent.getNewValue() == 3 || (int) theEvent.getNewValue() == 4) {
 
-            System.out.println(myLinesCleared);
-            System.out.println(myLevel);
-            System.out.println(myScore);
+                myLinesCleared += (int) theEvent.getNewValue();
+                calculateLevel();
+                calculateScore((int) theEvent.getNewValue());
+                repaint();
+            }
+        }
+
+        if (PROPERTY_NEW_GAME.equals(theEvent.getPropertyName())) {
+            myScore = 0;
+            myLinesCleared = 0;
+            myLevel = 1;
+            myGameTimer.setDelay(myOriginalDelay);
             repaint();
         }
     }
