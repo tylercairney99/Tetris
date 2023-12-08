@@ -90,6 +90,7 @@ public class TetrisGUI implements MyDifficultyChanger {
 
     //private final TetrisGUI myTetrisGUI;
 
+
     /**
      * Constructs a new TetrisGUI object.
      * Initializes the game board, sets up GUI components, and adds necessary listeners.
@@ -176,12 +177,7 @@ public class TetrisGUI implements MyDifficultyChanger {
      */
     @Override
     public void changeDifficulty(final int theNewDifficulty) {
-        if (myCurrentDifficulty != theNewDifficulty) {
-            myCurrentDifficulty = theNewDifficulty;
-            myGameTimer.setDelay(theNewDifficulty);
-
-        }
-        //myBoard.newGame();
+        myCurrentDifficulty = theNewDifficulty;
         JOptionPane.showMessageDialog(null, "Current Difficulty: " + getCurrentDifficulty());
     }
 
@@ -200,6 +196,14 @@ public class TetrisGUI implements MyDifficultyChanger {
         };
     }
 
+    /**
+     * gets current difficulty.
+     *
+     * @return myCurrentDifficulty (Constant for times step is called per second).
+     */
+    public int getCurrentDifficultyValue() {
+        return myCurrentDifficulty;
+    }
 
     /**
      * The main method to run the Tetris GUI.

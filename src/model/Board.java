@@ -759,7 +759,7 @@ public class Board implements MyBoard {
     }
 
 
-    // Added by tyler to get frozen blocks
+    // get frozen blocks
     public List<Block[]> getFrozenBlocks() {
         return myFrozenBlocks;
     }

@@ -92,10 +92,13 @@ public class Menu extends JMenuBar {
 
         newGameItem.addActionListener(theEvent -> {
             myBoard.newGame();
+            myGameTimer.stop();
+            myGameTimer.setDelay(myTetrisGUI.getCurrentDifficultyValue());
             myGameTimer.start();
             JOptionPane.showMessageDialog(null, "Starting a New Game on "
                     + myTetrisGUI.getCurrentDifficulty() + " Difficulty!");
         });
+
 
         exitItem.addActionListener(theEvent -> System.exit(0));
 
@@ -114,6 +117,7 @@ public class Menu extends JMenuBar {
         final JMenuItem difficultyEasyItem = new JMenuItem("Easy");
         final JMenuItem difficultyMediumItem = new JMenuItem("Medium");
         final JMenuItem difficultyHardItem = new JMenuItem("Hard");
+        final JMenuItem difficultyAbout = new JMenuItem("About");
 
         difficultyEasyItem.addActionListener(theEvent -> {
             myTetrisGUI.changeDifficulty(TetrisGUI.EASY_DIFFICULTY);
@@ -125,11 +129,20 @@ public class Menu extends JMenuBar {
             myTetrisGUI.changeDifficulty(TetrisGUI.HARD_DIFFICULTY);
         });
 
+        difficultyAbout.addActionListener(theEvent ->
+                JOptionPane.showMessageDialog(null, """
+                To apply your selected difficulty setting, you need to start a new game.
+                Changing difficulties mid-game is not supported.
+                Please start a new game to play with the chosen difficulty level.
+                """));
+
         difficultyMenu.add(difficultyEasyItem);
         difficultyMenu.addSeparator();
         difficultyMenu.add(difficultyMediumItem);
         difficultyMenu.addSeparator();
         difficultyMenu.add(difficultyHardItem);
+        difficultyMenu.addSeparator();
+        difficultyMenu.add(difficultyAbout);
 
         return difficultyMenu;
 
