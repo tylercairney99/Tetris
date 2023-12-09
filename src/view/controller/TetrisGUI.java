@@ -1,6 +1,7 @@
 package view.controller;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.io.File;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -86,11 +87,20 @@ public class TetrisGUI implements MyDifficultyChanger {
      */
     private final File myMusicFile;
 
+    /**
+     * Location of sound effect in the file.
+     */
+    private final File mySoundFile;
 
 
     /**
      * Constructs a new TetrisGUI object.
      * Initializes the game board, sets up GUI components, and adds necessary listeners.
+     * Music-
+     * Pixel Story by Roa Music | <a href="https://soundcloud.com/roa_music1031">...</a>
+     * Music promoted by <a href="https://www.free-stock-music.com">...</a>
+     * Creative Commons / Attribution 3.0 Unported License (CC BY 3.0)
+     * <a href="https://creativecommons.org/licenses/by/3.0/deed.en_US">...</a>
      */
     public TetrisGUI() {
         super();
@@ -98,12 +108,14 @@ public class TetrisGUI implements MyDifficultyChanger {
         myBoard = new Board();
         myGamePanel = new GamePanel(myBoard);
         myNextPiecePanel = new NextPiecePanel(myBoard);
-        // Removed: myTetrisGUI = new TetrisGUI(); // This line is not needed here
 
         myMusicFile = new File("src/music/music.wav");
+        mySoundFile = new File("src/music/jingle.wav");
+
 
         myBoard.addPropertyChangeListener(myNextPiecePanel);
         myBoard.addPropertyChangeListener(myGamePanel);
+
 
         myGameTimer = new Timer(EASY_DIFFICULTY, theEvent -> {
             myBoard.step();
@@ -125,8 +137,8 @@ public class TetrisGUI implements MyDifficultyChanger {
         frame.setLayout(new BorderLayout());
 
         final MainPanel mainPanel = new MainPanel(myBoard, myGameTimer,
-                myNextPiecePanel, myGamePanel, myScorePanel, myMusicFile, myCurrentDifficulty, this);
-
+                myNextPiecePanel, myGamePanel, myScorePanel, myMusicFile
+                mySoundFile, myCurrentDifficulty);
 
         frame.setJMenuBar(new Menu(myBoard, myGameTimer, this));
         frame.add(mainPanel, BorderLayout.CENTER);

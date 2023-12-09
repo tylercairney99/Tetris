@@ -125,5 +125,4 @@ public final class PaintI implements model.PaintTetromino {
         theG2d.setPaint(Color.CYAN);
         model.PaintTetromino.paintShape(theG2d, tetrisBlock1, tetrisBlock2, tetrisBlock3, tetrisBlock4);
     }
-
 }
