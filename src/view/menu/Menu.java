@@ -114,7 +114,7 @@ public class Menu extends JMenuBar {
         final JMenuItem difficultyEasyItem = new JMenuItem("Easy");
         final JMenuItem difficultyMediumItem = new JMenuItem("Medium");
         final JMenuItem difficultyHardItem = new JMenuItem("Hard");
-        final JMenuItem difficultyAbout = new JMenuItem("About");
+        final JMenuItem difficultyAbout = new JMenuItem("Difficulty Info");
 
         difficultyEasyItem.addActionListener(theEvent ->
                 myTetrisGUI.changeDifficulty(TetrisGUI.EASY_DIFFICULTY));
