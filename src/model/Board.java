@@ -568,8 +568,56 @@ public class Board implements MyBoard {
         }
     }
 
+    @Override
+    public void addPropertyChangeListener(final PropertyChangeListener theListener) {
+        myPcs.addPropertyChangeListener(theListener);
+    }
 
-    // Inner classes
+    @Override
+    public void addPropertyChangeListener(final String thePropertyName,
+                                          final PropertyChangeListener theListener) {
+        myPcs.addPropertyChangeListener(thePropertyName, theListener);
+    }
+
+    @Override
+    public void removePropertyChangeListener(final PropertyChangeListener theListener) {
+        myPcs.removePropertyChangeListener(theListener);
+    }
+
+    @Override
+    public void removePropertyChangeListener(final String thePropertyName,
+                                             final PropertyChangeListener theListener) {
+        myPcs.removePropertyChangeListener(thePropertyName, theListener);
+    }
+
+    /**
+     * Getter for frozen blocks. (allowed?)
+     *
+     * @return A list of the frozen blocks
+     */
+    @Override
+    public List<Block[]> getFrozenBlocks() {
+        return myFrozenBlocks;
+    }
+
+    /**
+     * Updates the next piece for the game, either from a predefined sequence or randomly.
+     * This method determines and updates the next Tetris piece. Observers are notified about
+     * the change in the next piece, allowing GUI components to display the upcoming piece.
+     * It supports both random piece generation and predefined piece sequences.
+     * Usage:
+     *   Call this method after a piece has landed to determine the next piece in the game.
+     *   It should be part of the game loop or piece settling logic.
+     */
+    private void updateNextPiece() {
+        if (myNonRandomPieces == null || myNonRandomPieces.isEmpty()) {
+            myNextPiece = TetrisPiece.getRandomPiece();
+        } else {
+            mySequenceIndex %= myNonRandomPieces.size();
+            myNextPiece = myNonRandomPieces.get(mySequenceIndex++);
+        }
+        myPcs.firePropertyChange(PROPERTY_NEXT_PIECE_CHANGES, null, myNextPiece);
+    }
 
     /**
      * A class to describe the board data to registered Observers.
@@ -609,59 +657,5 @@ public class Board implements MyBoard {
             }
             return board;
         }
-
-
-        // Implmentation of Observer Design Pattern
-
-    }  // end inner class BoardData
-
-    @Override
-    public void addPropertyChangeListener(final PropertyChangeListener theListener) {
-        myPcs.addPropertyChangeListener(theListener);
-    }
-
-    @Override
-    public void addPropertyChangeListener(final String thePropertyName,
-                                          final PropertyChangeListener theListener) {
-        myPcs.addPropertyChangeListener(thePropertyName, theListener);
-    }
-
-    @Override
-    public void removePropertyChangeListener(final PropertyChangeListener theListener) {
-        myPcs.removePropertyChangeListener(theListener);
-    }
-
-    @Override
-    public void removePropertyChangeListener(final String thePropertyName,
-                                             final PropertyChangeListener theListener) {
-        myPcs.removePropertyChangeListener(thePropertyName, theListener);
-    }
-    /**
-     * Getter for frozen blocks. (allowed?)
-     *
-     * @return A list of the frozen blocks
-     */
-    @Override
-    public List<Block[]> getFrozenBlocks() {
-        return myFrozenBlocks;
-    }
-
-    /**
-     * Updates the next piece for the game, either from a predefined sequence or randomly.
-     * This method determines and updates the next Tetris piece. Observers are notified about
-     * the change in the next piece, allowing GUI components to display the upcoming piece.
-     * It supports both random piece generation and predefined piece sequences.
-     * Usage:
-     *   Call this method after a piece has landed to determine the next piece in the game.
-     *   It should be part of the game loop or piece settling logic.
-     */
-    private void updateNextPiece() {
-        if (myNonRandomPieces == null || myNonRandomPieces.isEmpty()) {
-            myNextPiece = TetrisPiece.getRandomPiece();
-        } else {
-            mySequenceIndex %= myNonRandomPieces.size();
-            myNextPiece = myNonRandomPieces.get(mySequenceIndex++);
-        }
-        myPcs.firePropertyChange(PROPERTY_NEXT_PIECE_CHANGES, null, myNextPiece);
     }
 }
