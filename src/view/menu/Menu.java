@@ -1,6 +1,9 @@
 package view.menu;
 
+import static model.Board.PROPERTY_GAME_OVER;
 import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -16,7 +19,7 @@ import view.controller.TetrisGUI;
  * @author Group 7
  * @version 1.2
  */
-public class Menu extends JMenuBar {
+public class Menu extends JMenuBar implements PropertyChangeListener {
 
     /**
      * The game board associated with this menu.
@@ -52,6 +55,7 @@ public class Menu extends JMenuBar {
         myBoard = theBoard;
         myGameTimer = theGameTimer;
         myTetrisGUI = theTetrisGUI;
+        myBoard.addPropertyChangeListener(PROPERTY_GAME_OVER, this);
     }
 
     private void initializeMenu() {
@@ -83,11 +87,19 @@ public class Menu extends JMenuBar {
         final JMenu gameMenu = new JMenu("Game");
         gameMenu.setMnemonic(KeyEvent.VK_G);
         final JMenuItem newGameItem = new JMenuItem("New Game");
+        final JMenuItem endGameItem = new JMenuItem("End Game");
         final JMenuItem exitItem = new JMenuItem("Exit");
         gameMenu.add(newGameItem);
         gameMenu.addSeparator();
+        gameMenu.add(endGameItem);
+        gameMenu.addSeparator();
         gameMenu.add(exitItem);
         newGameItem.addActionListener(theEvent -> newGameSetup());
+        endGameItem.addActionListener(theEvent -> {
+            myGameTimer.stop();
+            JOptionPane.showMessageDialog(null, "Game Ended. Click New Game to Play Again");
+            //myBoard.setPoint();
+        });
         exitItem.addActionListener(theEvent -> System.exit(0));
         return gameMenu;
     }
@@ -102,6 +114,7 @@ public class Menu extends JMenuBar {
         myGameTimer.setDelay(myTetrisGUI.getCurrentDifficultyValue());
         myGameTimer.start();
     }
+
 
     /**
      * Builds the difficulty menu.
@@ -183,4 +196,11 @@ public class Menu extends JMenuBar {
 
         return aboutMenu;
     }
+    @Override
+    public void propertyChange(final PropertyChangeEvent theEvent) {
+        if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName()) && (Boolean) theEvent.getNewValue()) {
+            JOptionPane.showMessageDialog(null, "Game Over. Click New Game to play again.");
+        }
+    }
+
 }
