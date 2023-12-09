@@ -13,7 +13,9 @@ import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -25,8 +27,6 @@ import javax.swing.Timer;
 import model.Board;
 import model.TetrisPiece;
 import view.controller.TetrisGUI;
-
-
 
 /**
  * A class representing the main panel for a Tetris game.
@@ -276,7 +276,7 @@ public class MainPanel extends JPanel {
             pauseMusic();
 
             JOptionPane.showMessageDialog(null,
-                    "              Game Over!");
+                    "Game Over. Click New Game to play again.");
         } else if (PROPERTY_NEXT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
             final TetrisPiece nextPiece = (TetrisPiece) theEvent.getNewValue();
         }
@@ -293,62 +293,61 @@ public class MainPanel extends JPanel {
     }
 
     class ControlKeyListener extends KeyAdapter {
-
+        /**
+         * Map of key codes to actions.
+         */
+        private final Map<Integer, Runnable> myKeyMappings;
         ControlKeyListener() {
             super();
+            myKeyMappings = new HashMap<>();
+            mapKeys();
         }
 
-        @SuppressWarnings({"OverlyLongMethod", "checkstyle:CyclomaticComplexity", "CheckStyle"})
-        /*
-         * OverlyLongMethod warning is suppressed because the method is necessary to
-         * use the keyListeners.
-         * CyclomaticComplexity warning is suppressed with "Checksyle" because the method is necessary to
-         * use the keyListeners.
+        /**
+         * Maps key codes to actions.
          */
+        private void mapKeys() {
+            myKeyMappings.put(KeyEvent.VK_RIGHT, myBoard::right);
+            myKeyMappings.put(KeyEvent.VK_D, myBoard::right);
+            myKeyMappings.put(KeyEvent.VK_LEFT, myBoard::left);
+            myKeyMappings.put(KeyEvent.VK_A, myBoard::left);
+            myKeyMappings.put(KeyEvent.VK_DOWN, myBoard::down);
+            myKeyMappings.put(KeyEvent.VK_S, myBoard::down);
+            myKeyMappings.put(KeyEvent.VK_UP, myBoard::rotateCW);
+            myKeyMappings.put(KeyEvent.VK_W, myBoard::rotateCW);
+            myKeyMappings.put(KeyEvent.VK_SPACE, myBoard::drop);
+            myKeyMappings.put(KeyEvent.VK_P, () -> {
+                if (myGameTimer.isRunning()) {
+                    stopGame();
+                } else {
+                    startGame();
+                }
+            });
+        }
+
         @Override
         public void keyPressed(final KeyEvent theEvent) {
-            if (myGameTimer.isRunning()) {
-                switch (theEvent.getKeyCode()) {
-                    case KeyEvent.VK_RIGHT:
-                    case KeyEvent.VK_D:
-                        myBoard.right();
-                        break;
-                    case KeyEvent.VK_LEFT:
-                    case KeyEvent.VK_A:
-                        myBoard.left();
-                        break;
-                    case KeyEvent.VK_DOWN:
-                    case KeyEvent.VK_S:
-                        myBoard.down();
-                        myGamePanel.repaint();
+            if (myKeyMappings.containsKey(theEvent.getKeyCode()) && myGameTimer.isRunning()) {
+                myKeyMappings.get(theEvent.getKeyCode()).run();
+            } else if (theEvent.getKeyCode() == KeyEvent.VK_P) {
+                myKeyMappings.get(theEvent.getKeyCode()).run();
+            }
+        }
 
-                        if ("Hard".equals(myTetrisGUI.getCurrentDifficulty())) {
-                            myBoard.step();
-                        } else {
-                            myGameTimer.restart();
-                        }
-                        break;
-                    case KeyEvent.VK_UP:
-                    case KeyEvent.VK_W:
-                        myBoard.rotateCW();
-                        break;
-                    case KeyEvent.VK_SPACE:
-                        myBoard.drop();
-                        myGamePanel.repaint();
-                        break;
-                    default:
-                        break;
-                }
-            }
-            if (theEvent.getKeyCode() == KeyEvent.VK_P) {
-                if (myGameTimer.isRunning()) {
-                    myGameTimer.stop();
-                    pauseMusic();
-                } else {
-                    myGameTimer.start();
-                    playMusic();
-                }
-            }
+        /**
+         * Stops the game and music.
+         */
+        private void stopGame() {
+            myGameTimer.stop();
+            pauseMusic();
+        }
+
+        /**
+         * Starts the game and music.
+         */
+        private void startGame() {
+            myGameTimer.start();
+            playMusic();
         }
     }
 }
