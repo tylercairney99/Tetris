@@ -1,12 +1,10 @@
 package model.paint;
 
-import model.Rotation;
-
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
-
+import model.Rotation;
 /**
  * Utility class used to create shapes and prints them according to the parameters given.
  *
@@ -35,20 +33,16 @@ public final class PaintI implements model.PaintTetromino {
                                     final int theY, final int theX, final Rotation theRotation) {
         switch (theRotation) {
             case NONE -> {
-                rotation0(theG2d, theBlockHeight,
-                        theY, theX);
+                rotation0(theG2d, theBlockHeight, theY, theX);
             }
             case QUARTER -> {
-                rotation90(theG2d, theBlockHeight,
-                        theY, theX);
+                rotation90(theG2d, theBlockHeight, theY, theX);
             }
             case HALF -> {
-                rotation180(theG2d, theBlockHeight,
-                        theY, theX);
+                rotation180(theG2d, theBlockHeight, theY, theX);
             }
             case THREEQUARTER -> {
-                rotation270(theG2d, theBlockHeight,
-                        theY, theX);
+                rotation270(theG2d, theBlockHeight, theY, theX);
             }
             default -> throw new IllegalStateException("Unexpected value: " + theRotation);
         }

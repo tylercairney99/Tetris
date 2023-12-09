@@ -1,10 +1,8 @@
-package model;
+package model.paint;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
-import java.awt.geom.Rectangle2D;
-import javax.swing.JPanel;
 
 /**
  * Utility class used to create shapes and prints them according to the parameters given.
@@ -13,27 +11,6 @@ import javax.swing.JPanel;
  * @version 3.0
  */
 public interface PaintTetromino {
-
-//    /**
-//     * Paints tetromino with no rotation.
-//     */
-//    void rotation0(Graphics2D theGraphics, int theBlockHeight, int theY, int theX);
-//
-//    /**
-//     * Paints tetromino with 90 degree rotation.
-//     */
-//    void rotation90(Graphics2D theGraphics, int theBlockHeight, int theY, int theX);
-//
-//    /**
-//     * Paints tetromino with 180 degree rotation.
-//     */
-//    void rotation180(Graphics2D theGraphics, int theBlockHeight, int theY, int theX);
-//
-//    /**
-//     * Paints tetromino with 270 degree rotation.
-//     */
-//    void rotation270(Graphics2D theGraphics, int theBlockHeight, int theY, int theX);
-//
 
     /**
      * Used to paint and fill tetrominos.

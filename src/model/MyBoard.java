@@ -50,6 +50,16 @@ public interface MyBoard {
     String PROPERTY_PIECE_ROTATES = "A piece has rotates.";
 
     /**
+     * Default width of a Tetris game board.
+     */
+    int DEFAULT_WIDTH = 10;
+
+    /**
+     * Default height of a Tetris game board.
+     */
+    int DEFAULT_HEIGHT = 20;
+
+    /**
      * Gets the width of the board.
      *
      * @return The width of the board.
@@ -62,6 +72,13 @@ public interface MyBoard {
      * @return The height of the board.
      */
     int getHeight();
+
+    /**
+     * Getter for frozen blocks.
+     *
+     * @return A list of the frozen blocks
+     */
+    List<Block[]> getFrozenBlocks();
 
     /**
      * Starts a new game. This should reset the board and prepare it for a new game session.
