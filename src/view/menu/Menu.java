@@ -82,27 +82,23 @@ public class Menu extends JMenuBar {
     private JMenu buildGameMenu() {
         final JMenu gameMenu = new JMenu("Game");
         gameMenu.setMnemonic(KeyEvent.VK_G);
-
         final JMenuItem newGameItem = new JMenuItem("New Game");
         final JMenuItem exitItem = new JMenuItem("Exit");
-
         gameMenu.add(newGameItem);
         gameMenu.addSeparator();
         gameMenu.add(exitItem);
-
-        newGameItem.addActionListener(theEvent -> {
-            myBoard.newGame();
-            myGameTimer.stop();
-            myGameTimer.setDelay(myTetrisGUI.getCurrentDifficultyValue());
-            myGameTimer.start();
-            JOptionPane.showMessageDialog(null, "Starting a New Game on "
-                    + myTetrisGUI.getCurrentDifficulty() + " Difficulty!");
-        });
-
-
+        newGameItem.addActionListener(theEvent -> newGameSetup());
         exitItem.addActionListener(theEvent -> System.exit(0));
-
         return gameMenu;
+    }
+
+    private void newGameSetup() {
+        myBoard.newGame();
+        myGameTimer.stop();
+        myGameTimer.setDelay(myTetrisGUI.getCurrentDifficultyValue());
+        myGameTimer.start();
+        JOptionPane.showMessageDialog(null, "Starting a New Game on "
+                + myTetrisGUI.getCurrentDifficulty() + " Difficulty!");
     }
 
     /**
@@ -110,6 +106,7 @@ public class Menu extends JMenuBar {
      *
      * @return The difficulty menu.
      */
+    @SuppressWarnings("checkstyle:MultipleStringLiterals")
     private JMenu buildDifficultyMenu() {
         final JMenu difficultyMenu = new JMenu("Difficulty");
         difficultyMenu.setMnemonic(KeyEvent.VK_D);
@@ -119,15 +116,12 @@ public class Menu extends JMenuBar {
         final JMenuItem difficultyHardItem = new JMenuItem("Hard");
         final JMenuItem difficultyAbout = new JMenuItem("About");
 
-        difficultyEasyItem.addActionListener(theEvent -> {
-            myTetrisGUI.changeDifficulty(TetrisGUI.EASY_DIFFICULTY);
-        });
-        difficultyMediumItem.addActionListener(theEvent ->  {
-            myTetrisGUI.changeDifficulty(TetrisGUI.MEDIUM_DIFFICULTY);
-        });
-        difficultyHardItem.addActionListener(theEvent ->  {
-            myTetrisGUI.changeDifficulty(TetrisGUI.HARD_DIFFICULTY);
-        });
+        difficultyEasyItem.addActionListener(theEvent ->
+                myTetrisGUI.changeDifficulty(TetrisGUI.EASY_DIFFICULTY));
+        difficultyMediumItem.addActionListener(theEvent ->
+                myTetrisGUI.changeDifficulty(TetrisGUI.MEDIUM_DIFFICULTY));
+        difficultyHardItem.addActionListener(theEvent ->
+                myTetrisGUI.changeDifficulty(TetrisGUI.HARD_DIFFICULTY));
 
         difficultyAbout.addActionListener(theEvent ->
                 JOptionPane.showMessageDialog(null, """
