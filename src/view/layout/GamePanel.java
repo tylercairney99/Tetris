@@ -183,6 +183,8 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
                 new float[]{0.0f, 0.5f, 1.0f}, new Color[]{color1, color2, color1});
         theGraphics.setPaint(gp);
         theGraphics.fillRect(0, 0, w, h);
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+
     }
 
     /**
