@@ -23,7 +23,6 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import model.Block;
-import model.Board;
 import model.MovableTetrisPiece;
 import model.Point;
 import model.Rotation;
@@ -66,12 +65,6 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
     private static final int STROKE_WIDTH = 1;
 
     /**
-     * The game board associated with this menu.
-     */
-    private final Board myBoard;
-
-
-    /**
      * Current tetromino in play of type TetrisPiece.
      */
     private TetrisPiece myCurrentTetrisPiece;
@@ -106,15 +99,13 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
      * warning is suppressed because count is used to ensure only one
      * GamePanel is instantiated.
      */
-    public GamePanel(final Board theBoard) {
+    public GamePanel() {
         super();
 
         if (count > 0) {
             throw new IllegalArgumentException("Only one GamePanel allowed");
         }
         count++;
-
-        myBoard = theBoard;
 
     }
 
@@ -143,7 +134,6 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
         if (PROPERTY_FROZEN_PIECE.equals(theEvent.getPropertyName())) {
             myFrozenBlocks = (List<Block[]>) theEvent.getNewValue();
             repaint();
-
         }
     }
 
