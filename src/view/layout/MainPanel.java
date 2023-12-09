@@ -30,6 +30,11 @@ import view.controller.TetrisGUI;
  * @author Group 7
  * @version Autumn 2023
  */
+@SuppressWarnings("ClassWithTooManyFields")
+/*
+ * warning is suppressed because there are too many fields to
+ * make this class smaller.
+ */
 public class MainPanel extends JPanel {
 
     /**
@@ -263,6 +268,13 @@ public class MainPanel extends JPanel {
             super();
         }
 
+        @SuppressWarnings({"OverlyLongMethod", "checkstyle:CyclomaticComplexity", "CheckStyle"})
+        /*
+         * OverlyLongMethod warning is suppressed because the method is necessary to
+         * use the keyListeners.
+         * CyclomaticComplexity warning is suppressed with "Checksyle" because the method is necessary to
+         * use the keyListeners.
+         */
         @Override
         public void keyPressed(final KeyEvent theEvent) {
             if (myGameTimer.isRunning()) {
