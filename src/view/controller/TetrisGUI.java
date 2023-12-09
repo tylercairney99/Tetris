@@ -137,8 +137,8 @@ public class TetrisGUI implements MyDifficultyChanger {
         frame.setLayout(new BorderLayout());
 
         final MainPanel mainPanel = new MainPanel(myBoard, myGameTimer,
-                myNextPiecePanel, myGamePanel, myScorePanel, myMusicFile
-                mySoundFile, myCurrentDifficulty);
+                myNextPiecePanel, myGamePanel, myScorePanel, myMusicFile,
+                mySoundFile, myCurrentDifficulty, this);
 
         frame.setJMenuBar(new Menu(myBoard, myGameTimer, this));
         frame.add(mainPanel, BorderLayout.CENTER);
