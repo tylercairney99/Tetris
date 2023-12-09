@@ -2,6 +2,7 @@ package view.layout;
 
 import static model.Board.PROPERTY_CURRENT_PIECE_CHANGES;
 import static model.Board.PROPERTY_PIECE_ROTATES;
+import static model.MyBoard.PROPERTY_FROZEN_PIECE;
 import static model.paint.PaintI.createIShape;
 import static model.paint.PaintJ.createJShape;
 import static model.paint.PaintL.createLShape;
@@ -90,6 +91,11 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
      */
     private Rotation myRotation = Rotation.NONE;
 
+    /**
+     * The frozen blocks.
+     */
+    private List<Block[]> myFrozenBlocks;
+
 
     /**
      * Panel that will show the game board with tetrominos in play.
@@ -134,6 +140,11 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
             myRotation = (Rotation) theEvent.getNewValue();
             repaint();
         }
+        if (PROPERTY_FROZEN_PIECE.equals(theEvent.getPropertyName())) {
+            myFrozenBlocks = (List<Block[]>) theEvent.getNewValue();
+            repaint();
+
+        }
     }
 
     @SuppressWarnings({"PublicMethodNotExposedInInterface"})
@@ -152,15 +163,14 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
 
         createShape(g2d);
 
-        final List<Block[]> frozenBlocks = myBoard.getFrozenBlocks();
-        if (frozenBlocks != null) {
-            for (int row = 0; row < frozenBlocks.size(); row++) {
-                for (int col = 0; col < frozenBlocks.get(row).length; col++) {
-                    final Block block = frozenBlocks.get(row)[col];
+        if (myFrozenBlocks != null) {
+            for (int row = 0; row < myFrozenBlocks.size(); row++) {
+                for (int col = 0; col < myFrozenBlocks.get(row).length; col++) {
+                    final Block block = myFrozenBlocks.get(row)[col];
                     if (block != null) {
                         g2d.setColor(getColorForBlock(block));
                         final int x = col * BLOCK_WIDTH;
-                        final int y = (frozenBlocks.size() - row - 1) * BLOCK_HEIGHT;
+                        final int y = (myFrozenBlocks.size() - row - 1) * BLOCK_HEIGHT;
                         g2d.fillRect(x, y, BLOCK_WIDTH, BLOCK_HEIGHT);
                         g2d.setColor(Color.BLACK);
                         g2d.drawRect(x, y, BLOCK_WIDTH, BLOCK_HEIGHT);

@@ -415,6 +415,7 @@ public class Board implements MyBoard {
             for (final Block b : row) {
                 if (b == null) {
                     complete = false;
+                    myPcs.firePropertyChange(PROPERTY_FROZEN_PIECE, null, myFrozenBlocks);
                     break;
                 }
             }
@@ -572,16 +573,6 @@ public class Board implements MyBoard {
     public void removePropertyChangeListener(final String thePropertyName,
                                              final PropertyChangeListener theListener) {
         myPcs.removePropertyChangeListener(thePropertyName, theListener);
-    }
-
-    /**
-     * Getter for frozen blocks. (allowed?)
-     *
-     * @return A list of the frozen blocks
-     */
-    @Override
-    public List<Block[]> getFrozenBlocks() {
-        return myFrozenBlocks;
     }
 
     /**

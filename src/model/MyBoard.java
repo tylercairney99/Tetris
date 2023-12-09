@@ -50,6 +50,11 @@ public interface MyBoard {
     String PROPERTY_PIECE_ROTATES = "A piece has rotates.";
 
     /**
+     * A property to check if a piece has been frozen.
+     */
+    String PROPERTY_FROZEN_PIECE = "A piece has been frozen.";
+
+    /**
      * Default width of a Tetris game board.
      */
     int DEFAULT_WIDTH = 10;
