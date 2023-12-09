@@ -636,9 +636,14 @@ public class Board implements MyBoard {
                                              final PropertyChangeListener theListener) {
         myPcs.removePropertyChangeListener(thePropertyName, theListener);
     }
-    private void updateGameState() {
-        final List<Block[]> currentState = getBoard();
-        myPcs.firePropertyChange(PROPERTY_BOARD_CHANGES, null, currentState);
+    /**
+     * Getter for frozen blocks. (allowed?)
+     *
+     * @return A list of the frozen blocks
+     */
+    @Override
+    public List<Block[]> getFrozenBlocks() {
+        return myFrozenBlocks;
     }
 
     /**
@@ -658,15 +663,5 @@ public class Board implements MyBoard {
             myNextPiece = myNonRandomPieces.get(mySequenceIndex++);
         }
         myPcs.firePropertyChange(PROPERTY_NEXT_PIECE_CHANGES, null, myNextPiece);
-    }
-
-    /**
-     * Getter for frozen blocks.
-     *
-     * @return A list of the frozen blocks
-     */
-    @Override
-    public List<Block[]> getFrozenBlocks() {
-        return myFrozenBlocks;
     }
 }
