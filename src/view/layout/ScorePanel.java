@@ -1,14 +1,23 @@
 package view.layout;
 
-import model.Board;
+import static model.Board.PROPERTY_ROW_CLEARED;
+import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
+import static model.Board.PROPERTY_NEW_GAME;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import javax.swing.*;
-
-import static model.Board.*;
-
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+import model.Board;
 
 /**
  * Panel to display player's score.
@@ -17,10 +26,45 @@ import static model.Board.*;
  * @author James
  * @author Tyler
  * @author Josh
- * @author Cam
  * @version 3.0
  */
 public final class ScorePanel extends JPanel implements PropertyChangeListener {
+
+    /**
+     * used for switch statement for when 1 row is cleared.
+     */
+    private static final int ONE = 1;
+
+    /**
+     * used for switch statement for when 2 rows are cleared.
+     */
+    private static final int TWO = 2;
+
+    /**
+     * used for switch statement for when 3 rows are cleared.
+     */
+    private static final int THREE = 3;
+
+    /**
+     * used for switch statement for when 4 rows are cleared,
+     * and also to calculate timer delay on level up
+     */
+    private static final int FOUR = 4;
+
+    /**
+     * seperator for text labels.
+     */
+    private static final int TEXT_SEPERATOR = 5;
+
+    /**
+     * seperator for level up text.
+     */
+    private static final int LEVEL_UP_SEPERATOR = 7;
+
+    /**
+     * amount of points awarded for dropping a piece.
+     */
+    private static final int SCORE_FOR_PIECE_DROPPED = 4;
 
     /**
      * x coord of score text.
@@ -36,11 +80,6 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
      * Size of score text.
      */
     private static final int TEXT_SIZE = 20;
-
-    /**
-     * Score gained for each row cleared.
-     */
-    private static final int SCORE_GAIN = 10;
 
     /**
      * Score gained for one row cleared.
@@ -64,6 +103,9 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
      */
     private static final int LEVEL_UP = 5;
 
+    /**
+     * used in calculating timer delay change on level up.
+     */
     private static final int LEVEL_UP_TIMER_CHANGE = 2;
 
     /**
@@ -94,7 +136,7 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     /**
      *  The game board associated with this menu.
      */
-    private Board myBoard;
+    private final Board myBoard;
 
     /**
      * The original delay of the timer.
@@ -115,7 +157,6 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
         myLevel = 1;
         myOriginalDelay = theGameTimer.getDelay();
         this.myGameTimer = theGameTimer;
-//        this.myBoard.addPropertyChangeListener(this);
 
         if (count > 0) {
             throw new IllegalArgumentException("Only one ScorePanel allowed");
@@ -154,13 +195,16 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
      */
     private void showScores(final Graphics theGraphics) {
         theGraphics.setFont(new Font("" + theGraphics.getFont(), Font.PLAIN, TEXT_SIZE));
-        theGraphics.drawString("Score: " + myScore, TEXT_X, TEXT_Y + 5);
-        theGraphics.drawString("Level:  " + myLevel, TEXT_X, TEXT_Y + TEXT_SIZE + 10);
-        theGraphics.drawString("Lines:  " + myLinesCleared, TEXT_X, TEXT_Y + TEXT_SIZE * 2 + 15);
+        theGraphics.drawString("Score: " + myScore, TEXT_X, TEXT_Y + TEXT_SEPERATOR);
+        theGraphics.drawString("Level:  " + myLevel, TEXT_X, TEXT_Y + TEXT_SIZE
+                + TEXT_SEPERATOR * 2);
+        theGraphics.drawString("Lines:  " + myLinesCleared, TEXT_X, TEXT_Y + TEXT_SIZE * 2
+                + TEXT_SEPERATOR * THREE);
 
-        theGraphics.setFont(new Font("" + theGraphics.getFont(), Font.PLAIN, TEXT_SIZE - 7));
-        theGraphics.drawString("Next level in " + (LEVEL_UP - myLinesCleared % LEVEL_UP) + " lines",
-                TEXT_X, TEXT_Y + TEXT_SIZE * 3 + 15);
+        theGraphics.setFont(new Font("" + theGraphics.getFont(), Font.PLAIN, TEXT_SIZE
+                - LEVEL_UP_SEPERATOR));
+        theGraphics.drawString("Next level in " + (LEVEL_UP - myLinesCleared % LEVEL_UP)
+                + " lines", TEXT_X, TEXT_Y + TEXT_SIZE * THREE + TEXT_SEPERATOR * THREE);
     }
 
     /**
@@ -169,7 +213,8 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     private void calculateLevel() {
         if (myLinesCleared % LEVEL_UP == 0) {
             myLevel++;
-            myGameTimer.setDelay((myGameTimer.getDelay() / LEVEL_UP_TIMER_CHANGE) + myGameTimer.getDelay() / 4);
+            myGameTimer.setDelay((myGameTimer.getDelay()
+                    / LEVEL_UP_TIMER_CHANGE) + myGameTimer.getDelay() / FOUR);
         }
     }
 
@@ -177,33 +222,24 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
      * Updates the score when a row is cleared.
      */
     private void calculateScore(final int theNumberOfRowsCleared) {
-        int score = 0;
-        switch (theNumberOfRowsCleared) {
-            case 1:
-                score = ONE_LINE_CLEARED;
-                break;
-            case 2:
-                score = TWO_LINES_CLEARED;
-                break;
-            case 3:
-                score = THREE_LINES_CLEARED;
-                break;
-            case 4:
-                score = FOUR_LINES_CLEARED;
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + theNumberOfRowsCleared);
-        }
+        final int score = switch (theNumberOfRowsCleared) {
+            case ONE -> ONE_LINE_CLEARED;
+            case TWO -> TWO_LINES_CLEARED;
+            case THREE -> THREE_LINES_CLEARED;
+            case FOUR -> FOUR_LINES_CLEARED;
+            default -> throw new IllegalStateException("Unexpected value: "
+                    + theNumberOfRowsCleared);
+        };
         myScore += score * myLevel;
     }
 
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
         if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
-            if ((int) theEvent.getNewValue() == 1 || (int) theEvent.getNewValue() == 2 ||
-                    (int) theEvent.getNewValue() == 3 || (int) theEvent.getNewValue() == 4) {
-
-                System.out.println("lines cleared: " + theEvent.getNewValue());
+            if ((int) theEvent.getNewValue() == ONE
+                    || (int) theEvent.getNewValue() == TWO
+                    || (int) theEvent.getNewValue() == THREE
+                    || (int) theEvent.getNewValue() == FOUR) {
 
                 myLinesCleared += (int) theEvent.getNewValue();
                 calculateScore((int) theEvent.getNewValue());
@@ -221,8 +257,7 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
         }
 
         if (PROPERTY_NEXT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
-            System.out.println("Score + 4");
-            myScore += 4;
+            myScore += SCORE_FOR_PIECE_DROPPED;
         }
     }
 }
