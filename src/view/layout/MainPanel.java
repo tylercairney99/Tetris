@@ -69,11 +69,11 @@ public class MainPanel extends JPanel {
     /**
      * The Panel which contains the game board.
      */
-    private final GamePanel myGamePanel;
+    private final JPanel myGamePanel;
     /**
      * The Panel which contains the next piece.
      */
-    private final NextPiecePanel myNextPiecePanel;
+    private final JPanel myNextPiecePanel;
     /**
      * The Panel which contains the controls.
      */
@@ -118,20 +118,24 @@ public class MainPanel extends JPanel {
      */
     private final TetrisGUI myTetrisGUI;
 
-    /**
-     * Constructs a MainPanel object.
-     *
-     * @param theBoard          theBoard
-     * @param theGameTimer      theGameTimer
-     * @param theNextPiecePanel theNextPiecePanel which has already been constructed
-     * @param theGamePanel      theGamePanel which has already been constructed
-     * @throws IllegalArgumentException if more than one ControlPanel is instantiated.
-     */
 
+    /**
+     * Constructs a new MainPanel object.
+     * Initializes the game board, sets up GUI components, and adds necessary listeners.
+     * @param theBoard The game board associated with this menu.
+     * @param theGameTimer Timer to manage game updates at regular intervals.
+     * @param thePanelArray Array of panels to be added to the MainPanel.
+     * @param theSoundList List of sound files to be used in the game.
+     * @param theTetrisGUI GUI to display game.
+     */
+    @SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
+    /*
+     * warning is suppressed because count is used to ensure only one
+     * MainPanel is instantiated.
+     */
     public MainPanel(final Board theBoard, final Timer theGameTimer,
-                     final NextPiecePanel theNextPiecePanel, final GamePanel theGamePanel,
-                     final ScorePanel theScorePanel, final List<File> theSoundList,
-                     final int theCurrentDifficulty, final TetrisGUI theTetrisGUI) {
+                     final JPanel[] thePanelArray, final List<File> theSoundList,
+                     final TetrisGUI theTetrisGUI) {
         super();
 
         if (count > 0) {
@@ -139,22 +143,20 @@ public class MainPanel extends JPanel {
         }
         count++;
 
-        this.myBoard = theBoard;  //Can we remove the this.s
-        this.myGameTimer = theGameTimer;
-        this.myNextPiecePanel = theNextPiecePanel;
-        this.myGamePanel = theGamePanel;
-        this.myScorePanel = theScorePanel;
-        this.myTetrisGUI = theTetrisGUI;
-        constructorHelper(theSoundList, theCurrentDifficulty);
+        myBoard = theBoard;
+        myGameTimer = theGameTimer;
+        myGamePanel = thePanelArray[0];
+        myNextPiecePanel = thePanelArray[1];
+        myScorePanel = thePanelArray[2];
+        myTetrisGUI = theTetrisGUI;
+        constructorHelper(theSoundList);
     }
 
-    private void constructorHelper(final List<File> theSoundList,
-                                   final int theCurrentDifficulty) {
+    private void constructorHelper(final List<File> theSoundList) {
         buildComponents();
         layoutComponents();
         addListeners();
         createMusic(theSoundList);
-        myCurrentDifficulty = theCurrentDifficulty;
     }
 
     /**
