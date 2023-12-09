@@ -97,8 +97,10 @@ public class Menu extends JMenuBar {
         myGameTimer.stop();
         myGameTimer.setDelay(myTetrisGUI.getCurrentDifficultyValue());
         myGameTimer.start();
-        JOptionPane.showMessageDialog(null, "Starting a New Game on "
-                + myTetrisGUI.getCurrentDifficulty() + " Difficulty!");
+        if (!myGameTimer.isRunning()) {
+            JOptionPane.showMessageDialog(null, "Starting a New Game on "
+                    + myTetrisGUI.getCurrentDifficulty() + " Difficulty!");
+        }
     }
 
     /**
