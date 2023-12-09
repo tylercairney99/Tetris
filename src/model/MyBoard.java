@@ -54,6 +54,7 @@ public interface MyBoard {
      */
     String PROPERTY_FROZEN_PIECE = "A piece has been frozen.";
 
+
     /**
      * Default width of a Tetris game board.
      */
