@@ -67,7 +67,7 @@ public final class PaintZ implements model.PaintTetromino {
         final Shape tetrisBlock4 = new Rectangle2D.Double(theX + 2 * theBlockHeight, theY + theBlockHeight,
                 theBlockHeight - 1, theBlockHeight - 1);
 
-        theG2d.setPaint(Color.red);
+        theG2d.setPaint(Color.pink);
         PaintTetromino.paintShape(theG2d, tetrisBlock1, tetrisBlock2, tetrisBlock3, tetrisBlock4);
     }
 
@@ -85,7 +85,7 @@ public final class PaintZ implements model.PaintTetromino {
         final Shape tetrisBlock4 = new Rectangle2D.Double(theX + 2 * theBlockHeight, theY + theBlockHeight,
                 theBlockHeight - 1, theBlockHeight - 1);
 
-        theG2d.setPaint(Color.red);
+        theG2d.setPaint(Color.pink);
         PaintTetromino.paintShape(theG2d, tetrisBlock1, tetrisBlock2, tetrisBlock3, tetrisBlock4);
     }
 
@@ -104,7 +104,7 @@ public final class PaintZ implements model.PaintTetromino {
         final Shape tetrisBlock4 = new Rectangle2D.Double(theX + 2 * theBlockHeight, theY + theBlockHeight * 2,
                 theBlockHeight - 1, theBlockHeight - 1);
 
-        theG2d.setPaint(Color.red);
+        theG2d.setPaint(Color.pink);
         PaintTetromino.paintShape(theG2d, tetrisBlock1, tetrisBlock2, tetrisBlock3, tetrisBlock4);
     }
 
@@ -122,7 +122,7 @@ public final class PaintZ implements model.PaintTetromino {
         final Shape tetrisBlock4 = new Rectangle2D.Double(theX, theY + theBlockHeight,
                 theBlockHeight - 1, theBlockHeight - 1);
 
-        theG2d.setPaint(Color.red);
+        theG2d.setPaint(Color.pink);
         PaintTetromino.paintShape(theG2d, tetrisBlock1, tetrisBlock2, tetrisBlock3, tetrisBlock4);
     }
 }

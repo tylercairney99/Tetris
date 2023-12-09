@@ -3,8 +3,6 @@ package view.layout;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -72,10 +70,18 @@ public class MainPanel extends JPanel {
 
     /**
      * Clip of music to be played.
+     * Music-
+     * Pixel Story by Roa Music | <a href="https://soundcloud.com/roa_music1031">...</a>
+     * Music promoted by <a href="https://www.free-stock-music.com">...</a>
+     * Creative Commons / Attribution 3.0 Unported License (CC BY 3.0)
+     * <a href="https://creativecommons.org/licenses/by/3.0/deed.en_US">...</a>
      */
-    private Clip myClip;
+    private Clip myMusicClip;
 
-
+    /**
+     * Clip of sound effect to be played.
+     */
+    private Clip mySoundClip;
 
     /**
      * Constructs a MainPanel object.
@@ -89,7 +95,7 @@ public class MainPanel extends JPanel {
 
     public MainPanel(final Board theBoard, final Timer theGameTimer,
                      final NextPiecePanel theNextPiecePanel, final GamePanel theGamePanel,
-                     final File theMusicFile) {
+                     final File theMusicFile, final File theSoundFile) {
         super();
 
         if (count > 0) {
@@ -101,9 +107,7 @@ public class MainPanel extends JPanel {
         this.myGameTimer = theGameTimer;
         this.myNextPiecePanel = theNextPiecePanel;
         this.myGamePanel = theGamePanel;
-
-        createMusic(theMusicFile);
-
+        createMusic(theMusicFile, theSoundFile);
         buildComponents();
         layoutComponents();
         addListeners();
@@ -145,19 +149,56 @@ public class MainPanel extends JPanel {
             if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName()) && (Boolean) theEvent.getNewValue()) {
                 myGameTimer.stop();
                 pauseMusic();
-
                 JOptionPane.showMessageDialog(null, "Game Over U Suck!");
             } else if (PROPERTY_NEXT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
                 final TetrisPiece nextPiece = (TetrisPiece) theEvent.getNewValue();
             }
             if (PROPERTY_NEW_GAME.equals(theEvent.getPropertyName())) {
-                myClip.setMicrosecondPosition(0);
-                myClip.start();
+                myMusicClip.setMicrosecondPosition(0);
+                myMusicClip.start();
+            }
+            if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
+                mySoundClip.setMicrosecondPosition(0);
+                mySoundClip.start();
             }
         });
         addKeyListener(new ControlKeyListener());
         setFocusable(true);
         requestFocus();
+    }
+
+    /**
+     * Creates audio clip from .wav audio file.
+     * @param theMusicFile .wav audio file to turn into clip.
+     * @param theSoundFile .wav audio file to turn into clip.
+     */
+    private void createMusic(final File theMusicFile, final File theSoundFile) {
+        try {
+            AudioInputStream audioInput = AudioSystem.getAudioInputStream(theMusicFile);
+            myMusicClip = AudioSystem.getClip();
+            myMusicClip.open(audioInput);
+            audioInput = AudioSystem.getAudioInputStream(theSoundFile);
+            mySoundClip = AudioSystem.getClip();
+            mySoundClip.open(audioInput);
+        } catch (final Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
+    /**
+     * Starts music.
+     */
+    private void playMusic() {
+        myMusicClip.start();
+        System.out.println("music play");
+    }
+
+    /**
+     * Pauses music playing
+     */
+    private void pauseMusic() {
+        myMusicClip.stop();
     }
 
     class ControlKeyListener extends KeyAdapter {
@@ -199,65 +240,5 @@ public class MainPanel extends JPanel {
                 }
             }
         }
-    }
-
-//    class ControlKeyListener extends KeyAdapter {
-//
-//        private final Map<Integer, Runnable> myKeyMappings;
-//
-//        ControlKeyListener() {
-//            super();
-//            myKeyMappings = new HashMap<>();
-//            mapKeys();
-//        }
-//
-//        private void mapKeys() {
-//            myKeyMappings.put(KeyEvent.VK_RIGHT, myBoard::right);
-//            myKeyMappings.put(KeyEvent.VK_D, myBoard::right);
-//            myKeyMappings.put(KeyEvent.VK_LEFT, myBoard::left);
-//            myKeyMappings.put(KeyEvent.VK_A, myBoard::left);
-//            myKeyMappings.put(KeyEvent.VK_DOWN, myBoard::down);
-//            myKeyMappings.put(KeyEvent.VK_S, myBoard::down);
-//            myKeyMappings.put(KeyEvent.VK_UP, myBoard::rotateCW);
-//            myKeyMappings.put(KeyEvent.VK_W, myBoard::rotateCW);
-//            myKeyMappings.put(KeyEvent.VK_SPACE, myBoard::drop);
-//            myKeyMappings.put(KeyEvent.VK_P, () -> {
-//                if (myGameTimer.isRunning()) {
-//                    myGameTimer.stop();
-//                    pauseMusic();
-//                } else {
-//                    myGameTimer.start();
-//                    playMusic();
-//                }
-//            });
-//        }
-//
-//        @Override
-//        public void keyPressed(final KeyEvent theEvent) {
-//            if (myKeyMappings.containsKey(theEvent.getKeyCode()) && myGameTimer.isRunning()) {
-//                myKeyMappings.get(theEvent.getKeyCode()).run();
-//            } else if (theEvent.getKeyCode() == KeyEvent.VK_P) {
-//                myKeyMappings.get(theEvent.getKeyCode()).run();
-//            }
-//        }
-//     }
-
-    private void createMusic(final File theMusicFile) {
-        try {
-            final AudioInputStream audioInput = AudioSystem.getAudioInputStream(theMusicFile);
-            myClip = AudioSystem.getClip();
-            myClip.open(audioInput);
-        } catch (final Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    private void playMusic() {
-        myClip.start();
-        System.out.println("music play");
-    }
-
-    private void pauseMusic() {
-        myClip.stop();
     }
 }
