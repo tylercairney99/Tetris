@@ -79,13 +79,6 @@ public interface MyBoard {
     int getHeight();
 
     /**
-     * Getter for frozen blocks.
-     *
-     * @return A list of the frozen blocks
-     */
-    List<Block[]> getFrozenBlocks();
-
-    /**
      * Starts a new game. This should reset the board and prepare it for a new game session.
      */
     void newGame();
