@@ -31,6 +31,11 @@ import view.menu.Menu;
 public class TetrisGUI implements MyDifficultyChanger {
 
     /**
+     * The size of the array of panels.
+     */
+    private static final int ARRAY_SIZE = 3;
+
+    /**
      * Sets the mode to easy difficulty (base difficulty).
      */
     public static final int EASY_DIFFICULTY = 1000;
@@ -138,9 +143,13 @@ public class TetrisGUI implements MyDifficultyChanger {
         soundList.add(myMusicFile);
         soundList.add(mySoundFile);
 
+        final JPanel[] panelArray = new JPanel[ARRAY_SIZE];
+        panelArray[0] = myGamePanel;
+        panelArray[1] = myNextPiecePanel;
+        panelArray[2] = myScorePanel;
+
         final MainPanel mainPanel = new MainPanel(myBoard, myGameTimer,
-                myNextPiecePanel, myGamePanel, myScorePanel, soundList,
-                myCurrentDifficulty, this);
+                panelArray, soundList, this);
 
         frame.setJMenuBar(new Menu(myBoard, myGameTimer, this));
         frame.add(mainPanel, BorderLayout.CENTER);

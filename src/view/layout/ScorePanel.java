@@ -183,8 +183,8 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
 
         final int w = getWidth();
         final int h = getHeight();
-        final Color color1 = Color.YELLOW;
-        final Color color2 = Color.CYAN;
+        final Color color1 = Color.WHITE;
+        final Color color2 = Color.PINK;
         final GradientPaint gp = new GradientPaint(0, 0, color1, 0, h, color2);
         g2d.setPaint(gp);
         g2d.fillRect(0, 0, w, h);
