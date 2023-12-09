@@ -132,9 +132,9 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
         }
     }
 
-    @SuppressWarnings("PublicMethodNotExposedInInterface")
+    @SuppressWarnings({"PublicMethodNotExposedInInterface", "OverlyLongMethod"})
     /*
-     * warning is suppressed because paint component is inherited from JComponent
+     * warning is suppressed because paint component is inherited from JComponent.
      */
     @Override
     public void paintComponent(final Graphics theGraphics) {
@@ -178,6 +178,10 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
      * Creates the shape of the tetromino.
      *
      * @param theG2d Graphics2d object for drawing.
+     */
+    @SuppressWarnings("OverlyLongMethod")
+    /*
+     * Warning is suppressed bc the switch statement is necessary.
      */
     private void createShape(final Graphics2D theG2d) {
         if (myCurrentTetrisPiece != null) {
