@@ -110,8 +110,6 @@ public class MainPanel extends JPanel {
         this.myGamePanel = theGamePanel;
         this.myScorePanel = theScorePanel;
 
-        createMusic(theMusicFile);
-
         createMusic(theMusicFile, theSoundFile);
         buildComponents();
         layoutComponents();
