@@ -80,17 +80,17 @@ public class TetrisGUI implements MyDifficultyChanger {
     /**
      * Timer to manage game updates at regular intervals.
      */
-    private final Timer myGameTimer;
+    private Timer myGameTimer;
 
     /**
      * Location of music in the file.
      */
-    private final File myMusicFile;
+    private File myMusicFile;
 
     /**
      * Location of sound effect in the file.
      */
-    private final File mySoundFile;
+    private File mySoundFile;
 
 
     /**
@@ -107,10 +107,10 @@ public class TetrisGUI implements MyDifficultyChanger {
         constructorHelper();
         myBoard = new Board();
         myGamePanel = new GamePanel(myBoard);
-        myNextPiecePanel = new NextPiecePanel(myBoard);
+        myNextPiecePanel = new NextPiecePanel();
         myBoard.addPropertyChangeListener(myNextPiecePanel);
         myBoard.addPropertyChangeListener(myGamePanel);
-        myScorePanel = new ScorePanel(myBoard, myGameTimer);
+        myScorePanel = new ScorePanel(myGameTimer);
         myBoard.addPropertyChangeListener(myScorePanel);
         setUpComponents();
     }

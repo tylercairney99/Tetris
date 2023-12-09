@@ -156,6 +156,7 @@ public final class NextPiecePanel extends JPanel implements PropertyChangeListen
      * Paints the next tetrimino to be played.
      * @param theGraphics the graphics to be painted.
      */
+
     private void paintTetriminos(final Graphics2D theGraphics) {
         if (myNextTetrisPiece != null) {
             switch (myNextTetrisPiece) {
