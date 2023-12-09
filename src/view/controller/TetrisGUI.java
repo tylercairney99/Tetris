@@ -107,10 +107,10 @@ public class TetrisGUI implements MyDifficultyChanger {
         constructorHelper();
         myBoard = new Board();
         myGamePanel = new GamePanel(myBoard);
-        myNextPiecePanel = new NextPiecePanel(myBoard);
+        myNextPiecePanel = new NextPiecePanel();
+        myScorePanel = new ScorePanel(myGameTimer);
         myBoard.addPropertyChangeListener(myNextPiecePanel);
         myBoard.addPropertyChangeListener(myGamePanel);
-        myScorePanel = new ScorePanel(myBoard, myGameTimer);
         myBoard.addPropertyChangeListener(myScorePanel);
         setUpComponents();
     }
@@ -204,6 +204,7 @@ public class TetrisGUI implements MyDifficultyChanger {
      *
      * @return myCurrentDifficulty (Constant for times step is called per second).
      */
+    @Override
     public int getCurrentDifficultyValue() {
         return myCurrentDifficulty;
     }

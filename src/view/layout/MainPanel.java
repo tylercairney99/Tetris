@@ -57,7 +57,7 @@ public class MainPanel extends JPanel {
     /**
      * The Panel which contains the score.
      */
-    private JPanel myScorePanel;
+    private final JPanel myScorePanel;
     /**
      * The game board associated with this menu.
      * It represents the current state of the Tetris game, including the arrangement
@@ -110,13 +110,13 @@ public class MainPanel extends JPanel {
         }
         count++;
 
-        this.myBoard = theBoard;  //Can we remove the this.s
-        this.myGameTimer = theGameTimer;
-        this.myNextPiecePanel = theNextPiecePanel;
-        this.myGamePanel = theGamePanel;
-        this.myScorePanel = theScorePanel;
-        this.myTetrisGUI = theTetrisGUI;
-        this.myCurrentDificulty = theCurrentDifficulty;
+        myBoard = theBoard;
+        myGameTimer = theGameTimer;
+        myNextPiecePanel = theNextPiecePanel;
+        myGamePanel = theGamePanel;
+        myScorePanel = theScorePanel;
+        myTetrisGUI = theTetrisGUI;
+        myCurrentDificulty = theCurrentDifficulty;
 
         createMusic(theMusicFile, theSoundFile);
         buildComponents();

@@ -1,7 +1,12 @@
 package view.layout;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * Control panel shows the controls for the game.
@@ -10,6 +15,18 @@ import javax.swing.*;
  * @version Autumn 2023
  */
 public class ControlPanel extends JPanel {
+    /**
+     * Width of the left panel.
+     */
+    private static final int LEFT_PANEL_WIDTH = 50;
+    /**
+     * Width of the right panel.
+     */
+    private static final int RIGHT_PANEL_WIDTH = 110;
+    /**
+     * Height of the left and right panels.
+     */
+    private static final int PANEL_HEIGHT = 100;
     /**
      * static int shared amongst all control panel objects to ensure that
      * there is only ever one instance.
@@ -20,6 +37,11 @@ public class ControlPanel extends JPanel {
      * Constructs a ControlPanel object.
      *
      * @throws IllegalArgumentException if more than one ControlPanel is instantiated.
+     */
+    @SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
+    /*
+     * warning is suppressed because count is used to ensure only one
+     * ScorePanel is instantiated.
      */
     public ControlPanel() {
         super();
@@ -47,7 +69,7 @@ public class ControlPanel extends JPanel {
     private void setUpLeftPanel() {
         final JPanel leftPanel = new JPanel(new GridLayout(6, 1));
         add(leftPanel, BorderLayout.WEST);
-        leftPanel.setPreferredSize(new Dimension(50, 100));
+        leftPanel.setPreferredSize(new Dimension(LEFT_PANEL_WIDTH, PANEL_HEIGHT));
         leftPanel.setOpaque(false);
 
         leftPanel.add(new JLabel(" Left:"));
@@ -61,7 +83,7 @@ public class ControlPanel extends JPanel {
     private void setUpRightPanel() {
         final JPanel rightPanel = new JPanel(new GridLayout(6, 1));
         add(rightPanel, BorderLayout.EAST);
-        rightPanel.setPreferredSize(new Dimension(110, 100));
+        rightPanel.setPreferredSize(new Dimension(RIGHT_PANEL_WIDTH, PANEL_HEIGHT));
         rightPanel.setOpaque(false);
 
         rightPanel.add(new JLabel(" left arrow / A"));
