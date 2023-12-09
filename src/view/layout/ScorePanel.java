@@ -17,7 +17,6 @@ import java.beans.PropertyChangeListener;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import model.Board;
 
 /**
  * Panel to display player's score.
@@ -133,10 +132,6 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
      */
     private final Timer myGameTimer;
 
-    /**
-     *  The game board associated with this menu.
-     */
-    private final Board myBoard;
 
     /**
      * Panel used to display the player's score.
@@ -145,7 +140,11 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
      * @throws IllegalArgumentException if more than one ScorePanel is instantiated.
      */
     @SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
-    public ScorePanel(final Board theBoard, final Timer theGameTimer) {
+    /*
+     * warning is suppressed because count is used to ensure only one
+     * ScorePanel is instantiated.
+     */
+    public ScorePanel(final Timer theGameTimer) {
         super();
 
         if (count > 0) {
@@ -153,7 +152,6 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
         }
         count++;
 
-        myBoard = theBoard;
         myGameTimer = theGameTimer;
         setUpScoresAndLevel();
 
@@ -162,6 +160,9 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
         scorePanel.setOpaque(false);
     }
 
+    /**
+     * Sets up the scores and level.
+     */
     private void setUpScoresAndLevel() {
         myScore = 0;
         myLinesCleared = 0;
@@ -170,6 +171,9 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     }
 
     @SuppressWarnings("PublicMethodNotExposedInInterface")
+    /*
+     * warning is suppressed because paint component is inherited from JComponent
+     */
     @Override
     public void paintComponent(final Graphics theGraphics) {
         super.paintComponent(theGraphics);
@@ -210,7 +214,7 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     }
 
     /**
-     * Updates the score and timer when a 5 rows are cleared.
+     * Updates the score and timer when 5 rows are cleared.
      */
     private void calculateLevel() {
         final int newLevel = (myLinesCleared / LEVEL_UP) + 1;

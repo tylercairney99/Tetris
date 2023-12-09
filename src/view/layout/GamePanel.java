@@ -194,7 +194,7 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
             case O -> Color.YELLOW;
             case S -> Color.GREEN;
             case T -> Color.MAGENTA;
-            case Z -> Color.RED;
+            case Z -> Color.PINK;
             default -> Color.GRAY;
         };
     }

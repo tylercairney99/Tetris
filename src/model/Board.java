@@ -76,6 +76,11 @@ public class Board implements MyBoard {
     public static final String PROPERTY_PIECE_ROTATES = "A piece has rotates.";
 
     /**
+     * A property to check if a piece is frozen.
+     */
+    public static final String PROPERTY_FROZEN_PIECE = "A piece is frozen.";
+
+    /**
      * Ensures only one panel is instantiated.
      */
     private static int count = 0;
@@ -265,7 +270,6 @@ public class Board implements MyBoard {
          * However, more code could be added to this method
          * to implement additional functionality
          */
-        System.out.println("Step method is called");
         down();
 
     }
@@ -696,42 +700,6 @@ public class Board implements MyBoard {
                                              final PropertyChangeListener theListener) {
         myPcs.removePropertyChangeListener(thePropertyName, theListener);
     }
-    private void updateGameState() {
-        final List<Block[]> currentState = getBoard();
-        myPcs.firePropertyChange(PROPERTY_BOARD_CHANGES, null, currentState);
-    }
-
-    /**
-     * Clears complete rows from the game board and notifies observers about the cleared rows.
-     * This method checks for and clears rows that are completely filled. It should be called
-     * whenever there is a potential for row completion, such as when a piece lands.
-     * Once rows are cleared, it fires a property change event with the indices of the cleared rows.
-     * Observers such as scoring systems or GUI components can use this information to update accordingly.
-     *
-     * Usage:
-     *   Typically invoked after a piece has landed and settled on the board.
-     */
-//    private void clearRows() {
-//        final List<Integer> clearedRows = new ArrayList<>();
-//        for (int i = 0; i < myFrozenBlocks.size(); i++) {
-//            boolean isRowComplete = true;
-//            for (Block block : myFrozenBlocks.get(i)) {
-//                if (block == null) {
-//                    isRowComplete = false;
-//                    break;
-//                }
-//            }
-//            if (isRowComplete) {
-//                clearedRows.add(i);
-//                myFrozenBlocks.remove(i);
-//                myFrozenBlocks.add(0, new Block[myWidth]);
-//            }
-//        }
-//
-//        if (!clearedRows.isEmpty()) {
-//            myPcs.firePropertyChange(PROPERTY_ROW_CLEARED, null, clearedRows.size());
-//        }
-//    }
 
     /**
      * Updates the next piece for the game, either from a predefined sequence or randomly.
@@ -753,12 +721,6 @@ public class Board implements MyBoard {
         myPcs.firePropertyChange(PROPERTY_NEXT_PIECE_CHANGES, null, myNextPiece);
         System.out.println("Firing next piece change: " + myNextPiece); // DELETE LATER
     }
-
-    private void notifyBoardChanges() {
-        myPcs.firePropertyChange(PROPERTY_BOARD_CHANGES, null, getBoard());
-    }
-
-
     // get frozen blocks
     public List<Block[]> getFrozenBlocks() {
         return myFrozenBlocks;
