@@ -143,7 +143,6 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
         g2d.fillRect(0, 0, w, h);
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
-        theGraphics.setFont(new Font("" + theGraphics.getFont(), Font.PLAIN, TEXT_SIZE));
         g2d.setPaint(Color.BLACK);
         showScores(theGraphics);
     }
@@ -154,9 +153,14 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
      * @param theGraphics Graphics object used to display text.
      */
     private void showScores(final Graphics theGraphics) {
-        theGraphics.drawString("Score: " + myScore, TEXT_X, TEXT_Y + 7);
-        theGraphics.drawString("Level:  " + myLevel, TEXT_X, TEXT_Y + TEXT_SIZE + 17);
-        theGraphics.drawString("Lines:  " + myLinesCleared, TEXT_X, TEXT_Y + TEXT_SIZE * 2 + 27);
+        theGraphics.setFont(new Font("" + theGraphics.getFont(), Font.PLAIN, TEXT_SIZE));
+        theGraphics.drawString("Score: " + myScore, TEXT_X, TEXT_Y + 5);
+        theGraphics.drawString("Level:  " + myLevel, TEXT_X, TEXT_Y + TEXT_SIZE + 10);
+        theGraphics.drawString("Lines:  " + myLinesCleared, TEXT_X, TEXT_Y + TEXT_SIZE * 2 + 15);
+
+        theGraphics.setFont(new Font("" + theGraphics.getFont(), Font.PLAIN, TEXT_SIZE - 7));
+        theGraphics.drawString("Next level in " + (LEVEL_UP - myLinesCleared % LEVEL_UP) + " lines",
+                TEXT_X, TEXT_Y + TEXT_SIZE * 3 + 15);
     }
 
     /**
@@ -165,7 +169,7 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     private void calculateLevel() {
         if (myLinesCleared % LEVEL_UP == 0) {
             myLevel++;
-            myGameTimer.setDelay(myGameTimer.getDelay() / LEVEL_UP_TIMER_CHANGE);
+            myGameTimer.setDelay((myGameTimer.getDelay() / LEVEL_UP_TIMER_CHANGE) + myGameTimer.getDelay() / 4);
         }
     }
 
@@ -199,9 +203,11 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
             if ((int) theEvent.getNewValue() == 1 || (int) theEvent.getNewValue() == 2 ||
                     (int) theEvent.getNewValue() == 3 || (int) theEvent.getNewValue() == 4) {
 
+                System.out.println("lines cleared: " + theEvent.getNewValue());
+
                 myLinesCleared += (int) theEvent.getNewValue();
-                calculateLevel();
                 calculateScore((int) theEvent.getNewValue());
+                calculateLevel();
                 repaint();
             }
         }
@@ -212,6 +218,11 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
             myLevel = 1;
             myGameTimer.setDelay(myOriginalDelay);
             repaint();
+        }
+
+        if (PROPERTY_NEXT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
+            System.out.println("Score + 4");
+            myScore += 4;
         }
     }
 }

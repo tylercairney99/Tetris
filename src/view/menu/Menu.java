@@ -182,6 +182,7 @@ public class Menu extends JMenuBar {
                 2 lines cleared = 100 * n points awarded.
                 3 lines cleared = 300 * n points awarded.
                 4 lines cleared = 1200 * n points awarded.
+                In addition, for every piece dropped, you are awarded 4 points.
                 """));
 
         return aboutMenu;

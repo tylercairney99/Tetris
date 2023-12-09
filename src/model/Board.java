@@ -495,9 +495,9 @@ public class Board implements MyBoard {
             }
             if (complete) {
                 completeRows.add(myFrozenBlocks.indexOf(row));
-                myPcs.firePropertyChange(PROPERTY_ROW_CLEARED, null, completeRows.size());
             }
         }
+        myPcs.firePropertyChange(PROPERTY_ROW_CLEARED, null, completeRows.size());
         // loop through list backwards removing items by index
         if (!completeRows.isEmpty()) {
             for (int i = completeRows.size() - 1; i >= 0; i--) {
@@ -711,27 +711,27 @@ public class Board implements MyBoard {
      * Usage:
      *   Typically invoked after a piece has landed and settled on the board.
      */
-    private void clearRows() {
-        final List<Integer> clearedRows = new ArrayList<>();
-        for (int i = 0; i < myFrozenBlocks.size(); i++) {
-            boolean isRowComplete = true;
-            for (Block block : myFrozenBlocks.get(i)) {
-                if (block == null) {
-                    isRowComplete = false;
-                    break;
-                }
-            }
-            if (isRowComplete) {
-                clearedRows.add(i);
-                myFrozenBlocks.remove(i);
-                myFrozenBlocks.add(0, new Block[myWidth]);
-            }
-        }
-
-        if (!clearedRows.isEmpty()) {
-            myPcs.firePropertyChange(PROPERTY_ROW_CLEARED, null, clearedRows.size());
-        }
-    }
+//    private void clearRows() {
+//        final List<Integer> clearedRows = new ArrayList<>();
+//        for (int i = 0; i < myFrozenBlocks.size(); i++) {
+//            boolean isRowComplete = true;
+//            for (Block block : myFrozenBlocks.get(i)) {
+//                if (block == null) {
+//                    isRowComplete = false;
+//                    break;
+//                }
+//            }
+//            if (isRowComplete) {
+//                clearedRows.add(i);
+//                myFrozenBlocks.remove(i);
+//                myFrozenBlocks.add(0, new Block[myWidth]);
+//            }
+//        }
+//
+//        if (!clearedRows.isEmpty()) {
+//            myPcs.firePropertyChange(PROPERTY_ROW_CLEARED, null, clearedRows.size());
+//        }
+//    }
 
     /**
      * Updates the next piece for the game, either from a predefined sequence or randomly.
