@@ -95,7 +95,7 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
      * Panel that will show the game board with tetrominos in play.
      * Sets background to assigned color.
      */
-
+    @SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
     public GamePanel(final Board theBoard) {
         super();
 
