@@ -108,9 +108,9 @@ public class TetrisGUI implements MyDifficultyChanger {
         myBoard = new Board();
         myGamePanel = new GamePanel(myBoard);
         myNextPiecePanel = new NextPiecePanel();
+        myScorePanel = new ScorePanel(myGameTimer);
         myBoard.addPropertyChangeListener(myNextPiecePanel);
         myBoard.addPropertyChangeListener(myGamePanel);
-        myScorePanel = new ScorePanel(myGameTimer);
         myBoard.addPropertyChangeListener(myScorePanel);
         setUpComponents();
     }

@@ -84,8 +84,7 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
         }
         count++;
 
-        this.myBoard = theBoard;
-        this.myBoard.addPropertyChangeListener(this);
+        myBoard = theBoard;
 
     }
 

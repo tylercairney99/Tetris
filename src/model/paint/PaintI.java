@@ -11,7 +11,7 @@ import model.Rotation;
  * @author James Simpson jsimp33@uw.edu
  * @version 3.0
  */
-public final class PaintI implements model.PaintTetromino {
+public final class PaintI implements model.paint.PaintTetromino {
 
     /**
      * Private constructor to prevent instantiation of this utility class.
@@ -63,7 +63,7 @@ public final class PaintI implements model.PaintTetromino {
                 theBlockHeight, theBlockHeight);
 
         theG2d.setPaint(Color.CYAN);
-        model.PaintTetromino.paintShape(theG2d, tetrisBlock1, tetrisBlock2, tetrisBlock3, tetrisBlock4);
+        model.paint.PaintTetromino.paintShape(theG2d, tetrisBlock1, tetrisBlock2, tetrisBlock3, tetrisBlock4);
     }
 
     /**
@@ -81,7 +81,7 @@ public final class PaintI implements model.PaintTetromino {
                 theBlockHeight, theBlockHeight);
 
         theG2d.setPaint(Color.CYAN);
-        model.PaintTetromino.paintShape(theG2d, tetrisBlock1, tetrisBlock2, tetrisBlock3, tetrisBlock4);
+        model.paint.PaintTetromino.paintShape(theG2d, tetrisBlock1, tetrisBlock2, tetrisBlock3, tetrisBlock4);
     }
 
     /**
@@ -99,7 +99,7 @@ public final class PaintI implements model.PaintTetromino {
                 theBlockHeight, theBlockHeight);
 
         theG2d.setPaint(Color.CYAN);
-        model.PaintTetromino.paintShape(theG2d, tetrisBlock1, tetrisBlock2, tetrisBlock3, tetrisBlock4);
+        model.paint.PaintTetromino.paintShape(theG2d, tetrisBlock1, tetrisBlock2, tetrisBlock3, tetrisBlock4);
     }
 
     /**
@@ -117,6 +117,6 @@ public final class PaintI implements model.PaintTetromino {
                 theBlockHeight, theBlockHeight);
 
         theG2d.setPaint(Color.CYAN);
-        model.PaintTetromino.paintShape(theG2d, tetrisBlock1, tetrisBlock2, tetrisBlock3, tetrisBlock4);
+        model.paint.PaintTetromino.paintShape(theG2d, tetrisBlock1, tetrisBlock2, tetrisBlock3, tetrisBlock4);
     }
 }
