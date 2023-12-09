@@ -30,12 +30,7 @@ import view.menu.Menu;
  */
 public class TetrisGUI implements MyDifficultyChanger {
 
-    /**
-     * The size of the array of panels.
-     */
-    private static final int ARRAY_SIZE = 3;
-
-    /**
+     /**
      * Sets the mode to easy difficulty (base difficulty).
      */
     public static final int EASY_DIFFICULTY = 1000;
@@ -49,6 +44,12 @@ public class TetrisGUI implements MyDifficultyChanger {
      * Sets the mode to hard difficulty.
      */
     public static final int HARD_DIFFICULTY = 100;
+
+    /**
+     * The size of the array of panels.
+     */
+    private static final int ARRAY_SIZE = 3;
+
     /**
      * The height of the border around the game window.
      */
@@ -98,7 +99,6 @@ public class TetrisGUI implements MyDifficultyChanger {
      * Location of sound effect in the file.
      */
     private File mySoundFile;
-
 
     /**
      * Constructs a new TetrisGUI object.
