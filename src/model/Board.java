@@ -6,7 +6,6 @@
 
 package model;
 
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -37,33 +36,15 @@ import model.wallkicks.WallKick;
  */
 public class Board implements MyBoard {
 
-    // Implementation of Observer Design Pattern
-
     /**
      * Ensures only one panel is instantiated.
      */
-    private static int count = 0;
+    private static int count;
 
     /**
      * Manager for Property Change Listeners.
      */
     private final PropertyChangeSupport myPcs;
-
-
-    // Class constants
-
-    /**
-     * Default width of a Tetris game board.
-     */
-    private static final int DEFAULT_WIDTH = 10;
-
-    /**
-     * Default height of a Tetris game board.
-     */
-    private static final int DEFAULT_HEIGHT = 20;
-
-
-    // Instance fields
 
     /**
      * Width of the game board.
@@ -224,15 +205,7 @@ public class Board implements MyBoard {
      */
     @Override
     public void step() {
-        /*
-         * Calling the down() method from here should be sufficient
-         * to advance the board by one 'step'.
-         * However, more code could be added to this method
-         * to implement additional functionality
-         */
-        System.out.println("Step method is called");
         down();
-
     }
 
     /**
@@ -285,7 +258,8 @@ public class Board implements MyBoard {
         if (myCurrentPiece != null) {
             if (myCurrentPiece.getTetrisPiece() == TetrisPiece.O) {
                 move(myCurrentPiece.rotateCW());
-                myPcs.firePropertyChange(PROPERTY_PIECE_ROTATES, null, myCurrentPiece.getRotation());
+                myPcs.firePropertyChange(PROPERTY_PIECE_ROTATES, null,
+                        myCurrentPiece.getRotation());
             } else {
                 final MovableTetrisPiece cwPiece = myCurrentPiece.rotateCW();
                 final Point[] offsets = WallKick.getWallKicks(cwPiece.getTetrisPiece(),
@@ -312,7 +286,8 @@ public class Board implements MyBoard {
                 move(myCurrentPiece.rotateCCW());
             } else {
                 final MovableTetrisPiece ccwPiece = myCurrentPiece.rotateCCW();
-                myPcs.firePropertyChange(PROPERTY_PIECE_ROTATES, null, myCurrentPiece.getRotation());
+                myPcs.firePropertyChange(PROPERTY_PIECE_ROTATES, null,
+                        myCurrentPiece.getRotation());
                 final Point[] offsets = WallKick.getWallKicks(ccwPiece.getTetrisPiece(),
                         myCurrentPiece.getRotation(),
                         ccwPiece.getRotation());
@@ -671,7 +646,6 @@ public class Board implements MyBoard {
      * This method determines and updates the next Tetris piece. Observers are notified about
      * the change in the next piece, allowing GUI components to display the upcoming piece.
      * It supports both random piece generation and predefined piece sequences.
-     *
      * Usage:
      *   Call this method after a piece has landed to determine the next piece in the game.
      *   It should be part of the game loop or piece settling logic.
@@ -684,12 +658,15 @@ public class Board implements MyBoard {
             myNextPiece = myNonRandomPieces.get(mySequenceIndex++);
         }
         myPcs.firePropertyChange(PROPERTY_NEXT_PIECE_CHANGES, null, myNextPiece);
-        System.out.println("Firing next piece change: " + myNextPiece); // DELETE LATER
     }
 
-    // get frozen blocks
+    /**
+     * Getter for frozen blocks.
+     *
+     * @return A list of the frozen blocks
+     */
+    @Override
     public List<Block[]> getFrozenBlocks() {
         return myFrozenBlocks;
     }
-
 }

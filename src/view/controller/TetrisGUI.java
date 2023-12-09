@@ -104,27 +104,24 @@ public class TetrisGUI implements MyDifficultyChanger {
      */
     public TetrisGUI() {
         super();
-
+        constructorHelper();
         myBoard = new Board();
         myGamePanel = new GamePanel(myBoard);
-        myNextPiecePanel = new NextPiecePanel();
-
-        myMusicFile = new File("src/music/music.wav");
-        mySoundFile = new File("src/music/jingle.wav");
-
-
+        myNextPiecePanel = new NextPiecePanel(myBoard);
         myBoard.addPropertyChangeListener(myNextPiecePanel);
         myBoard.addPropertyChangeListener(myGamePanel);
-
-
-        myGameTimer = new Timer(EASY_DIFFICULTY, theEvent -> {
-            myBoard.step();
-        });
-
-        myScorePanel = new ScorePanel(myGameTimer);
+        myScorePanel = new ScorePanel(myBoard, myGameTimer);
         myBoard.addPropertyChangeListener(myScorePanel);
-
         setUpComponents();
+    }
+
+    /**
+     * Helper method to break up constructor.
+     */
+    private void constructorHelper() {
+        myMusicFile = new File("src/music/music.wav");
+        mySoundFile = new File("src/music/jingle.wav");
+        myGameTimer = new Timer(EASY_DIFFICULTY, theEvent -> myBoard.step());
     }
 
     /**
