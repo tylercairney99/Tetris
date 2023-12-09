@@ -115,7 +115,7 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
         myLevel = 1;
         myOriginalDelay = theGameTimer.getDelay();
         this.myGameTimer = theGameTimer;
-        this.myBoard.addPropertyChangeListener(this);
+//        this.myBoard.addPropertyChangeListener(this);
 
         if (count > 0) {
             throw new IllegalArgumentException("Only one ScorePanel allowed");
