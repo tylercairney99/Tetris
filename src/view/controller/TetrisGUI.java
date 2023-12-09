@@ -107,7 +107,7 @@ public class TetrisGUI implements MyDifficultyChanger {
 
         myBoard = new Board();
         myGamePanel = new GamePanel(myBoard);
-        myNextPiecePanel = new NextPiecePanel(myBoard);
+        myNextPiecePanel = new NextPiecePanel();
 
         myMusicFile = new File("src/music/music.wav");
         mySoundFile = new File("src/music/jingle.wav");
