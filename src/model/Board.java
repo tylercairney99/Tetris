@@ -34,6 +34,10 @@ import model.wallkicks.WallKick;
  * @author Alan Fowler
  * @version 1.3
  */
+@SuppressWarnings({"ClassWithTooManyFields", "ClassWithTooManyMethods", "OverlyComplexClass"})
+/*
+ * This fields and methods in this class are required for tetris.
+ */
 public class Board implements MyBoard {
 
     /**
