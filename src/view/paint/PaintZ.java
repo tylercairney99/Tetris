@@ -1,4 +1,4 @@
-package model.paint;
+package view.paint;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -12,7 +12,7 @@ import model.Rotation;
  * @author James Simpson jsimp33@uw.edu
  * @version 3.0
  */
-public final class PaintZ implements model.paint.PaintTetromino {
+public final class PaintZ implements PaintTetromino {
 
     /**
      * Private constructor to prevent instantiation of this utility class.

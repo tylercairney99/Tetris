@@ -1,9 +1,10 @@
 package view.paint;
 
-import model.Rotation;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
+import model.Rotation;
 
 /**
  * Utility class used to create shapes and prints them according to the parameters given.

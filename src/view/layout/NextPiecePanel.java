@@ -1,13 +1,13 @@
 package view.layout;
 
 import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
-import static model.paint.PaintI.createIShape;
-import static model.paint.PaintJ.createJShape;
-import static model.paint.PaintL.createLShape;
-import static model.paint.PaintO.createOShape;
-import static model.paint.PaintS.createSShape;
-import static model.paint.PaintT.createTShape;
-import static model.paint.PaintZ.createZShape;
+import static view.paint.PaintI.createIShape;
+import static view.paint.PaintJ.createJShape;
+import static view.paint.PaintL.createLShape;
+import static view.paint.PaintO.createOShape;
+import static view.paint.PaintS.createSShape;
+import static view.paint.PaintT.createTShape;
+import static view.paint.PaintZ.createZShape;
 
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
