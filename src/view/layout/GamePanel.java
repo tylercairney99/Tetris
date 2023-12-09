@@ -23,7 +23,6 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import model.Block;
-import model.Board;
 import model.MovableTetrisPiece;
 import model.Point;
 import model.Rotation;
@@ -66,12 +65,6 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
     private static final int STROKE_WIDTH = 1;
 
     /**
-     * The game board associated with this menu.
-     */
-    private final Board myBoard;
-
-
-    /**
      * Current tetromino in play of type TetrisPiece.
      */
     private TetrisPiece myCurrentTetrisPiece;
@@ -106,7 +99,7 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
      * warning is suppressed because count is used to ensure only one
      * GamePanel is instantiated.
      */
-    public GamePanel(final Board theBoard) {
+    public GamePanel() {
         super();
 
         if (count > 0) {
@@ -114,15 +107,16 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
         }
         count++;
 
-        myBoard = theBoard;
-
     }
 
     @Override
-    @SuppressWarnings("LawOfDemeter")
+    @SuppressWarnings({"LawOfDemeter", "unchecked"})
     /*
      * LawOfDemeter warning is suppressed because the method is necessary to
      * update the game panel.
+     *
+     * unchecked warning is suppressed because theEvent.getNewValue() can't be safely
+     * casted into a List<Block[]>.
      */
     public void propertyChange(final PropertyChangeEvent theEvent) {
         if (PROPERTY_CURRENT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
@@ -143,7 +137,6 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
         if (PROPERTY_FROZEN_PIECE.equals(theEvent.getPropertyName())) {
             myFrozenBlocks = (List<Block[]>) theEvent.getNewValue();
             repaint();
-
         }
     }
 

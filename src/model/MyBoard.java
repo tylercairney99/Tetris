@@ -54,6 +54,7 @@ public interface MyBoard {
      */
     String PROPERTY_FROZEN_PIECE = "A piece has been frozen.";
 
+
     /**
      * Default width of a Tetris game board.
      */
@@ -77,13 +78,6 @@ public interface MyBoard {
      * @return The height of the board.
      */
     int getHeight();
-
-    /**
-     * Getter for frozen blocks.
-     *
-     * @return A list of the frozen blocks
-     */
-    List<Block[]> getFrozenBlocks();
 
     /**
      * Starts a new game. This should reset the board and prepare it for a new game session.
