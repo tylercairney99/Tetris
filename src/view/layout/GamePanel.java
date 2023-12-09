@@ -95,7 +95,11 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
      * Panel that will show the game board with tetrominos in play.
      * Sets background to assigned color.
      */
-
+    @SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
+    /*
+     * warning is suppressed because count is used to ensure only one
+     * GamePanel is instantiated.
+     */
     public GamePanel(final Board theBoard) {
         super();
 
@@ -128,6 +132,10 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
         }
     }
 
+    @SuppressWarnings("PublicMethodNotExposedInInterface")
+    /*
+     * warning is suppressed because paint component is inherited from JComponent
+     */
     @Override
     public void paintComponent(final Graphics theGraphics) {
         super.paintComponent(theGraphics);
@@ -167,6 +175,7 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
     }
 
     /**
+     * Creates the shape of the tetromino.
      *
      * @param theG2d Graphics2d object for drawing.
      */

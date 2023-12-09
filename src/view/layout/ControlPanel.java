@@ -41,7 +41,7 @@ public class ControlPanel extends JPanel {
     @SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
     /*
      * warning is suppressed because count is used to ensure only one
-     * ScorePanel is instantiated.
+     * ControlPanel is instantiated.
      */
     public ControlPanel() {
         super();

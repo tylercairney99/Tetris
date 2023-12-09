@@ -107,7 +107,7 @@ public final class NextPiecePanel extends JPanel implements PropertyChangeListen
     @SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
     /*
      * warning is suppressed because count is used to ensure only one
-     * ScorePanel is instantiated.
+     * NextPiecePanel is instantiated.
      */
     public NextPiecePanel() {
         super();
