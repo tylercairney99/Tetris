@@ -1,10 +1,9 @@
-package model.paint;
+package view.paint;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Shape;
-import java.awt.geom.Rectangle2D;
 import model.Rotation;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 
 /**
@@ -13,7 +12,7 @@ import model.Rotation;
  * @author James Simpson jsimp33@uw.edu
  * @version 3.0
  */
-public final class PaintO implements model.paint.PaintTetromino {
+public final class PaintO implements PaintTetromino {
 
     /**
      * Private constructor to prevent instantiation of this utility class.

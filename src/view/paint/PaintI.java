@@ -1,10 +1,9 @@
-package model.paint;
+package view.paint;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Shape;
-import java.awt.geom.Rectangle2D;
 import model.Rotation;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Utility class used to create shapes and prints them according to the parameters given.
@@ -12,7 +11,7 @@ import model.Rotation;
  * @author James Simpson jsimp33@uw.edu
  * @version 3.0
  */
-public final class PaintI implements model.paint.PaintTetromino {
+public final class PaintI implements PaintTetromino {
 
     /**
      * Private constructor to prevent instantiation of this utility class.
@@ -70,7 +69,7 @@ public final class PaintI implements model.paint.PaintTetromino {
                 theBlockHeight, theBlockHeight);
 
         theG2d.setPaint(Color.CYAN);
-        model.paint.PaintTetromino.paintShape(theG2d, tetrisBlock1,
+        PaintTetromino.paintShape(theG2d, tetrisBlock1,
                 tetrisBlock2, tetrisBlock3, tetrisBlock4);
     }
 
@@ -98,7 +97,7 @@ public final class PaintI implements model.paint.PaintTetromino {
                 theBlockHeight, theBlockHeight);
 
         theG2d.setPaint(Color.CYAN);
-        model.paint.PaintTetromino.paintShape(theG2d, tetrisBlock1,
+        PaintTetromino.paintShape(theG2d, tetrisBlock1,
                 tetrisBlock2, tetrisBlock3, tetrisBlock4);
     }
 
@@ -122,7 +121,7 @@ public final class PaintI implements model.paint.PaintTetromino {
                 theBlockHeight, theBlockHeight);
 
         theG2d.setPaint(Color.CYAN);
-        model.paint.PaintTetromino.paintShape(theG2d, tetrisBlock1,
+        PaintTetromino.paintShape(theG2d, tetrisBlock1,
                 tetrisBlock2, tetrisBlock3, tetrisBlock4);
     }
 
@@ -150,7 +149,7 @@ public final class PaintI implements model.paint.PaintTetromino {
                 theBlockHeight, theBlockHeight);
 
         theG2d.setPaint(Color.CYAN);
-        model.paint.PaintTetromino.paintShape(theG2d, tetrisBlock1,
+        PaintTetromino.paintShape(theG2d, tetrisBlock1,
                 tetrisBlock2, tetrisBlock3, tetrisBlock4);
     }
 }
