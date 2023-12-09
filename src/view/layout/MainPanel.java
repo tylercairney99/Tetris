@@ -1,11 +1,16 @@
 package view.layout;
 
-import java.awt.*;
+import static model.Board.PROPERTY_GAME_OVER;
+import static model.Board.PROPERTY_NEW_GAME;
+import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
+import static model.Board.PROPERTY_ROW_CLEARED;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -16,7 +21,7 @@ import model.Board;
 import model.TetrisPiece;
 import view.controller.TetrisGUI;
 
-import static model.Board.*;
+
 
 /**
  * A class representing the main panel for a Tetris game.
@@ -30,13 +35,6 @@ public class MainPanel extends JPanel {
      * Ensures only one panel is instantiated.
      */
     private static int count;
-
-    /**
-     * The number of milliseconds in one second.
-     * This constant defines the interval for the game's timer tick.
-     */
-    private static final int MILLIS_PER_SEC = 100; // CHANGE BACK TO 1000 (1 second per tick of myBoard.step)
-    private int timerCounter = 0; // DELETE LATER (ONLY USED FOR TESTING)!!!
 
     /**
      * The Panel which contains the NextPiecePanel, ControlPanel, and ScorePanel.
@@ -57,7 +55,7 @@ public class MainPanel extends JPanel {
     /**
      * The Panel which contains the score.
      */
-    private JPanel myScorePanel;
+    private final JPanel myScorePanel;
     /**
      * The game board associated with this menu.
      * It represents the current state of the Tetris game, including the arrangement
@@ -84,8 +82,14 @@ public class MainPanel extends JPanel {
      */
     private Clip mySoundClip;
 
-    private final int myCurrentDificulty;
+    /**
+     * Current difficulty level of the game.
+     */
+    private final int myCurrentDifficulty;
 
+    /**
+     * GUI to display game.
+     */
     private final TetrisGUI myTetrisGUI;
 
     /**
@@ -100,8 +104,7 @@ public class MainPanel extends JPanel {
 
     public MainPanel(final Board theBoard, final Timer theGameTimer,
                      final NextPiecePanel theNextPiecePanel, final GamePanel theGamePanel,
-                     final ScorePanel theScorePanel, final File theMusicFile, 
-                     final File theSoundFile, final int theCurrentDifficulty,
+                     final ScorePanel theScorePanel, final List<File> theSoundList, final int theCurrentDifficulty,
                      final TetrisGUI theTetrisGUI) {
         super();
 
@@ -116,9 +119,11 @@ public class MainPanel extends JPanel {
         this.myGamePanel = theGamePanel;
         this.myScorePanel = theScorePanel;
         this.myTetrisGUI = theTetrisGUI;
-        this.myCurrentDificulty = theCurrentDifficulty;
+        this.myCurrentDifficulty = theCurrentDifficulty;
+        createMusic(theSoundList);
+    }
 
-        createMusic(theMusicFile, theSoundFile);
+    private void constructorHelper() {
         buildComponents();
         layoutComponents();
         addListeners();
@@ -127,6 +132,7 @@ public class MainPanel extends JPanel {
     /**
      * Initializes the components of the MainPanel.
      */
+    @SuppressWarnings("checkstyle:MagicNumber")
     private void buildComponents() {
         mySecondaryPanel = new JPanel();
         myControlPanel = new ControlPanel();
@@ -183,15 +189,16 @@ public class MainPanel extends JPanel {
 
     /**
      * Creates audio clip from .wav audio file.
-     * @param theMusicFile .wav audio file to turn into clip.
-     * @param theSoundFile .wav audio file to turn into clip.
+     * @param theSoundFile File containting .wav audio files to turn into clips.
      */
-    private void createMusic(final File theMusicFile, final File theSoundFile) {
+    private void createMusic(final List<File> theSoundFile) {
+        final File musicFile = theSoundFile.get(0);
+        final File soundFile = theSoundFile.get(1);
         try {
-            AudioInputStream audioInput = AudioSystem.getAudioInputStream(theMusicFile);
+            AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicFile);
             myMusicClip = AudioSystem.getClip();
             myMusicClip.open(audioInput);
-            audioInput = AudioSystem.getAudioInputStream(theSoundFile);
+            audioInput = AudioSystem.getAudioInputStream(soundFile);
             mySoundClip = AudioSystem.getClip();
             mySoundClip.open(audioInput);
         } catch (final Exception e) {
@@ -205,7 +212,6 @@ public class MainPanel extends JPanel {
      */
     private void playMusic() {
         myMusicClip.start();
-        System.out.println("music play");
     }
 
     /**
@@ -228,33 +234,28 @@ public class MainPanel extends JPanel {
                     case KeyEvent.VK_RIGHT:
                     case KeyEvent.VK_D:
                         myBoard.right();
-                        System.out.println("right");
                         break;
                     case KeyEvent.VK_LEFT:
                     case KeyEvent.VK_A:
                         myBoard.left();
-                        System.out.println("left");
                         break;
                     case KeyEvent.VK_DOWN:
                     case KeyEvent.VK_S:
                         myBoard.down();
                         myGamePanel.repaint();
-                        System.out.println("down");
 
                         if ("Hard".equals(myTetrisGUI.getCurrentDifficulty())) {
-                            myBoard.step(); // trigger an immediate step
+                            myBoard.step();
                         } else {
-                            myGameTimer.restart(); // restart timer on easy / medium
+                            myGameTimer.restart();
                         }
                         break;
                     case KeyEvent.VK_UP:
                     case KeyEvent.VK_W:
                         myBoard.rotateCW();
-                        System.out.println("rotate");
                         break;
                     case KeyEvent.VK_SPACE:
                         myBoard.drop();
-                        System.out.println("drop");
                         myGamePanel.repaint();
                         break;
                     default:
@@ -262,7 +263,6 @@ public class MainPanel extends JPanel {
                 }
             }
             if (theEvent.getKeyCode() == KeyEvent.VK_P) {
-                System.out.println("pause");
                 if (myGameTimer.isRunning()) {
                     myGameTimer.stop();
                     pauseMusic();

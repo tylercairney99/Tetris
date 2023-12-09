@@ -3,6 +3,8 @@ package view.controller;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -132,10 +134,13 @@ public class TetrisGUI implements MyDifficultyChanger {
         final JFrame frame = new JFrame("Tetris");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
+        final List<File> soundList = new ArrayList<>();
+        soundList.add(myMusicFile);
+        soundList.add(mySoundFile);
 
         final MainPanel mainPanel = new MainPanel(myBoard, myGameTimer,
-                myNextPiecePanel, myGamePanel, myScorePanel, myMusicFile,
-                mySoundFile, myCurrentDifficulty, this);
+                myNextPiecePanel, myGamePanel, myScorePanel, soundList,
+                myCurrentDifficulty, this);
 
         frame.setJMenuBar(new Menu(myBoard, myGameTimer, this));
         frame.add(mainPanel, BorderLayout.CENTER);
