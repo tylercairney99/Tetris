@@ -42,13 +42,13 @@ public final class PaintO implements model.PaintTetromino {
     public static void rotation0(final Graphics2D theG2d, final int theBlockHeight,
                                  final int theY, final int theX) {
         final Shape tetrisBlock1 = new Rectangle2D.Double(theX, theY,
-                theBlockHeight - 1, theBlockHeight - 1);
+                theBlockHeight, theBlockHeight);
         final Shape tetrisBlock2 = new Rectangle2D.Double(theX + theBlockHeight, theY,
-                theBlockHeight - 1, theBlockHeight - 1);
+                theBlockHeight, theBlockHeight);
         final Shape tetrisBlock3 = new Rectangle2D.Double(theX, theY + theBlockHeight,
-                theBlockHeight - 1, theBlockHeight - 1);
+                theBlockHeight, theBlockHeight);
         final Shape tetrisBlock4 = new Rectangle2D.Double(theX + theBlockHeight, theY + theBlockHeight,
-                theBlockHeight - 1, theBlockHeight - 1);
+                theBlockHeight, theBlockHeight);
 
         theG2d.setPaint(Color.YELLOW);
         PaintTetromino.paintShape(theG2d, tetrisBlock1, tetrisBlock2, tetrisBlock3, tetrisBlock4);
