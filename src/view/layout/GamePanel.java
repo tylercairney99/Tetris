@@ -1,6 +1,7 @@
 package view.layout;
 
-import static model.Board.*;
+import static model.Board.PROPERTY_CURRENT_PIECE_CHANGES;
+import static model.Board.PROPERTY_PIECE_ROTATES;
 import static model.paint.PaintI.createIShape;
 import static model.paint.PaintJ.createJShape;
 import static model.paint.PaintL.createLShape;
@@ -9,16 +10,24 @@ import static model.paint.PaintS.createSShape;
 import static model.paint.PaintT.createTShape;
 import static model.paint.PaintZ.createZShape;
 
-
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.LinearGradientPaint;
+import java.awt.RenderingHints;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import javax.swing.*;
-
 import java.util.List;
-
-import model.*;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import model.Block;
+import model.Board;
+import model.MovableTetrisPiece;
 import model.Point;
+import model.Rotation;
+import model.TetrisPiece;
+
 
 /**
  * Panel that displays the Tetris game.
@@ -41,9 +50,14 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
     private static final int BLOCK_HEIGHT = 20;
 
     /**
+     * Makes the shape appear above the rendered game panel.
+     */
+    private static final int HEIGHT_ABOVE_BOARD = 3;
+
+    /**
      * Ensures only one panel is instantiated.
      */
-    private static int count = 0;
+    private static int count;
 
     /**
      * Used for the width of Graphics2d.
@@ -55,21 +69,27 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
      */
     private final Board myBoard;
 
-    /**
-     * Current tetromino in play of type MovableTetrisPiece.
-     */
-    private MovableTetrisPiece myMovableTetrisPiece;
 
     /**
      * Current tetromino in play of type TetrisPiece.
      */
     private TetrisPiece myCurrentTetrisPiece;
 
+    /**
+     * x coordinate of shape.
+     */
     private int myX;
 
+    /**
+     * y coordinate of shape.
+     */
     private int myY;
 
+    /**
+     * The current rotation state of the Tetris piece.
+     */
     private Rotation myRotation = Rotation.NONE;
+
 
     /**
      * Panel that will show the game board with tetrominos in play.
@@ -89,14 +109,16 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
     }
 
     @Override
+    @SuppressWarnings("Law of Demeter")
     public void propertyChange(final PropertyChangeEvent theEvent) {
         if (PROPERTY_CURRENT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
-            myMovableTetrisPiece = (MovableTetrisPiece) theEvent.getNewValue();
-            myCurrentTetrisPiece = myMovableTetrisPiece.getTetrisPiece();
-            Point tempPoint = myMovableTetrisPiece.getPosition();
+            final MovableTetrisPiece movableTetrisPiece = (MovableTetrisPiece)
+                    theEvent.getNewValue();
+            myCurrentTetrisPiece = movableTetrisPiece.getTetrisPiece();
+            final Point tempPoint = movableTetrisPiece.getPosition();
             myX = tempPoint.x();
             myY = tempPoint.y();
-            myRotation = myMovableTetrisPiece.getRotation();
+            myRotation = movableTetrisPiece.getRotation();
             repaint();
 
         }
@@ -126,21 +148,18 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
 
         createShape(g2d);
 
-
-
-        // Draw the frozen blocks on the game panel.
-        List<Block[]> frozenBlocks = myBoard.getFrozenBlocks();
+        final List<Block[]> frozenBlocks = myBoard.getFrozenBlocks();
         if (frozenBlocks != null) {
             for (int row = 0; row < frozenBlocks.size(); row++) {
                 for (int col = 0; col < frozenBlocks.get(row).length; col++) {
-                    Block block = frozenBlocks.get(row)[col];
+                    final Block block = frozenBlocks.get(row)[col];
                     if (block != null) {
-                        g2d.setColor(getColorForBlock(block)); // Set color based on block type
-                        int x = col * BLOCK_WIDTH;
-                        int y = (frozenBlocks.size() - row - 1) * BLOCK_HEIGHT; // Invert y-axis
+                        g2d.setColor(getColorForBlock(block));
+                        final int x = col * BLOCK_WIDTH;
+                        final int y = (frozenBlocks.size() - row - 1) * BLOCK_HEIGHT;
                         g2d.fillRect(x, y, BLOCK_WIDTH, BLOCK_HEIGHT);
-                        g2d.setColor(Color.BLACK); // Set color for block border
-                        g2d.drawRect(x, y, BLOCK_WIDTH, BLOCK_HEIGHT); // Draw block border
+                        g2d.setColor(Color.BLACK);
+                        g2d.drawRect(x, y, BLOCK_WIDTH, BLOCK_HEIGHT);
                     }
                 }
             }
@@ -155,31 +174,38 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
         if (myCurrentTetrisPiece != null) {
             switch (myCurrentTetrisPiece) {
                 case I:
-                    createIShape(theG2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
+                    createIShape(theG2d, BLOCK_HEIGHT, getHeight() - (
+                            myY + HEIGHT_ABOVE_BOARD) * BLOCK_HEIGHT,
                             myX * BLOCK_HEIGHT, myRotation);
                     break;
                 case L:
-                    createLShape(theG2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
+                    createLShape(theG2d, BLOCK_HEIGHT, getHeight() - (
+                            myY + HEIGHT_ABOVE_BOARD) * BLOCK_HEIGHT,
                             myX * BLOCK_HEIGHT, myRotation);
                     break;
                 case J:
-                    createJShape(theG2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
+                    createJShape(theG2d, BLOCK_HEIGHT, getHeight() - (
+                            myY + HEIGHT_ABOVE_BOARD) * BLOCK_HEIGHT,
                             myX * BLOCK_HEIGHT, myRotation);
                     break;
                 case O:
-                    createOShape(theG2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
+                    createOShape(theG2d, BLOCK_HEIGHT, getHeight() - (
+                            myY + HEIGHT_ABOVE_BOARD) * BLOCK_HEIGHT,
                             (myX + 1) * BLOCK_HEIGHT, myRotation);
                     break;
                 case S:
-                    createSShape(theG2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
+                    createSShape(theG2d, BLOCK_HEIGHT, getHeight() - (
+                            myY + HEIGHT_ABOVE_BOARD) * BLOCK_HEIGHT,
                             myX * BLOCK_HEIGHT, myRotation);
                     break;
                 case T:
-                    createTShape(theG2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
+                    createTShape(theG2d, BLOCK_HEIGHT, getHeight() - (
+                            myY + HEIGHT_ABOVE_BOARD) * BLOCK_HEIGHT,
                             myX * BLOCK_HEIGHT, myRotation);
                     break;
                 case Z:
-                    createZShape(theG2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
+                    createZShape(theG2d, BLOCK_HEIGHT, getHeight() - (
+                            myY + HEIGHT_ABOVE_BOARD) * BLOCK_HEIGHT,
                             myX * BLOCK_HEIGHT, myRotation);
                     break;
                 default:
@@ -192,11 +218,11 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
     /**
      * Returns the color associated with the specified type of block.
      *
-     * @param block The type for which the color is required.
+     * @param theBlock The type for which the color is required.
      * @return The color associated with the specified block type.
      */
-    private Color getColorForBlock(Block block) {
-        return switch (block) {
+    private Color getColorForBlock(final Block theBlock) {
+        return switch (theBlock) {
             case I -> Color.CYAN;
             case J -> Color.BLUE;
             case L -> Color.ORANGE;
