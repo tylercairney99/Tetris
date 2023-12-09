@@ -204,6 +204,7 @@ public class TetrisGUI implements MyDifficultyChanger {
      *
      * @return myCurrentDifficulty (Constant for times step is called per second).
      */
+    @Override
     public int getCurrentDifficultyValue() {
         return myCurrentDifficulty;
     }
