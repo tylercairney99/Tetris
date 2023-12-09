@@ -1,6 +1,7 @@
 package view.menu;
 
 import static model.Board.PROPERTY_GAME_OVER;
+
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -70,11 +71,9 @@ public class Menu extends JMenuBar implements PropertyChangeListener {
      */
     private JMenuBar createMenu() {
         final JMenuBar menuBar = new JMenuBar();
-
         menuBar.add(buildGameMenu());
         menuBar.add(buildDifficultyMenu());
         menuBar.add(buildAboutMenu());
-
         return menuBar;
     }
 
@@ -98,7 +97,6 @@ public class Menu extends JMenuBar implements PropertyChangeListener {
         endGameItem.addActionListener(theEvent -> {
             myGameTimer.stop();
             JOptionPane.showMessageDialog(null, "Game Ended. Click New Game to Play Again");
-            //myBoard.setPoint();
         });
         exitItem.addActionListener(theEvent -> System.exit(0));
         return gameMenu;
@@ -196,11 +194,13 @@ public class Menu extends JMenuBar implements PropertyChangeListener {
 
         return aboutMenu;
     }
+
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
-        if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName()) && (Boolean) theEvent.getNewValue()) {
-            JOptionPane.showMessageDialog(null, "Game Over. Click New Game to play again.");
+        if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName())
+                && (Boolean) theEvent.getNewValue()) {
+            JOptionPane.showMessageDialog(null,
+                    "Game Over. Click New Game to play again.");
         }
     }
-
 }
