@@ -111,6 +111,11 @@ public class Board implements MyBoard {
      * @param theWidth Width of the Tetris game board.
      * @param theHeight Height of the Tetris game board.
      */
+    @SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
+    /*
+     * warning is suppressed because count is used to ensure only one
+     * Board is instantiated.
+     */
     public Board(final int theWidth, final int theHeight) {
         super();
         if (count > 0) {
