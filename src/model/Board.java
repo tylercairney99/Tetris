@@ -93,8 +93,6 @@ public class Board implements MyBoard {
      */
     private boolean myDrop;
 
-    // Constructors
-
     /**
      * Default Tetris board constructor.
      * Creates a standard size tetris game board.
@@ -103,7 +101,6 @@ public class Board implements MyBoard {
         this(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
     }
-
 
     /**
      * Tetris board constructor for non-default sized boards.
@@ -296,10 +293,10 @@ public class Board implements MyBoard {
         if (!myGameOver) {
             myDrop = true;
             while (isPieceLegal(myCurrentPiece.down())) {
-                down();  // move down as far as possible
+                down();
             }
             myDrop = false;
-            down();  // move down one more time to freeze in place
+            down();
             myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, myCurrentPiece);
         }
     }
@@ -353,7 +350,6 @@ public class Board implements MyBoard {
             myCurrentPiece = theMovedPiece;
             result = true;
             if (!myDrop) {
-                // TODO Publish Update!
                 myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, myCurrentPiece);
             }
         }
@@ -372,7 +368,6 @@ public class Board implements MyBoard {
      */
     private boolean isPieceLegal(final MovableTetrisPiece thePiece) {
         boolean result = true;
-
         for (final Point p : thePiece.getBoardPoints()) {
             if (p.x() < 0 || p.x() >= myWidth) {
                 result = false;
@@ -419,7 +414,6 @@ public class Board implements MyBoard {
             }
         }
         myPcs.firePropertyChange(PROPERTY_ROW_CLEARED, null, completeRows.size());
-        // loop through list backwards removing items by index
         if (!completeRows.isEmpty()) {
             for (int i = completeRows.size() - 1; i >= 0; i--) {
                 final Block[] row = myFrozenBlocks.get(completeRows.get(i));
@@ -534,7 +528,6 @@ public class Board implements MyBoard {
      * Prepares the Next movable piece for preview.
      */
     private void prepareNextMovablePiece() {
-
         final boolean share = myNextPiece != null;
         if (myNonRandomPieces == null || myNonRandomPieces.isEmpty()) {
             myNextPiece = TetrisPiece.getRandomPiece();
@@ -543,7 +536,6 @@ public class Board implements MyBoard {
             myNextPiece = myNonRandomPieces.get(mySequenceIndex++);
         }
         if (share && !myGameOver) {
-            // TODO PUBLISH UPDATE
             updateNextPiece();
         }
     }
@@ -597,45 +589,5 @@ public class Board implements MyBoard {
             myNextPiece = myNonRandomPieces.get(mySequenceIndex++);
         }
         myPcs.firePropertyChange(PROPERTY_NEXT_PIECE_CHANGES, null, myNextPiece);
-    }
-
-    /**
-     * A class to describe the board data to registered Observers.
-     * The board data includes the current piece and the frozen blocks.
-     */
-    protected final class BoardData {
-
-        /**
-         * The board data to pass to observers.
-         */
-        private final List<Block[]> myBoardData;
-
-        /**
-         * Constructor of the Board Data object.
-         */
-        private BoardData() {
-            super();
-            myBoardData = getBoard();
-            myBoardData.add(new Block[myWidth]);
-            myBoardData.add(new Block[myWidth]);
-            myBoardData.add(new Block[myWidth]);
-            myBoardData.add(new Block[myWidth]);
-            if (myCurrentPiece != null) {
-                addPieceToBoardData(myBoardData, myCurrentPiece);
-            }
-        }
-
-        /**
-         * Copy and return the board's data.
-         *
-         * @return Copy of the Board Data.
-         */
-        private List<Block[]> getBoardData() {
-            final List<Block[]> board = new ArrayList<>();
-            for (final Block[] row : myBoardData) {
-                board.add(row.clone());
-            }
-            return board;
-        }
     }
 }
