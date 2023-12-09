@@ -107,7 +107,7 @@ public final class NextPiecePanel extends JPanel implements PropertyChangeListen
     @SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
     /*
      * warning is suppressed because count is used to ensure only one
-     * ScorePanel is instantiated.
+     * NextPiecePanel is instantiated.
      */
     public NextPiecePanel() {
         super();
@@ -156,7 +156,11 @@ public final class NextPiecePanel extends JPanel implements PropertyChangeListen
      * Paints the next tetrimino to be played.
      * @param theGraphics the graphics to be painted.
      */
-
+    @SuppressWarnings("OverlyLongMethod")
+    /*
+     * OverlyLongMethod warning is suppressed because the switch statement
+     * cannot be broken up without losing functionality.
+     */
     private void paintTetriminos(final Graphics2D theGraphics) {
         if (myNextTetrisPiece != null) {
             switch (myNextTetrisPiece) {
