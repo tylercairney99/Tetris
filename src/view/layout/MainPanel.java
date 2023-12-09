@@ -161,6 +161,11 @@ public class MainPanel extends JPanel {
         constructorHelper(theSoundList);
     }
 
+    /**
+     * Helper method used for constructor.
+     *
+     * @param theSoundList List of sounds used in game.
+     */
     private void constructorHelper(final List<File> theSoundList) {
         buildComponents();
         layoutComponents();
