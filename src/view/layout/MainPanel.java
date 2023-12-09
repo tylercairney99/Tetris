@@ -1,5 +1,6 @@
 package view.layout;
 
+import static javax.sound.sampled.AudioSystem.getAudioInputStream;
 import static model.Board.PROPERTY_GAME_OVER;
 import static model.Board.PROPERTY_NEW_GAME;
 import static model.Board.PROPERTY_NEXT_PIECE_CHANGES;
@@ -11,10 +12,13 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.beans.PropertyChangeEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -205,17 +209,43 @@ public class MainPanel extends JPanel {
     private void createMusic(final List<File> theSoundFile) {
         final File musicFile = theSoundFile.get(0);
         final File soundFile = theSoundFile.get(1);
-        try {
-            AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicFile);
-            myMusicClip = AudioSystem.getClip();
-            myMusicClip.open(audioInput);
-            audioInput = AudioSystem.getAudioInputStream(soundFile);
-            mySoundClip = AudioSystem.getClip();
-            mySoundClip.open(audioInput);
-        } catch (final Exception e) {
-            System.out.println(e);
-        }
 
+        AudioInputStream audioInput = null;
+        try {
+            audioInput = getAudioInputStream(musicFile);
+        } catch (final UnsupportedAudioFileException | IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            myMusicClip = AudioSystem.getClip();
+        } catch (final LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            myMusicClip.open(audioInput);
+        } catch (final LineUnavailableException | IOException e) {
+            throw new RuntimeException(e);
+        }
+        createSound(soundFile);
+    }
+
+    private void createSound(final File theSoundFile) {
+        AudioInputStream audioInput = null;
+        try {
+            audioInput = getAudioInputStream(theSoundFile);
+        } catch (final UnsupportedAudioFileException | IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            mySoundClip = AudioSystem.getClip();
+        } catch (final LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            mySoundClip.open(audioInput);
+        } catch (final LineUnavailableException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
