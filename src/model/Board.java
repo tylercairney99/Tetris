@@ -39,47 +39,6 @@ public class Board implements MyBoard {
 
     // Implementation of Observer Design Pattern
 
-
-    /**
-     * A property to check if the board changes.
-     */
-    public static final String PROPERTY_BOARD_CHANGES = "The pieces move.";
-
-    /**
-     * A property to check if a row is cleared.
-     */
-    public static final String PROPERTY_ROW_CLEARED = "a row has been cleared.";
-
-    /**
-     * A property to check when / if the next piece changes.
-     */
-    public static final String PROPERTY_NEXT_PIECE_CHANGES = "The next piece changes.";
-
-    /**
-     * A property to check when / if the current piece changes.
-     */
-    public static final String PROPERTY_CURRENT_PIECE_CHANGES = "The current piece changes.";
-
-    /**
-     * A property to check if the game is over.
-     */
-    public static final String PROPERTY_GAME_OVER = "The game is over.";
-
-    /**
-     * A property to check if a new game has started.
-     */
-    public static final String PROPERTY_NEW_GAME = "A new game has begun.";
-
-    /**
-     * A property to check if a piece has rotated.
-     */
-    public static final String PROPERTY_PIECE_ROTATES = "A piece has rotates.";
-
-    /**
-     * A property to check if a piece is frozen.
-     */
-    public static final String PROPERTY_FROZEN_PIECE = "A piece is frozen.";
-
     /**
      * Ensures only one panel is instantiated.
      */
@@ -124,7 +83,7 @@ public class Board implements MyBoard {
     /**
      * The game over state.
      */
-    private boolean myGameOver;
+    private boolean myGameOver = true;
 
     /**
      * Contains a non random sequence of TetrisPieces to loop through.
@@ -225,18 +184,19 @@ public class Board implements MyBoard {
      */
     @Override
     public void newGame() {
+        if (myGameOver) {
+            mySequenceIndex = 0;
+            myFrozenBlocks.clear();
+            for (int h = 0; h < myHeight; h++) {
+                myFrozenBlocks.add(new Block[myWidth]);
+            }
 
-        mySequenceIndex = 0;
-        myFrozenBlocks.clear();
-        for (int h = 0; h < myHeight; h++) {
-            myFrozenBlocks.add(new Block[myWidth]);
+            myGameOver = false;
+            myCurrentPiece = nextMovablePiece(true);
+            myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, myCurrentPiece);
+            myPcs.firePropertyChange(PROPERTY_NEW_GAME, null, null);
+            myDrop = false;
         }
-
-        myGameOver = false;
-        myCurrentPiece = nextMovablePiece(true);
-        myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, myCurrentPiece);
-        myPcs.firePropertyChange(PROPERTY_NEW_GAME, null, null);
-        myDrop = false;
 
         // TODO Publish Update!
 //        prepareNextMovablePiece(); // MIGHT NEED TO CHANGE LATER
@@ -270,6 +230,7 @@ public class Board implements MyBoard {
          * However, more code could be added to this method
          * to implement additional functionality
          */
+        System.out.println("Step method is called");
         down();
 
     }
@@ -700,6 +661,10 @@ public class Board implements MyBoard {
                                              final PropertyChangeListener theListener) {
         myPcs.removePropertyChangeListener(thePropertyName, theListener);
     }
+    private void updateGameState() {
+        final List<Block[]> currentState = getBoard();
+        myPcs.firePropertyChange(PROPERTY_BOARD_CHANGES, null, currentState);
+    }
 
     /**
      * Updates the next piece for the game, either from a predefined sequence or randomly.
@@ -721,6 +686,7 @@ public class Board implements MyBoard {
         myPcs.firePropertyChange(PROPERTY_NEXT_PIECE_CHANGES, null, myNextPiece);
         System.out.println("Firing next piece change: " + myNextPiece); // DELETE LATER
     }
+
     // get frozen blocks
     public List<Block[]> getFrozenBlocks() {
         return myFrozenBlocks;

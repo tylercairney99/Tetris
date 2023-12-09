@@ -170,8 +170,10 @@ public class MainPanel extends JPanel {
                 myMusicClip.start();
             }
             if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
-                mySoundClip.setMicrosecondPosition(0);
-                mySoundClip.start();
+                if ((int) theEvent.getNewValue() > 0) {
+                    mySoundClip.setMicrosecondPosition(0);
+                    mySoundClip.start();
+                }
             }
         });
         addKeyListener(new ControlKeyListener());
