@@ -86,7 +86,6 @@ public class TetrisGUI implements MyDifficultyChanger {
      */
     private final File myMusicFile;
 
-    //private final TetrisGUI myTetrisGUI;
 
 
     /**
@@ -99,13 +98,12 @@ public class TetrisGUI implements MyDifficultyChanger {
         myBoard = new Board();
         myGamePanel = new GamePanel(myBoard);
         myNextPiecePanel = new NextPiecePanel(myBoard);
+        // Removed: myTetrisGUI = new TetrisGUI(); // This line is not needed here
 
         myMusicFile = new File("src/music/music.wav");
 
-
         myBoard.addPropertyChangeListener(myNextPiecePanel);
         myBoard.addPropertyChangeListener(myGamePanel);
-
 
         myGameTimer = new Timer(EASY_DIFFICULTY, theEvent -> {
             myBoard.step();
@@ -127,7 +125,8 @@ public class TetrisGUI implements MyDifficultyChanger {
         frame.setLayout(new BorderLayout());
 
         final MainPanel mainPanel = new MainPanel(myBoard, myGameTimer,
-                myNextPiecePanel, myGamePanel, myScorePanel, myMusicFile);
+                myNextPiecePanel, myGamePanel, myScorePanel, myMusicFile, myCurrentDifficulty, this);
+
 
         frame.setJMenuBar(new Menu(myBoard, myGameTimer, this));
         frame.add(mainPanel, BorderLayout.CENTER);

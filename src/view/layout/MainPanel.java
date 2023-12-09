@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import model.Board;
 import model.TetrisPiece;
+import view.controller.TetrisGUI;
 
 import static model.Board.*;
 
@@ -75,6 +76,10 @@ public class MainPanel extends JPanel {
      */
     private Clip myClip;
 
+    private final int myCurrentDificulty;
+
+    private final TetrisGUI myTetrisGUI;
+
     /**
      * Constructs a MainPanel object.
      *
@@ -87,7 +92,8 @@ public class MainPanel extends JPanel {
 
     public MainPanel(final Board theBoard, final Timer theGameTimer,
                      final NextPiecePanel theNextPiecePanel, final GamePanel theGamePanel,
-                     final ScorePanel theScorePanel, final File theMusicFile) {
+                     final ScorePanel theScorePanel, final File theMusicFile,
+                     final int theCurrentDifficulty, final TetrisGUI theTetrisGUI) {
         super();
 
         if (count > 0) {
@@ -100,6 +106,8 @@ public class MainPanel extends JPanel {
         this.myNextPiecePanel = theNextPiecePanel;
         this.myGamePanel = theGamePanel;
         this.myScorePanel = theScorePanel;
+        this.myTetrisGUI = theTetrisGUI;
+        this.myCurrentDificulty = theCurrentDifficulty;
 
         createMusic(theMusicFile);
 
@@ -184,8 +192,14 @@ public class MainPanel extends JPanel {
                         myBoard.down();
                         myGamePanel.repaint();
                         System.out.println("down");
-                        myGameTimer.restart();
+
+                        if ("Hard".equals(myTetrisGUI.getCurrentDifficulty())) {
+                            myBoard.step(); // trigger an immediate step
+                        } else {
+                            myGameTimer.restart(); // restart timer on easy / medium
+                        }
                         break;
+
                     case KeyEvent.VK_UP:
                     case KeyEvent.VK_W:
                         myBoard.rotateCW();
