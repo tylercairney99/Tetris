@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeEvent;
 import java.io.File;
 import java.util.List;
 import javax.sound.sampled.AudioInputStream;
@@ -30,6 +31,31 @@ import view.controller.TetrisGUI;
  * @version Autumn 2023
  */
 public class MainPanel extends JPanel {
+
+    /**
+     * Constant width of panel.
+     */
+    private static final int WIDTH1 = 200;
+
+    /**
+     * Constant height of panel.
+     */
+    private static final int HEIGHT1 = 400;
+
+    /**
+     * Constant width of panel.
+     */
+    private static final int WIDTH2 = 160;
+
+    /**
+     * Constant height of panel.
+     */
+    private static final int HEIGHT2 = 110;
+
+    /**
+     * Constant used for gap.
+     */
+    private static final int GAP = 10;
 
     /**
      * Ensures only one panel is instantiated.
@@ -85,7 +111,7 @@ public class MainPanel extends JPanel {
     /**
      * Current difficulty level of the game.
      */
-    private final int myCurrentDifficulty;
+    private int myCurrentDifficulty;
 
     /**
      * GUI to display game.
@@ -104,8 +130,8 @@ public class MainPanel extends JPanel {
 
     public MainPanel(final Board theBoard, final Timer theGameTimer,
                      final NextPiecePanel theNextPiecePanel, final GamePanel theGamePanel,
-                     final ScorePanel theScorePanel, final List<File> theSoundList, final int theCurrentDifficulty,
-                     final TetrisGUI theTetrisGUI) {
+                     final ScorePanel theScorePanel, final List<File> theSoundList,
+                     final int theCurrentDifficulty, final TetrisGUI theTetrisGUI) {
         super();
 
         if (count > 0) {
@@ -119,38 +145,44 @@ public class MainPanel extends JPanel {
         this.myGamePanel = theGamePanel;
         this.myScorePanel = theScorePanel;
         this.myTetrisGUI = theTetrisGUI;
-        this.myCurrentDifficulty = theCurrentDifficulty;
-        createMusic(theSoundList);
+        constructorHelper(theSoundList, theCurrentDifficulty);
     }
 
-    private void constructorHelper() {
+    private void constructorHelper(final List<File> theSoundList,
+                                   final int theCurrentDifficulty) {
         buildComponents();
         layoutComponents();
         addListeners();
+        createMusic(theSoundList);
+        myCurrentDifficulty = theCurrentDifficulty;
     }
 
     /**
      * Initializes the components of the MainPanel.
      */
+    @SuppressWarnings("SuspiciousNameCombination")
+    /*
+    Too many constants to add another Height when matching Width exists.
+     */
     private void buildComponents() {
         mySecondaryPanel = new JPanel();
         myControlPanel = new ControlPanel();
 
-        myGamePanel.setPreferredSize(new Dimension(200, 400));
-        myNextPiecePanel.setPreferredSize(new Dimension(160, 160));
-        myControlPanel.setPreferredSize(new Dimension(160, 110));
-        myScorePanel.setPreferredSize(new Dimension(160, 110));
+        myGamePanel.setPreferredSize(new Dimension(WIDTH1, HEIGHT1));
+        myNextPiecePanel.setPreferredSize(new Dimension(WIDTH2, WIDTH2));
+        myControlPanel.setPreferredSize(new Dimension(WIDTH2, HEIGHT2));
+        myScorePanel.setPreferredSize(new Dimension(WIDTH2, HEIGHT2));
     }
 
     /**
      * Lays out the components of the MainPanel.
      */
     private void layoutComponents() {
-        setLayout(new BorderLayout(5, 10));
+        setLayout(new BorderLayout(GAP / 2, GAP));
         add(myGamePanel, BorderLayout.WEST);
         add(mySecondaryPanel, BorderLayout.EAST);
 
-        mySecondaryPanel.setLayout(new BorderLayout(10, 10));
+        mySecondaryPanel.setLayout(new BorderLayout(GAP, GAP));
         mySecondaryPanel.add(myNextPiecePanel, BorderLayout.NORTH);
         mySecondaryPanel.add(myControlPanel, BorderLayout.CENTER);
         mySecondaryPanel.add(myScorePanel, BorderLayout.SOUTH);
@@ -160,27 +192,7 @@ public class MainPanel extends JPanel {
      * Adds listeners to the MainPanel.
      */
     private void addListeners() {
-        myBoard.addPropertyChangeListener(theEvent -> {
-            if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName()) && (Boolean) theEvent.getNewValue()) {
-                myGameTimer.stop();
-                pauseMusic();
-
-                JOptionPane.showMessageDialog(null,
-                        "              Game Over!");
-            } else if (PROPERTY_NEXT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
-                final TetrisPiece nextPiece = (TetrisPiece) theEvent.getNewValue();
-            }
-            if (PROPERTY_NEW_GAME.equals(theEvent.getPropertyName())) {
-                myMusicClip.setMicrosecondPosition(0);
-                myMusicClip.start();
-            }
-            if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
-                if ((int) theEvent.getNewValue() > 0) {
-                    mySoundClip.setMicrosecondPosition(0);
-                    mySoundClip.start();
-                }
-            }
-        });
+        myBoard.addPropertyChangeListener(this::propertyChange);
         addKeyListener(new ControlKeyListener());
         setFocusable(true);
         requestFocus();
@@ -218,6 +230,29 @@ public class MainPanel extends JPanel {
      */
     private void pauseMusic() {
         myMusicClip.stop();
+    }
+
+    private void propertyChange(final PropertyChangeEvent theEvent) {
+        if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName())
+                && (Boolean) theEvent.getNewValue()) {
+            myGameTimer.stop();
+            pauseMusic();
+
+            JOptionPane.showMessageDialog(null,
+                    "              Game Over!");
+        } else if (PROPERTY_NEXT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
+            final TetrisPiece nextPiece = (TetrisPiece) theEvent.getNewValue();
+        }
+        if (PROPERTY_NEW_GAME.equals(theEvent.getPropertyName())) {
+            myMusicClip.setMicrosecondPosition(0);
+            myMusicClip.start();
+        }
+        if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
+            if ((int) theEvent.getNewValue() > 0) {
+                mySoundClip.setMicrosecondPosition(0);
+                mySoundClip.start();
+            }
+        }
     }
 
     class ControlKeyListener extends KeyAdapter {
