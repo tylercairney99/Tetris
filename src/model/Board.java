@@ -51,11 +51,6 @@ public class Board implements MyBoard {
     public static final String PROPERTY_ROW_CLEARED = "a row has been cleared.";
 
     /**
-     * A property to check how many rows are cleared.
-     */
-    public static final Integer PROPERTY_NUMBER_OF_ROWS_CLEARED = 0;
-
-    /**
      * A property to check when / if the next piece changes.
      */
     public static final String PROPERTY_NEXT_PIECE_CHANGES = "The next piece changes.";
@@ -500,8 +495,7 @@ public class Board implements MyBoard {
             }
             if (complete) {
                 completeRows.add(myFrozenBlocks.indexOf(row));
-                // TODO Publish Update!
-                clearRows();
+                myPcs.firePropertyChange(PROPERTY_ROW_CLEARED, null, completeRows.size());
             }
         }
         // loop through list backwards removing items by index
@@ -682,24 +676,24 @@ public class Board implements MyBoard {
     }  // end inner class BoardData
 
     @Override
-    public void addPropertyChangeListener(PropertyChangeListener theListener) {
+    public void addPropertyChangeListener(final PropertyChangeListener theListener) {
         myPcs.addPropertyChangeListener(theListener);
     }
 
     @Override
-    public void addPropertyChangeListener(String thePropertyName,
-                                          PropertyChangeListener theListener) {
+    public void addPropertyChangeListener(final String thePropertyName,
+                                          final PropertyChangeListener theListener) {
         myPcs.addPropertyChangeListener(thePropertyName, theListener);
     }
 
     @Override
-    public void removePropertyChangeListener(PropertyChangeListener theListener) {
+    public void removePropertyChangeListener(final PropertyChangeListener theListener) {
         myPcs.removePropertyChangeListener(theListener);
     }
 
     @Override
-    public void removePropertyChangeListener(String thePropertyName,
-                                             PropertyChangeListener theListener) {
+    public void removePropertyChangeListener(final String thePropertyName,
+                                             final PropertyChangeListener theListener) {
         myPcs.removePropertyChangeListener(thePropertyName, theListener);
     }
     private void updateGameState() {
@@ -735,7 +729,7 @@ public class Board implements MyBoard {
         }
 
         if (!clearedRows.isEmpty()) {
-            myPcs.firePropertyChange(PROPERTY_ROW_CLEARED, null, clearedRows.toArray(new Integer[0]));
+            myPcs.firePropertyChange(PROPERTY_ROW_CLEARED, null, clearedRows.size());
         }
     }
 
@@ -765,7 +759,7 @@ public class Board implements MyBoard {
     }
 
 
-    // Added by tyler to get frozen blocks
+    // get frozen blocks
     public List<Block[]> getFrozenBlocks() {
         return myFrozenBlocks;
     }

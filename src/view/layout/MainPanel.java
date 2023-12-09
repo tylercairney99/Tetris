@@ -95,7 +95,8 @@ public class MainPanel extends JPanel {
 
     public MainPanel(final Board theBoard, final Timer theGameTimer,
                      final NextPiecePanel theNextPiecePanel, final GamePanel theGamePanel,
-                     final File theMusicFile, final File theSoundFile) {
+                     final ScorePanel theScorePanel, final File theMusicFile, 
+                     final File theSoundFile) {
         super();
 
         if (count > 0) {
@@ -107,6 +108,10 @@ public class MainPanel extends JPanel {
         this.myGameTimer = theGameTimer;
         this.myNextPiecePanel = theNextPiecePanel;
         this.myGamePanel = theGamePanel;
+        this.myScorePanel = theScorePanel;
+
+        createMusic(theMusicFile);
+
         createMusic(theMusicFile, theSoundFile);
         buildComponents();
         layoutComponents();
@@ -119,7 +124,6 @@ public class MainPanel extends JPanel {
     private void buildComponents() {
         mySecondaryPanel = new JPanel();
         myControlPanel = new ControlPanel();
-        myScorePanel = new ScorePanel(myGameTimer);
 
         myGamePanel.setPreferredSize(new Dimension(200, 400));
         myNextPiecePanel.setPreferredSize(new Dimension(160, 160));
@@ -149,7 +153,9 @@ public class MainPanel extends JPanel {
             if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName()) && (Boolean) theEvent.getNewValue()) {
                 myGameTimer.stop();
                 pauseMusic();
-                JOptionPane.showMessageDialog(null, "Game Over U Suck!");
+
+                JOptionPane.showMessageDialog(null,
+                        "              Game Over!");
             } else if (PROPERTY_NEXT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
                 final TetrisPiece nextPiece = (TetrisPiece) theEvent.getNewValue();
             }
@@ -210,23 +216,36 @@ public class MainPanel extends JPanel {
         @Override
         public void keyPressed(final KeyEvent theEvent) {
             if (myGameTimer.isRunning()) {
-                if (theEvent.getKeyCode() == KeyEvent.VK_RIGHT || theEvent.getKeyCode() == KeyEvent.VK_D) {
-                    myBoard.right();
-                    System.out.println("right");
-                } else if (theEvent.getKeyCode() == KeyEvent.VK_LEFT || theEvent.getKeyCode() == KeyEvent.VK_A) {
-                    myBoard.left();
-                    System.out.println("left");
-                } else if (theEvent.getKeyCode() == KeyEvent.VK_DOWN || theEvent.getKeyCode() == KeyEvent.VK_S) {
-                    myBoard.down();
-                    myGamePanel.repaint(); //  ADDED BY TYLER TO REPAINT EVERYTIME DOWN KEY IS PRESSED.
-                    System.out.println("down");
-                } else if (theEvent.getKeyCode() == KeyEvent.VK_UP || theEvent.getKeyCode() == KeyEvent.VK_W) {
-                    myBoard.rotateCW();
-                    System.out.println("rotate");
-                } else if (theEvent.getKeyCode() == KeyEvent.VK_SPACE) {
-                    myBoard.drop();
-                    System.out.println("drop");
-                    myGamePanel.repaint();
+                switch (theEvent.getKeyCode()) {
+                    case KeyEvent.VK_RIGHT:
+                    case KeyEvent.VK_D:
+                        myBoard.right();
+                        System.out.println("right");
+                        break;
+                    case KeyEvent.VK_LEFT:
+                    case KeyEvent.VK_A:
+                        myBoard.left();
+                        System.out.println("left");
+                        break;
+                    case KeyEvent.VK_DOWN:
+                    case KeyEvent.VK_S:
+                        myBoard.down();
+                        myGamePanel.repaint();
+                        System.out.println("down");
+                        myGameTimer.restart();
+                        break;
+                    case KeyEvent.VK_UP:
+                    case KeyEvent.VK_W:
+                        myBoard.rotateCW();
+                        System.out.println("rotate");
+                        break;
+                    case KeyEvent.VK_SPACE:
+                        myBoard.drop();
+                        System.out.println("drop");
+                        myGamePanel.repaint();
+                        break;
+                    default:
+                        break;
                 }
             }
             if (theEvent.getKeyCode() == KeyEvent.VK_P) {
