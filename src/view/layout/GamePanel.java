@@ -125,41 +125,9 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
         g2d.fillRect(0, 0, w, h);
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
-        if (myCurrentTetrisPiece != null) {
-            switch (myCurrentTetrisPiece) {
-                case I:
-                    createIShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
-                            myX * BLOCK_HEIGHT, myRotation);
-                    break;
-                case L:
-                    createLShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
-                            myX * BLOCK_HEIGHT, myRotation);
-                    break;
-                case J:
-                    createJShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
-                            myX * BLOCK_HEIGHT, myRotation);
-                    break;
-                case O:
-                    createOShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
-                            (myX + 1) * BLOCK_HEIGHT, myRotation);
-                    break;
-                case S:
-                    createSShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
-                            myX * BLOCK_HEIGHT, myRotation);
-                    break;
-                case T:
-                    createTShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
-                            myX * BLOCK_HEIGHT, myRotation);
-                    break;
-                case Z:
-                    createZShape(g2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
-                            myX * BLOCK_HEIGHT, myRotation);
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: "
-                            + myCurrentTetrisPiece);
-            }
-        }
+        createShape(g2d);
+
+
 
         // Draw the frozen blocks on the game panel.
         List<Block[]> frozenBlocks = myBoard.getFrozenBlocks();
@@ -176,6 +144,48 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
                         g2d.drawRect(x, y, BLOCK_WIDTH, BLOCK_HEIGHT); // Draw block border
                     }
                 }
+            }
+        }
+    }
+
+    /**
+     *
+     * @param theG2d Graphics2d object for drawing.
+     */
+    private void createShape(final Graphics2D theG2d) {
+        if (myCurrentTetrisPiece != null) {
+            switch (myCurrentTetrisPiece) {
+                case I:
+                    createIShape(theG2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
+                            myX * BLOCK_HEIGHT, myRotation);
+                    break;
+                case L:
+                    createLShape(theG2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
+                            myX * BLOCK_HEIGHT, myRotation);
+                    break;
+                case J:
+                    createJShape(theG2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
+                            myX * BLOCK_HEIGHT, myRotation);
+                    break;
+                case O:
+                    createOShape(theG2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
+                            (myX + 1) * BLOCK_HEIGHT, myRotation);
+                    break;
+                case S:
+                    createSShape(theG2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
+                            myX * BLOCK_HEIGHT, myRotation);
+                    break;
+                case T:
+                    createTShape(theG2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
+                            myX * BLOCK_HEIGHT, myRotation);
+                    break;
+                case Z:
+                    createZShape(theG2d, BLOCK_HEIGHT, getHeight() - (myY + 3) * BLOCK_HEIGHT,
+                            myX * BLOCK_HEIGHT, myRotation);
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: "
+                            + myCurrentTetrisPiece);
             }
         }
     }

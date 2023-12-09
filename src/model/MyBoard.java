@@ -15,6 +15,41 @@ import java.util.List;
 public interface MyBoard {
 
     /**
+     * A property to check if the board changes.
+     */
+    String PROPERTY_BOARD_CHANGES = "The pieces move.";
+
+    /**
+     * A property to check if a row is cleared.
+     */
+    String PROPERTY_ROW_CLEARED = "a row has been cleared.";
+
+    /**
+     * A property to check when / if the next piece changes.
+     */
+    String PROPERTY_NEXT_PIECE_CHANGES = "The next piece changes.";
+
+    /**
+     * A property to check when / if the current piece changes.
+     */
+    String PROPERTY_CURRENT_PIECE_CHANGES = "The current piece changes.";
+
+    /**
+     * A property to check if the game is over.
+     */
+    String PROPERTY_GAME_OVER = "The game is over.";
+
+    /**
+     * A property to check if a new game has started.
+     */
+    String PROPERTY_NEW_GAME = "A new game has begun.";
+
+    /**
+     * A property to check if a piece has rotated.
+     */
+    String PROPERTY_PIECE_ROTATES = "A piece has rotates.";
+
+    /**
      * Gets the width of the board.
      *
      * @return The width of the board.

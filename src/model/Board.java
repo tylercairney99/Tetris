@@ -39,42 +39,6 @@ public class Board implements MyBoard {
 
     // Implementation of Observer Design Pattern
 
-
-    /**
-     * A property to check if the board changes.
-     */
-    public static final String PROPERTY_BOARD_CHANGES = "The pieces move.";
-
-    /**
-     * A property to check if a row is cleared.
-     */
-    public static final String PROPERTY_ROW_CLEARED = "a row has been cleared.";
-
-    /**
-     * A property to check when / if the next piece changes.
-     */
-    public static final String PROPERTY_NEXT_PIECE_CHANGES = "The next piece changes.";
-
-    /**
-     * A property to check when / if the current piece changes.
-     */
-    public static final String PROPERTY_CURRENT_PIECE_CHANGES = "The current piece changes.";
-
-    /**
-     * A property to check if the game is over.
-     */
-    public static final String PROPERTY_GAME_OVER = "The game is over.";
-
-    /**
-     * A property to check if a new game has started.
-     */
-    public static final String PROPERTY_NEW_GAME = "A new game has begun.";
-
-    /**
-     * A property to check if a piece has rotated.
-     */
-    public static final String PROPERTY_PIECE_ROTATES = "A piece has rotates.";
-
     /**
      * Ensures only one panel is instantiated.
      */
@@ -629,53 +593,6 @@ public class Board implements MyBoard {
         }
     }
 
-
-    // Inner classes
-
-    /**
-     * A class to describe the board data to registered Observers.
-     * The board data includes the current piece and the frozen blocks.
-     */
-    protected final class BoardData {
-
-        /**
-         * The board data to pass to observers.
-         */
-        private final List<Block[]> myBoardData;
-
-        /**
-         * Constructor of the Board Data object.
-         */
-        private BoardData() {
-            super();
-            myBoardData = getBoard();
-            myBoardData.add(new Block[myWidth]);
-            myBoardData.add(new Block[myWidth]);
-            myBoardData.add(new Block[myWidth]);
-            myBoardData.add(new Block[myWidth]);
-            if (myCurrentPiece != null) {
-                addPieceToBoardData(myBoardData, myCurrentPiece);
-            }
-        }
-
-        /**
-         * Copy and return the board's data.
-         *
-         * @return Copy of the Board Data.
-         */
-        private List<Block[]> getBoardData() {
-            final List<Block[]> board = new ArrayList<>();
-            for (final Block[] row : myBoardData) {
-                board.add(row.clone());
-            }
-            return board;
-        }
-
-
-        // Implmentation of Observer Design Pattern
-
-    }  // end inner class BoardData
-
     @Override
     public void addPropertyChangeListener(final PropertyChangeListener theListener) {
         myPcs.addPropertyChangeListener(theListener);
@@ -703,38 +620,6 @@ public class Board implements MyBoard {
     }
 
     /**
-     * Clears complete rows from the game board and notifies observers about the cleared rows.
-     * This method checks for and clears rows that are completely filled. It should be called
-     * whenever there is a potential for row completion, such as when a piece lands.
-     * Once rows are cleared, it fires a property change event with the indices of the cleared rows.
-     * Observers such as scoring systems or GUI components can use this information to update accordingly.
-     *
-     * Usage:
-     *   Typically invoked after a piece has landed and settled on the board.
-     */
-//    private void clearRows() {
-//        final List<Integer> clearedRows = new ArrayList<>();
-//        for (int i = 0; i < myFrozenBlocks.size(); i++) {
-//            boolean isRowComplete = true;
-//            for (Block block : myFrozenBlocks.get(i)) {
-//                if (block == null) {
-//                    isRowComplete = false;
-//                    break;
-//                }
-//            }
-//            if (isRowComplete) {
-//                clearedRows.add(i);
-//                myFrozenBlocks.remove(i);
-//                myFrozenBlocks.add(0, new Block[myWidth]);
-//            }
-//        }
-//
-//        if (!clearedRows.isEmpty()) {
-//            myPcs.firePropertyChange(PROPERTY_ROW_CLEARED, null, clearedRows.size());
-//        }
-//    }
-
-    /**
      * Updates the next piece for the game, either from a predefined sequence or randomly.
      * This method determines and updates the next Tetris piece. Observers are notified about
      * the change in the next piece, allowing GUI components to display the upcoming piece.
@@ -754,11 +639,6 @@ public class Board implements MyBoard {
         myPcs.firePropertyChange(PROPERTY_NEXT_PIECE_CHANGES, null, myNextPiece);
         System.out.println("Firing next piece change: " + myNextPiece); // DELETE LATER
     }
-
-    private void notifyBoardChanges() {
-        myPcs.firePropertyChange(PROPERTY_BOARD_CHANGES, null, getBoard());
-    }
-
 
     // get frozen blocks
     public List<Block[]> getFrozenBlocks() {
