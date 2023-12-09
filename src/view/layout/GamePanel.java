@@ -17,6 +17,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.LinearGradientPaint;
 import java.awt.RenderingHints;
+import java.awt.event.InputMethodListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
@@ -88,6 +89,11 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
      * The frozen blocks.
      */
     private List<Block[]> myFrozenBlocks;
+
+    /**
+     * True if pieces will be displayed.
+     */
+    private boolean myDraw = true;
 
 
     /**
@@ -200,7 +206,7 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
      * Warning is suppressed bc the switch statement is necessary.
      */
     private void createShape(final Graphics2D theG2d) {
-        if (myCurrentTetrisPiece != null) {
+        if (myCurrentTetrisPiece != null && myDraw) {
             switch (myCurrentTetrisPiece) {
                 case I:
                     createIShape(theG2d, BLOCK_HEIGHT, getHeight() - (
@@ -243,6 +249,16 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
             }
         }
     }
+
+    /**
+     * Sets pieces to be visible or not.
+     *
+     * @param theDraw Boolean deciding if pieces will be drawn.
+     */
+    public void setDraw(final Boolean theDraw) {
+        myDraw = theDraw;
+    }
+
 
     /**
      * Returns the color associated with the specified type of block.
