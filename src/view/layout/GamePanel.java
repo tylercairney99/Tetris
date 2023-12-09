@@ -110,10 +110,13 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
     }
 
     @Override
-    @SuppressWarnings("LawOfDemeter")
+    @SuppressWarnings({"LawOfDemeter", "unchecked"})
     /*
      * LawOfDemeter warning is suppressed because the method is necessary to
      * update the game panel.
+     *
+     * unchecked warning is suppressed because theEvent.getNewValue() can't be safely
+     * casted into a List<Block[]>.
      */
     public void propertyChange(final PropertyChangeEvent theEvent) {
         if (PROPERTY_CURRENT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
