@@ -135,7 +135,6 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
             repaint();
         }
         if (PROPERTY_FROZEN_PIECE.equals(theEvent.getPropertyName())) {
-            //noinspection unchecked Safe cast.
             myFrozenBlocks = (List<Block[]>) theEvent.getNewValue();
             repaint();
         }
@@ -188,6 +187,7 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
         theGraphics.setPaint(gp);
         theGraphics.fillRect(0, 0, w, h);
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+
     }
 
     /**
