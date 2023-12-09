@@ -25,4 +25,11 @@ public interface MyDifficultyChanger {
      * @return Easy / Medium / Hard / if none are chosen defaults to easy.
      */
     String getCurrentDifficulty();
+
+    /**
+     * gets current difficulty.
+     *
+     * @return myCurrentDifficulty (Constant for times step is called per second).
+     */
+    int getCurrentDifficultyValue();
 }

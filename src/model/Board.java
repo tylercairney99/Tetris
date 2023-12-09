@@ -568,6 +568,53 @@ public class Board implements MyBoard {
         }
     }
 
+
+    // Inner classes
+
+    /**
+     * A class to describe the board data to registered Observers.
+     * The board data includes the current piece and the frozen blocks.
+     */
+    protected final class BoardData {
+
+        /**
+         * The board data to pass to observers.
+         */
+        private final List<Block[]> myBoardData;
+
+        /**
+         * Constructor of the Board Data object.
+         */
+        private BoardData() {
+            super();
+            myBoardData = getBoard();
+            myBoardData.add(new Block[myWidth]);
+            myBoardData.add(new Block[myWidth]);
+            myBoardData.add(new Block[myWidth]);
+            myBoardData.add(new Block[myWidth]);
+            if (myCurrentPiece != null) {
+                addPieceToBoardData(myBoardData, myCurrentPiece);
+            }
+        }
+
+        /**
+         * Copy and return the board's data.
+         *
+         * @return Copy of the Board Data.
+         */
+        private List<Block[]> getBoardData() {
+            final List<Block[]> board = new ArrayList<>();
+            for (final Block[] row : myBoardData) {
+                board.add(row.clone());
+            }
+            return board;
+        }
+
+
+        // Implmentation of Observer Design Pattern
+
+    }  // end inner class BoardData
+
     @Override
     public void addPropertyChangeListener(final PropertyChangeListener theListener) {
         myPcs.addPropertyChangeListener(theListener);

@@ -132,7 +132,6 @@ public class MainPanel extends JPanel {
     /**
      * Initializes the components of the MainPanel.
      */
-    @SuppressWarnings("checkstyle:MagicNumber")
     private void buildComponents() {
         mySecondaryPanel = new JPanel();
         myControlPanel = new ControlPanel();
