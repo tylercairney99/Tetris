@@ -113,28 +113,17 @@ public class Board implements MyBoard {
      */
     public Board(final int theWidth, final int theHeight) {
         super();
-
         if (count > 0) {
             throw new IllegalArgumentException("Only one board allowed");
         }
         count++;
-
         myWidth = theWidth;
         myHeight = theHeight;
         myFrozenBlocks = new LinkedList<>();
-
         myNonRandomPieces = new ArrayList<>();
         mySequenceIndex = 0;
-
         myPcs = new PropertyChangeSupport(this);
-
-        /*  myNextPiece and myCurrentPiece
-         *  are initialized by the newGame() method.
-         */
     }
-
-
-    // public queries
 
     /**
      * Get the width of the board.
@@ -156,8 +145,6 @@ public class Board implements MyBoard {
         return myHeight;
     }
 
-
-
     /**
      * Resets the board for a new game.
      * This method must be called before the first game
@@ -178,9 +165,6 @@ public class Board implements MyBoard {
             myPcs.firePropertyChange(PROPERTY_NEW_GAME, null, null);
             myDrop = false;
         }
-
-        // TODO Publish Update!
-//        prepareNextMovablePiece(); // MIGHT NEED TO CHANGE LATER
     }
 
     /**
@@ -216,7 +200,6 @@ public class Board implements MyBoard {
     @Override
     public void down() {
         if (!move(myCurrentPiece.down())) {
-            // the piece froze, so clear lines and update current piece
             addPieceToBoardData(myFrozenBlocks, myCurrentPiece);
             checkRows();
             if (!myGameOver) {
@@ -226,7 +209,6 @@ public class Board implements MyBoard {
         }
     }
 
-
     /**
      * Try to move the movable piece left.
      */
@@ -235,7 +217,6 @@ public class Board implements MyBoard {
         if (myCurrentPiece != null) {
             move(myCurrentPiece.left());
             myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, myCurrentPiece);
-
         }
     }
 
@@ -318,8 +299,6 @@ public class Board implements MyBoard {
         }
     }
 
-
-
     @SuppressWarnings("OverlyLongMethod")
     @Override
     public String toString() {
@@ -355,9 +334,6 @@ public class Board implements MyBoard {
         sb.append('|');
         return sb.toString();
     }
-
-
-    // private helper methods
 
     /**
      * Helper function to check if the current piece can be shifted to the
@@ -483,7 +459,6 @@ public class Board implements MyBoard {
     private void setPoint(final List<Block[]> theBoard,
                           final Point thePoint,
                           final Block theBlock) {
-
         if (isPointOnBoard(theBoard, thePoint)) {
             final Block[] row = theBoard.get(thePoint.y());
             row[thePoint.x()] = theBlock;
