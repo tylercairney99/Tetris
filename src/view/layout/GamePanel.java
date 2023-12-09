@@ -113,7 +113,11 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
     }
 
     @Override
-    @SuppressWarnings("Law of Demeter")
+    @SuppressWarnings("LawOfDemeter")
+    /*
+     * LawOfDemeter warning is suppressed because the method is necessary to
+     * update the game panel.
+     */
     public void propertyChange(final PropertyChangeEvent theEvent) {
         if (PROPERTY_CURRENT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
             final MovableTetrisPiece movableTetrisPiece = (MovableTetrisPiece)
@@ -132,9 +136,10 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
         }
     }
 
-    @SuppressWarnings({"PublicMethodNotExposedInInterface", "OverlyLongMethod"})
+    @SuppressWarnings({"PublicMethodNotExposedInInterface"})
     /*
-     * warning is suppressed because paint component is inherited from JComponent.
+     * PublicMethodNotExposedInInterface warning is suppressed because paint component is
+     * inherited from JComponent
      */
     @Override
     public void paintComponent(final Graphics theGraphics) {
@@ -143,16 +148,7 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
         g2d.setStroke(new BasicStroke(STROKE_WIDTH));
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-
-        final int w = getWidth();
-        final int h = getHeight();
-        final Color color1 = Color.CYAN;
-        final Color color2 = Color.YELLOW;
-        final LinearGradientPaint gp = new LinearGradientPaint(0, 0, w, h,
-                new float[]{0.0f, 0.5f, 1.0f}, new Color[]{color1, color2, color1});
-        g2d.setPaint(gp);
-        g2d.fillRect(0, 0, w, h);
-        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        paintGradient(g2d);
 
         createShape(g2d);
 
@@ -172,6 +168,23 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
                 }
             }
         }
+    }
+
+    /**
+     * Paints the gradient background.
+     * @param theGraphics the graphics to be painted.
+     */
+    private void paintGradient(final Graphics2D theGraphics) {
+        final int w = getWidth();
+        final int h = getHeight();
+        final Color color1 = Color.CYAN;
+        final Color color2 = Color.YELLOW;
+        final LinearGradientPaint gp = new LinearGradientPaint(0, 0, w, h,
+                new float[]{0.0f, 0.5f, 1.0f}, new Color[]{color1, color2, color1});
+        theGraphics.setPaint(gp);
+        theGraphics.fillRect(0, 0, w, h);
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+
     }
 
     /**
@@ -242,7 +255,7 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
             case O -> Color.YELLOW;
             case S -> Color.GREEN;
             case T -> Color.MAGENTA;
-            case Z -> Color.PINK;
+            case Z -> Color.RED;
             default -> Color.GRAY;
         };
     }

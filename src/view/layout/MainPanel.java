@@ -120,6 +120,7 @@ public class MainPanel extends JPanel {
         this.myScorePanel = theScorePanel;
         this.myTetrisGUI = theTetrisGUI;
         this.myCurrentDifficulty = theCurrentDifficulty;
+        constructorHelper();
         createMusic(theSoundList);
     }
 
