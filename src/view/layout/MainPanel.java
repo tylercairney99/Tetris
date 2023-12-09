@@ -217,7 +217,7 @@ public class MainPanel extends JPanel {
         final File musicFile = theSoundFile.get(0);
         final File soundFile = theSoundFile.get(1);
 
-        AudioInputStream audioInput = null;
+        final AudioInputStream audioInput;
         try {
             audioInput = getAudioInputStream(musicFile);
         } catch (final UnsupportedAudioFileException | IOException e) {
@@ -237,7 +237,7 @@ public class MainPanel extends JPanel {
     }
 
     private void createSound(final File theSoundFile) {
-        AudioInputStream audioInput = null;
+        final AudioInputStream audioInput;
         try {
             audioInput = getAudioInputStream(theSoundFile);
         } catch (final UnsupportedAudioFileException | IOException e) {
