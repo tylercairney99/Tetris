@@ -139,35 +139,37 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     private final Board myBoard;
 
     /**
-     * The original delay of the timer.
-     */
-    private final int myOriginalDelay;
-
-    /**
      * Panel used to display the player's score.
      * Sets background color.
      *
      * @throws IllegalArgumentException if more than one ScorePanel is instantiated.
      */
+    @SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
     public ScorePanel(final Board theBoard, final Timer theGameTimer) {
         super();
-        myBoard = theBoard;
-        myScore = 0;
-        myLinesCleared = 0;
-        myLevel = 1;
-        myOriginalDelay = theGameTimer.getDelay();
-        this.myGameTimer = theGameTimer;
 
         if (count > 0) {
             throw new IllegalArgumentException("Only one ScorePanel allowed");
         }
         count++;
 
+        myBoard = theBoard;
+        myGameTimer = theGameTimer;
+        setUpScoresAndLevel();
+
         setLayout(new BorderLayout());
         final JPanel scorePanel = new JPanel(new FlowLayout());
         scorePanel.setOpaque(false);
     }
 
+    private void setUpScoresAndLevel() {
+        myScore = 0;
+        myLinesCleared = 0;
+        myLevel = 1;
+
+    }
+
+    @SuppressWarnings("PublicMethodNotExposedInInterface")
     @Override
     public void paintComponent(final Graphics theGraphics) {
         super.paintComponent(theGraphics);
@@ -211,8 +213,9 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
      * Updates the score and timer when a 5 rows are cleared.
      */
     private void calculateLevel() {
-        if (myLinesCleared % LEVEL_UP == 0) {
-            myLevel++;
+        final int newLevel = (myLinesCleared / LEVEL_UP) + 1;
+        if (newLevel > myLevel) {
+            myLevel = newLevel;
             myGameTimer.setDelay((myGameTimer.getDelay()
                     / LEVEL_UP_TIMER_CHANGE) + myGameTimer.getDelay() / FOUR);
         }
@@ -252,7 +255,6 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
             myScore = 0;
             myLinesCleared = 0;
             myLevel = 1;
-            myGameTimer.setDelay(myOriginalDelay);
             repaint();
         }
 
