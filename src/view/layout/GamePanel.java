@@ -113,10 +113,7 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
     }
 
     @Override
-    @SuppressWarnings("LawOfDemeter")
-    /*
-     * LawOfDemeter warning is suppressed because it is necessary.
-     */
+    @SuppressWarnings("Law of Demeter")
     public void propertyChange(final PropertyChangeEvent theEvent) {
         if (PROPERTY_CURRENT_PIECE_CHANGES.equals(theEvent.getPropertyName())) {
             final MovableTetrisPiece movableTetrisPiece = (MovableTetrisPiece)
@@ -148,7 +145,14 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        paintGradient(g2d);
+        final int w = getWidth();
+        final int h = getHeight();
+        final Color color1 = Color.CYAN;
+        final Color color2 = Color.YELLOW;
+        final LinearGradientPaint gp = new LinearGradientPaint(0, 0, w, h,
+                new float[]{0.0f, 0.5f, 1.0f}, new Color[]{color1, color2, color1});
+        g2d.setPaint(gp);
+        g2d.fillRect(0, 0, w, h);
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
         createShape(g2d);
@@ -193,7 +197,7 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
      */
     @SuppressWarnings("OverlyLongMethod")
     /*
-     * method is overly long but necessary.
+     * Warning is suppressed bc the switch statement is necessary.
      */
     private void createShape(final Graphics2D theG2d) {
         if (myCurrentTetrisPiece != null) {
