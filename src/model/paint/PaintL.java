@@ -29,27 +29,18 @@ public final class PaintL implements model.paint.PaintTetromino {
      *
      * @param theG2d Graphics2d object used for painting shapes.
      */
-    @SuppressWarnings("Labeled code block is redudant") // Warning Suppresesed because it only reduces redundancy not functionality.
     public static void createLShape(final Graphics2D theG2d, final int theBlockHeight,
                                     final int theY, final int theX,
                                     final Rotation theRotation) {
         switch (theRotation) {
-            case NONE -> {
-                rotation0(theG2d, theBlockHeight,
-                        theY, theX);
-            }
-            case QUARTER -> {
-                rotation90(theG2d, theBlockHeight,
-                        theY, theX);
-            }
-            case HALF -> {
-                rotation180(theG2d, theBlockHeight,
-                        theY, theX);
-            }
-            case THREEQUARTER -> {
-                rotation270(theG2d, theBlockHeight,
-                        theY, theX);
-            }
+            case NONE -> rotation0(theG2d, theBlockHeight,
+                    theY, theX);
+            case QUARTER -> rotation90(theG2d, theBlockHeight,
+                    theY, theX);
+            case HALF -> rotation180(theG2d, theBlockHeight,
+                    theY, theX);
+            case THREEQUARTER -> rotation270(theG2d, theBlockHeight,
+                    theY, theX);
             default -> throw new IllegalStateException("Unexpected value: " + theRotation);
         }
     }
