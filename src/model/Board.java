@@ -119,7 +119,7 @@ public class Board implements MyBoard {
     /**
      * The game over state.
      */
-    private boolean myGameOver;
+    private boolean myGameOver = true;
 
     /**
      * Contains a non random sequence of TetrisPieces to loop through.
@@ -220,18 +220,19 @@ public class Board implements MyBoard {
      */
     @Override
     public void newGame() {
+        if (myGameOver) {
+            mySequenceIndex = 0;
+            myFrozenBlocks.clear();
+            for (int h = 0; h < myHeight; h++) {
+                myFrozenBlocks.add(new Block[myWidth]);
+            }
 
-        mySequenceIndex = 0;
-        myFrozenBlocks.clear();
-        for (int h = 0; h < myHeight; h++) {
-            myFrozenBlocks.add(new Block[myWidth]);
+            myGameOver = false;
+            myCurrentPiece = nextMovablePiece(true);
+            myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, myCurrentPiece);
+            myPcs.firePropertyChange(PROPERTY_NEW_GAME, null, null);
+            myDrop = false;
         }
-
-        myGameOver = false;
-        myCurrentPiece = nextMovablePiece(true);
-        myPcs.firePropertyChange(PROPERTY_CURRENT_PIECE_CHANGES, null, myCurrentPiece);
-        myPcs.firePropertyChange(PROPERTY_NEW_GAME, null, null);
-        myDrop = false;
 
         // TODO Publish Update!
 //        prepareNextMovablePiece(); // MIGHT NEED TO CHANGE LATER
