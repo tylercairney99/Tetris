@@ -56,8 +56,6 @@ public class TetrisGUI implements MyDifficultyChanger {
      */
     private int myCurrentDifficulty = EASY_DIFFICULTY;
 
-    private int timerCounter = 0; // DELETE LATER (ONLY USED FOR TESTING)!!!
-
     /**
      * The primary model object representing the Tetris game board.
      */
@@ -110,10 +108,7 @@ public class TetrisGUI implements MyDifficultyChanger {
 
 
         myGameTimer = new Timer(EASY_DIFFICULTY, theEvent -> {
-            timerCounter++; // DELETE LATER (USED FOR TESTING)
-            System.out.print(timerCounter + "\n"); // DELETE LATER (USED FOR TESTING)
             myBoard.step();
-            //myGamePanel.repaint();
         });
 
         myScorePanel = new ScorePanel(myBoard, myGameTimer);
