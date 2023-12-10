@@ -172,10 +172,13 @@ public class Menu extends JMenuBar {
 
         final JMenuItem aboutUsItem = new JMenuItem("About Us");
         final JMenuItem scoreItem = new JMenuItem("Scoring Info");
+        final JMenuItem musicItem = new JMenuItem("Music Info");
 
         aboutMenu.add(aboutUsItem);
         aboutMenu.addSeparator();
         aboutMenu.add(scoreItem);
+        aboutMenu.addSeparator();
+        aboutMenu.add(musicItem);
 
         aboutUsItem.addActionListener(theEvent ->
                 JOptionPane.showMessageDialog(null, """
@@ -196,6 +199,15 @@ public class Menu extends JMenuBar {
                 3 lines cleared = 300 * n points awarded.
                 4 lines cleared = 1200 * n points awarded.
                 In addition, for every piece dropped, you are awarded 4 points.
+                """));
+
+        musicItem.addActionListener(theEvent ->
+                JOptionPane.showMessageDialog(null, """
+                Music Info:
+                Pixel Story by Roa Music | https://soundcloud.com/roa_music1031
+                Music promoted by https://www.free-stock-music.com/
+                Creative Commons / Attribution 3.0 Unported License (CC BY 3.0)
+                https://creativecommons.org/licenses/by/3.0/deed.en_US
                 """));
 
         return aboutMenu;
