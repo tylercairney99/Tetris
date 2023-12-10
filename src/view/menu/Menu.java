@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import model.Board;
 import view.controller.TetrisGUI;
-import view.layout.GamePanel;
 
 
 /**
@@ -56,6 +55,9 @@ public class Menu extends JMenuBar {
         myTetrisGUI = theTetrisGUI;
     }
 
+    /**
+     * Initializes the menu bar for the current window and adds it to the frame.
+     */
     private void initializeMenu() {
         final JMenuBar menuBar = createMenu();
         this.add(menuBar);
@@ -102,6 +104,12 @@ public class Menu extends JMenuBar {
         return gameMenu;
     }
 
+    /**
+     * Performs setup tasks to start a new game, including initializing the game board,
+     * updating the game timer, and displaying a message to indicate the start of a
+     * new game on the current difficulty level. If the game timer is already running,
+     * this method will not display the start message again.
+     */
     private void newGameSetup() {
         if (!myGameTimer.isRunning()) {
             JOptionPane.showMessageDialog(null, "Starting a New Game on "

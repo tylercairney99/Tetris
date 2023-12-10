@@ -138,6 +138,7 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
      * Sets background color.
      *
      * @throws IllegalArgumentException if more than one ScorePanel is instantiated.
+     * @param theGameTimer Timer that runs animation of the game.
      */
     @SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
     /*
@@ -218,6 +219,8 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
 
     /**
      * Updates the score when a row is cleared.
+     *
+     * @param theNumberOfRowsCleared int of rows cleared to keep game score.
      */
     private void calculateScore(final int theNumberOfRowsCleared) {
         final int score = switch (theNumberOfRowsCleared) {
@@ -234,7 +237,7 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
         if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
-            int rowsCleared = (int) theEvent.getNewValue();
+            final int rowsCleared = (int) theEvent.getNewValue();
 
             if (rowsCleared > 0) {
                 myLinesCleared += rowsCleared;
@@ -243,11 +246,12 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
                 // single statement to calculate  # of lines for next level.
                 final int linesNeededForNextLevel = LEVEL_UP - (myLinesCleared % LEVEL_UP);
 
-                int previousLevel = myLevel;
+                final int previousLevel = myLevel;
                 myLevel = myLinesCleared / LEVEL_UP + 1;
 
                 if (myLevel > previousLevel) {
-                    int newDelay = myGameTimer.getDelay() / LEVEL_UP_TIMER_CHANGE + myGameTimer.getDelay() / FOUR;
+                    final int newDelay = myGameTimer.getDelay() / LEVEL_UP_TIMER_CHANGE
+                            + myGameTimer.getDelay() / FOUR;
                     myGameTimer.setDelay(Math.max(newDelay, 0));
                 }
 
