@@ -249,9 +249,7 @@ public class MainPanel extends JPanel {
         }
         try {
             mySoundClip = AudioSystem.getClip();
-            mySoundClip.loop(Clip.LOOP_CONTINUOUSLY);
-            Thread.sleep(MILLIS);
-        } catch (final LineUnavailableException | InterruptedException e) {
+        } catch (final LineUnavailableException e) {
             throw new RuntimeException(e);
         }
         try {
