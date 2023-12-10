@@ -589,6 +589,7 @@ public class Board implements MyBoard {
     /**
      * Sets my game over to end the game mid game.
      */
+    @Override
     public void setMyGameOver() {
         myGameOver = true;
         myPcs.firePropertyChange(PROPERTY_GAME_OVER, false, true);
