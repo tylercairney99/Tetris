@@ -243,7 +243,6 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
                 myLinesCleared += rowsCleared;
                 calculateScore(rowsCleared);
 
-                // single statement to calculate  # of lines for next level.
                 final int linesNeededForNextLevel = LEVEL_UP - (myLinesCleared % LEVEL_UP);
 
                 final int previousLevel = myLevel;
