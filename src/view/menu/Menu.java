@@ -96,9 +96,7 @@ public class Menu extends JMenuBar {
         gameMenu.add(exitItem);
         newGameItem.addActionListener(theEvent -> newGameSetup());
 
-        endGameItem.addActionListener(theEvent -> {
-            myBoard.setMyGameOver();
-        });
+        endGameItem.addActionListener(theEvent -> myBoard.setMyGameOver());
 
         exitItem.addActionListener(theEvent -> System.exit(0));
         return gameMenu;
