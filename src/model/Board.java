@@ -589,6 +589,7 @@ public class Board implements MyBoard {
     /**
      * setter method to check if game is over.
      */
+    @Override
     public void setMyGameOver() {
         myGameOver = true;
         myPcs.firePropertyChange(PROPERTY_GAME_OVER, false, true);
