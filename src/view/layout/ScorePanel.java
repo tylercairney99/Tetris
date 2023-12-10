@@ -213,17 +213,8 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
                 + " lines", TEXT_X, TEXT_Y + TEXT_SIZE * THREE + TEXT_SEPERATOR * THREE);
     }
 
-    /**
-     * Updates the score and timer when 5 rows are cleared.
-     */
-    private void calculateLevel() {
-        final int newLevel = (myLinesCleared / LEVEL_UP) + 1;
-        if (newLevel > myLevel) {
-            myLevel = newLevel;
-            myGameTimer.setDelay((myGameTimer.getDelay()
-                    / LEVEL_UP_TIMER_CHANGE) + myGameTimer.getDelay() / FOUR);
-        }
-    }
+
+
 
     /**
      * Updates the score when a row is cleared.
@@ -243,14 +234,23 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(final PropertyChangeEvent theEvent) {
         if (PROPERTY_ROW_CLEARED.equals(theEvent.getPropertyName())) {
-            if ((int) theEvent.getNewValue() == ONE
-                    || (int) theEvent.getNewValue() == TWO
-                    || (int) theEvent.getNewValue() == THREE
-                    || (int) theEvent.getNewValue() == FOUR) {
+            int rowsCleared = (int) theEvent.getNewValue();
 
-                myLinesCleared += (int) theEvent.getNewValue();
-                calculateScore((int) theEvent.getNewValue());
-                calculateLevel();
+            if (rowsCleared > 0) {
+                myLinesCleared += rowsCleared;
+                calculateScore(rowsCleared);
+
+                // single statement to calculate  # of lines for next level.
+                final int linesNeededForNextLevel = LEVEL_UP - (myLinesCleared % LEVEL_UP);
+
+                int previousLevel = myLevel;
+                myLevel = myLinesCleared / LEVEL_UP + 1;
+
+                if (myLevel > previousLevel) {
+                    int newDelay = myGameTimer.getDelay() / LEVEL_UP_TIMER_CHANGE + myGameTimer.getDelay() / FOUR;
+                    myGameTimer.setDelay(Math.max(newDelay, 0));
+                }
+
                 repaint();
             }
         }
