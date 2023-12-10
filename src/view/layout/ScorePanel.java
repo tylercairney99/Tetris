@@ -138,6 +138,7 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
      * Sets background color.
      *
      * @throws IllegalArgumentException if more than one ScorePanel is instantiated.
+     * @param theGameTimer Timer that runs animation of the game.
      */
     @SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
     /*
@@ -218,6 +219,8 @@ public final class ScorePanel extends JPanel implements PropertyChangeListener {
 
     /**
      * Updates the score when a row is cleared.
+     *
+     * @param theNumberOfRowsCleared int of rows cleared to keep game score.
      */
     private void calculateScore(final int theNumberOfRowsCleared) {
         final int score = switch (theNumberOfRowsCleared) {
