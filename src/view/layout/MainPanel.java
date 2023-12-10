@@ -66,6 +66,11 @@ public class MainPanel extends JPanel {
     private static final int GAP = 10;
 
     /**
+     * Length that song clip will loop.
+     */
+    private static final int MILLIS = 100000;
+
+    /**
      * Ensures only one panel is instantiated.
      */
     private static int count;
@@ -244,7 +249,9 @@ public class MainPanel extends JPanel {
         }
         try {
             mySoundClip = AudioSystem.getClip();
-        } catch (final LineUnavailableException e) {
+            mySoundClip.loop(Clip.LOOP_CONTINUOUSLY);
+            Thread.sleep(MILLIS);
+        } catch (final LineUnavailableException | InterruptedException e) {
             throw new RuntimeException(e);
         }
         try {
