@@ -585,6 +585,10 @@ public class Board implements MyBoard {
         }
         myPcs.firePropertyChange(PROPERTY_NEXT_PIECE_CHANGES, null, myNextPiece);
     }
+
+    /**
+     * setter method to check if game is over.
+     */
     public void setMyGameOver() {
         myGameOver = true;
         myPcs.firePropertyChange(PROPERTY_GAME_OVER, false, true);
