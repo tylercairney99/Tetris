@@ -1,10 +1,48 @@
 package view.layout;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
+/**
+ * Control panel shows the controls for the game.
+ *
+ * @author Group 7
+ * @version Autumn 2023
+ */
 public class ControlPanel extends JPanel {
-    private static int count = 0;
+    /**
+     * Width of the left panel.
+     */
+    private static final int LEFT_PANEL_WIDTH = 50;
+    /**
+     * Width of the right panel.
+     */
+    private static final int RIGHT_PANEL_WIDTH = 110;
+    /**
+     * Height of the left and right panels.
+     */
+    private static final int PANEL_HEIGHT = 100;
+    /**
+     * static int shared amongst all control panel objects to ensure that
+     * there is only ever one instance.
+     */
+    private static int count;
+
+    /**
+     * Constructs a ControlPanel object.
+     *
+     * @throws IllegalArgumentException if more than one ControlPanel is instantiated.
+     */
+    @SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
+    /*
+     * warning is suppressed because count is used to ensure only one
+     * ControlPanel is instantiated.
+     */
     public ControlPanel() {
         super();
 
@@ -12,28 +50,47 @@ public class ControlPanel extends JPanel {
             throw new IllegalArgumentException("Only one ControlPanel allowed");
         }
         count++;
+        setUpPanel();
+    }
 
-        setBackground(Color.GREEN);
-
+    /**
+     * Sets up the labels for the control panel.
+     */
+    private void setUpPanel() {
+        setBackground(Color.WHITE);
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         setLayout(new BorderLayout());
+        final JLabel controlLabel = new JLabel(" Controls:");
+        add(controlLabel, BorderLayout.NORTH);
 
-        JPanel controlPanel = new JPanel(new GridLayout(7,2));
-        controlPanel.setOpaque(false);
-        controlPanel.add(new JLabel("Move Left:"));
-        controlPanel.add(new JLabel("left arrow"));
-        controlPanel.add(new JLabel("Move Right"));
-        controlPanel.add(new JLabel("right arrow"));
-        controlPanel.add(new JLabel("Move Down"));
-        controlPanel.add(new JLabel("down arrow"));
-        controlPanel.add(new JLabel("Rotate CCW:"));
-        controlPanel.add(new JLabel("Z"));
-        controlPanel.add(new JLabel("Rotate CW:"));
-        controlPanel.add(new JLabel("X"));
-        controlPanel.add(new JLabel("Drop:"));
-        controlPanel.add(new JLabel("space"));
-        controlPanel.add(new JLabel("Pause:"));
-        controlPanel.add(new JLabel("P"));
+        setUpLeftPanel();
+        setUpRightPanel();
+    }
+    private void setUpLeftPanel() {
+        final JPanel leftPanel = new JPanel(new GridLayout(6, 1));
+        add(leftPanel, BorderLayout.WEST);
+        leftPanel.setPreferredSize(new Dimension(LEFT_PANEL_WIDTH, PANEL_HEIGHT));
+        leftPanel.setOpaque(false);
 
-        add(controlPanel, BorderLayout.PAGE_START);
+        leftPanel.add(new JLabel(" Left:"));
+        leftPanel.add(new JLabel(" Right:"));
+        leftPanel.add(new JLabel(" Down:"));
+        leftPanel.add(new JLabel(" Rotate:"));
+        leftPanel.add(new JLabel(" Drop:"));
+        leftPanel.add(new JLabel(" Pause:"));
+    }
+
+    private void setUpRightPanel() {
+        final JPanel rightPanel = new JPanel(new GridLayout(6, 1));
+        add(rightPanel, BorderLayout.EAST);
+        rightPanel.setPreferredSize(new Dimension(RIGHT_PANEL_WIDTH, PANEL_HEIGHT));
+        rightPanel.setOpaque(false);
+
+        rightPanel.add(new JLabel(" left arrow / A"));
+        rightPanel.add(new JLabel(" right arrow / D"));
+        rightPanel.add(new JLabel(" down arrow / S"));
+        rightPanel.add(new JLabel(" up arrow / W"));
+        rightPanel.add(new JLabel(" space"));
+        rightPanel.add(new JLabel(" P"));
     }
 }

@@ -2,14 +2,20 @@ package view.controller;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import model.Board;
+import model.MyDifficultyChanger;
 import view.layout.GamePanel;
 import view.layout.MainPanel;
 import view.layout.NextPiecePanel;
+import view.layout.ScorePanel;
 import view.menu.Menu;
 
 
@@ -22,7 +28,27 @@ import view.menu.Menu;
  * @version 1.0.2
  *
  */
-public class TetrisGUI {
+public class TetrisGUI implements MyDifficultyChanger {
+
+     /**
+     * Sets the mode to easy difficulty (base difficulty).
+     */
+    public static final int EASY_DIFFICULTY = 1000;
+
+    /**
+     * Sets the mode to medium difficulty.
+     */
+    public static final int MEDIUM_DIFFICULTY = 500;
+
+    /**
+     * Sets the mode to hard difficulty.
+     */
+    public static final int HARD_DIFFICULTY = 100;
+
+    /**
+     * The size of the array of panels.
+     */
+    private static final int ARRAY_SIZE = 3;
 
     /**
      * The height of the border around the game window.
@@ -35,12 +61,9 @@ public class TetrisGUI {
     private static final int BORDER_SIZE_WIDTH = 10;
 
     /**
-     * The number of milliseconds in one second.
-     * This constant defines the interval for the game's timer tick.
+     * The current difficulty set to easy originally.
      */
-    private static final int MILLIS_PER_SEC = 100; // CHANGE BACK TO 1000
-
-    private int timerCounter = 0; // DELETE LATER (ONLY USED FOR TESTING)!!!
+    private int myCurrentDifficulty = EASY_DIFFICULTY;
 
     /**
      * The primary model object representing the Tetris game board.
@@ -58,30 +81,54 @@ public class TetrisGUI {
     private final GamePanel myGamePanel;
 
     /**
+     * score panel object representing the panel where the score is shown.
+     */
+    private final ScorePanel myScorePanel;
+
+    /**
      * Timer to manage game updates at regular intervals.
      */
-    private final Timer myGameTimer;
+    private Timer myGameTimer;
+
+    /**
+     * Location of music in the file.
+     */
+    private File myMusicFile;
+
+    /**
+     * Location of sound effect in the file.
+     */
+    private File mySoundFile;
 
     /**
      * Constructs a new TetrisGUI object.
      * Initializes the game board, sets up GUI components, and adds necessary listeners.
+     * Music-
+     * Pixel Story by Roa Music | <a href="https://soundcloud.com/roa_music1031">...</a>
+     * Music promoted by <a href="https://www.free-stock-music.com">...</a>
+     * Creative Commons / Attribution 3.0 Unported License (CC BY 3.0)
+     * <a href="https://creativecommons.org/licenses/by/3.0/deed.en_US">...</a>
      */
     public TetrisGUI() {
         super();
+        constructorHelper();
         myBoard = new Board();
-        myNextPiecePanel = new NextPiecePanel(myBoard);
-        myGamePanel = new GamePanel(myBoard);
-
+        myGamePanel = new GamePanel();
+        myNextPiecePanel = new NextPiecePanel();
+        myScorePanel = new ScorePanel(myGameTimer);
         myBoard.addPropertyChangeListener(myNextPiecePanel);
         myBoard.addPropertyChangeListener(myGamePanel);
-
-        myGameTimer = new Timer(MILLIS_PER_SEC, theEvent -> {
-            timerCounter++; // DELETE LATER (USED FOR TESTING)
-            System.out.print(timerCounter + "\n"); // DELETE LATER (USED FOR TESTING)
-            myBoard.step();
-        });
-
+        myBoard.addPropertyChangeListener(myScorePanel);
         setUpComponents();
+    }
+
+    /**
+     * Helper method to break up constructor.
+     */
+    private void constructorHelper() {
+        myMusicFile = new File("src/music/music.wav");
+        mySoundFile = new File("src/music/jingle.wav");
+        myGameTimer = new Timer(EASY_DIFFICULTY, theEvent -> myBoard.step());
     }
 
     /**
@@ -92,11 +139,19 @@ public class TetrisGUI {
         final JFrame frame = new JFrame("Tetris");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
+        final List<File> soundList = new ArrayList<>();
+        soundList.add(myMusicFile);
+        soundList.add(mySoundFile);
+
+        final JPanel[] panelArray = new JPanel[ARRAY_SIZE];
+        panelArray[0] = myGamePanel;
+        panelArray[1] = myNextPiecePanel;
+        panelArray[2] = myScorePanel;
 
         final MainPanel mainPanel = new MainPanel(myBoard, myGameTimer,
-                myNextPiecePanel, myGamePanel);
+                panelArray, soundList);
 
-        frame.setJMenuBar(new Menu(myBoard, myGameTimer));
+        frame.setJMenuBar(new Menu(myBoard, myGameTimer, this));
         frame.add(mainPanel, BorderLayout.CENTER);
 
         addBorders(frame);
@@ -126,6 +181,46 @@ public class TetrisGUI {
         theFrame.add(right, BorderLayout.EAST);
         theFrame.add(top, BorderLayout.NORTH);
         theFrame.add(bottom, BorderLayout.SOUTH);
+    }
+
+    /**
+     * This method sets the new difficulty for the game,
+     * adjusts the game timer's delay accordingly, restarts
+     * the game board to apply the new difficulty, and restarts the game timer.
+     *
+     * @param theNewDifficulty The new difficulty level to set.
+     *                      This should be one of the predefined constants: EASY_DIFFICULTY,
+     *                      MEDIUM_DIFFICULTY, or HARD_DIFFICULTY.
+     */
+    @Override
+    public void changeDifficulty(final int theNewDifficulty) {
+        myCurrentDifficulty = theNewDifficulty;
+        JOptionPane.showMessageDialog(null, "Current Difficulty: " + getCurrentDifficulty());
+    }
+
+    /**
+     * This method returns a string representation of the current difficulty level.
+     *
+     * @return Easy / Medium / Hard / if none are chosen defaults to easy.
+     */
+    @Override
+    public String getCurrentDifficulty() {
+        return switch (myCurrentDifficulty) {
+            case EASY_DIFFICULTY -> "Easy";
+            case MEDIUM_DIFFICULTY -> "Medium";
+            case HARD_DIFFICULTY -> "Hard";
+            default -> "Default difficulty is Easy";
+        };
+    }
+
+    /**
+     * gets current difficulty.
+     *
+     * @return myCurrentDifficulty (Constant for times step is called per second).
+     */
+    @Override
+    public int getCurrentDifficultyValue() {
+        return myCurrentDifficulty;
     }
 
     /**

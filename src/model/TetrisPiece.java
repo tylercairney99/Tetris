@@ -1,22 +1,21 @@
-    /*
-     * TCSS 305
-     *
-     * An implementation of the classic game "Tetris".
-     */
+/*
+* TCSS 305
+*
+* An implementation of the classic game "Tetris".
+*/
+package model;
 
-    package model;
+import java.util.Random;
 
-    import java.util.Random;
-
-    /**
-     * Enumeration of the TetrisPiece types.
-     *
-     * @author Charles Bryan
-     * @author Alan Fowler
-     * @version 1.3
-     */
-    @SuppressWarnings("CheckStyle")
-    public enum TetrisPiece {
+/**
+* Enumeration of the TetrisPiece types.
+*
+* @author Charles Bryan
+* @author Alan Fowler
+* @version 1.3
+ */
+@SuppressWarnings({"CheckStyle", "PublicMethodNotExposedInInterface"})
+public enum TetrisPiece {
 
         /** The 'I' TetrisPiece. */
         I(4, 1,
@@ -197,4 +196,4 @@
         public static TetrisPiece getRandomPiece() {
             return values()[RANDOM.nextInt(values().length)];
         }
-    }
+}

@@ -32,6 +32,25 @@ Autumn 2023
   - Worked on the Timer implementation with Tyler
 - Cam
   - Implemented the notifyBoardChanges method in Board and called it in down() and checkRows()
+ 
+## Sprint 3 Contribution
+- Tyler
+  - implemented Frozen Blocks
+  - Movable tetris pieces
+  - Checkstyle
+- James
+  - Implemented Paint Tetriminos package
+  - Implemented Music and Sound Effects
+  - Checkstyle
+- Josh
+  - Implemented Scoring algorithm, Level change
+  - Worked on Frozen Blocks
+  - Checkstyle
+
+## Sprint 3 Meetings
+ - Meeting Minutes: https://docs.google.com/document/d/1_QcnD_l412rijxIYXIzFufNI4wChT8nzERGTuX_RlQY/edit?usp=sharing
+ - After our meetings, some members would run into problems or have challenges. When this occurred, we described our issue and included where the code was located in the project. Other members would then contribute in helping out if they were available. For example, Josh was having some struggles with adding the scorePanel as a listener for the board, with the help of the group, the problem that the listener was added twice was discovered.
+
 
 Included:
 
