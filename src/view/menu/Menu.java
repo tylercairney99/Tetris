@@ -1,9 +1,7 @@
 package view.menu;
 
-import static model.Board.PROPERTY_GAME_OVER;
+
 import java.awt.event.KeyEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -57,6 +55,9 @@ public class Menu extends JMenuBar {
         myTetrisGUI = theTetrisGUI;
     }
 
+    /**
+     * Initializes the menu bar for the current window and adds it to the frame.
+     */
     private void initializeMenu() {
         final JMenuBar menuBar = createMenu();
         this.add(menuBar);
@@ -94,13 +95,17 @@ public class Menu extends JMenuBar {
         gameMenu.addSeparator();
         gameMenu.add(exitItem);
         newGameItem.addActionListener(theEvent -> newGameSetup());
-        endGameItem.addActionListener(theEvent -> {
-            myBoard.setMyGameOver();
-        });
+        endGameItem.addActionListener(theEvent -> myBoard.setMyGameOver());
         exitItem.addActionListener(theEvent -> System.exit(0));
         return gameMenu;
     }
 
+    /**
+     * Performs setup tasks to start a new game, including initializing the game board,
+     * updating the game timer, and displaying a message to indicate the start of a
+     * new game on the current difficulty level. If the game timer is already running,
+     * this method will not display the start message again.
+     */
     private void newGameSetup() {
         if (!myGameTimer.isRunning()) {
             JOptionPane.showMessageDialog(null, "Starting a New Game on "
