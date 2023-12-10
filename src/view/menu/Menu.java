@@ -1,9 +1,6 @@
 package view.menu;
 
-import static model.Board.PROPERTY_GAME_OVER;
 import java.awt.event.KeyEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -11,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import model.Board;
 import view.controller.TetrisGUI;
+import view.layout.GamePanel;
 
 
 /**
@@ -49,7 +47,8 @@ public class Menu extends JMenuBar {
      * @param theBoard The game board.
      * @param theGameTimer The game timer.
      */
-    public Menu(final Board theBoard, final Timer theGameTimer, final TetrisGUI theTetrisGUI) {
+    public Menu(final Board theBoard, final Timer theGameTimer,
+                final TetrisGUI theTetrisGUI) {
         super();
         initializeMenu();
         myBoard = theBoard;
@@ -94,9 +93,11 @@ public class Menu extends JMenuBar {
         gameMenu.addSeparator();
         gameMenu.add(exitItem);
         newGameItem.addActionListener(theEvent -> newGameSetup());
+
         endGameItem.addActionListener(theEvent -> {
             myBoard.setMyGameOver();
         });
+
         exitItem.addActionListener(theEvent -> System.exit(0));
         return gameMenu;
     }

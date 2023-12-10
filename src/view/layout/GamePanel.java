@@ -17,7 +17,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.LinearGradientPaint;
 import java.awt.RenderingHints;
-import java.awt.event.InputMethodListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
@@ -90,11 +89,6 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
      */
     private List<Block[]> myFrozenBlocks;
 
-    /**
-     * True if pieces will be displayed.
-     */
-    private boolean myDraw = true;
-
 
     /**
      * Panel that will show the game board with tetrominos in play.
@@ -112,7 +106,6 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
             throw new IllegalArgumentException("Only one GamePanel allowed");
         }
         count++;
-
     }
 
     @Override
@@ -158,6 +151,7 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
         g2d.setStroke(new BasicStroke(STROKE_WIDTH));
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
+
         paintGradient(g2d);
 
         createShape(g2d);
@@ -206,7 +200,7 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
      * Warning is suppressed bc the switch statement is necessary.
      */
     private void createShape(final Graphics2D theG2d) {
-        if (myCurrentTetrisPiece != null && myDraw) {
+        if (myCurrentTetrisPiece != null) {
             switch (myCurrentTetrisPiece) {
                 case I:
                     createIShape(theG2d, BLOCK_HEIGHT, getHeight() - (
@@ -249,16 +243,6 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
             }
         }
     }
-
-    /**
-     * Sets pieces to be visible or not.
-     *
-     * @param theDraw Boolean deciding if pieces will be drawn.
-     */
-    public void setDraw(final Boolean theDraw) {
-        myDraw = theDraw;
-    }
-
 
     /**
      * Returns the color associated with the specified type of block.

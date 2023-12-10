@@ -184,5 +184,9 @@ public interface MyBoard {
     void removePropertyChangeListener(String thePropertyName,
                                       PropertyChangeListener theListener);
 
+    /**
+     * sets myGameOver to true and fires a property_game_over change.
+     */
+    void setMyGameOver();
 }
 

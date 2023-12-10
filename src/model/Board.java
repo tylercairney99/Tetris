@@ -585,6 +585,11 @@ public class Board implements MyBoard {
         }
         myPcs.firePropertyChange(PROPERTY_NEXT_PIECE_CHANGES, null, myNextPiece);
     }
+
+    /**
+     * sets myGameOver to true and fires a property_game_over change.
+     */
+    @Override
     public void setMyGameOver() {
         myGameOver = true;
         myPcs.firePropertyChange(PROPERTY_GAME_OVER, false, true);
