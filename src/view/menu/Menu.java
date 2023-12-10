@@ -1,6 +1,5 @@
 package view.menu;
 
-
 import java.awt.event.KeyEvent;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -47,7 +46,8 @@ public class Menu extends JMenuBar {
      * @param theBoard The game board.
      * @param theGameTimer The game timer.
      */
-    public Menu(final Board theBoard, final Timer theGameTimer, final TetrisGUI theTetrisGUI) {
+    public Menu(final Board theBoard, final Timer theGameTimer,
+                final TetrisGUI theTetrisGUI) {
         super();
         initializeMenu();
         myBoard = theBoard;
@@ -95,7 +95,9 @@ public class Menu extends JMenuBar {
         gameMenu.addSeparator();
         gameMenu.add(exitItem);
         newGameItem.addActionListener(theEvent -> newGameSetup());
+
         endGameItem.addActionListener(theEvent -> myBoard.setMyGameOver());
+
         exitItem.addActionListener(theEvent -> System.exit(0));
         return gameMenu;
     }

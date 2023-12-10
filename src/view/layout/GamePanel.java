@@ -89,6 +89,7 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
      */
     private List<Block[]> myFrozenBlocks;
 
+
     /**
      * Panel that will show the game board with tetrominos in play.
      * Sets background to assigned color.
@@ -105,7 +106,6 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
             throw new IllegalArgumentException("Only one GamePanel allowed");
         }
         count++;
-
     }
 
     @Override
@@ -151,8 +151,11 @@ public final class GamePanel extends JPanel implements PropertyChangeListener {
         g2d.setStroke(new BasicStroke(STROKE_WIDTH));
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
+
         paintGradient(g2d);
+
         createShape(g2d);
+
         if (myFrozenBlocks != null) {
             for (int row = 0; row < myFrozenBlocks.size(); row++) {
                 for (int col = 0; col < myFrozenBlocks.get(row).length; col++) {

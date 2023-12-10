@@ -26,7 +26,6 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import model.Board;
 import model.TetrisPiece;
-import view.controller.TetrisGUI;
 
 /**
  * A class representing the main panel for a Tetris game.
@@ -123,19 +122,12 @@ public class MainPanel extends JPanel {
     private int myCurrentDifficulty;
 
     /**
-     * GUI to display game.
-     */
-    private final TetrisGUI myTetrisGUI;
-
-
-    /**
      * Constructs a new MainPanel object.
      * Initializes the game board, sets up GUI components, and adds necessary listeners.
      * @param theBoard The game board associated with this menu.
      * @param theGameTimer Timer to manage game updates at regular intervals.
      * @param thePanelArray Array of panels to be added to the MainPanel.
      * @param theSoundList List of sound files to be used in the game.
-     * @param theTetrisGUI GUI to display game.
      */
     @SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
     /*
@@ -143,8 +135,7 @@ public class MainPanel extends JPanel {
      * MainPanel is instantiated.
      */
     public MainPanel(final Board theBoard, final Timer theGameTimer,
-                     final JPanel[] thePanelArray, final List<File> theSoundList,
-                     final TetrisGUI theTetrisGUI) {
+                     final JPanel[] thePanelArray, final List<File> theSoundList) {
         super();
 
         if (count > 0) {
@@ -157,7 +148,6 @@ public class MainPanel extends JPanel {
         myGamePanel = thePanelArray[0];
         myNextPiecePanel = thePanelArray[1];
         myScorePanel = thePanelArray[2];
-        myTetrisGUI = theTetrisGUI;
         constructorHelper(theSoundList);
     }
 
@@ -241,6 +231,10 @@ public class MainPanel extends JPanel {
         createSound(soundFile);
     }
 
+    /**
+     * Creates audio clip from audio file.
+     * @param theSoundFile File containting audio files to turn into clips.
+     */
     private void createSound(final File theSoundFile) {
         final AudioInputStream audioInput;
         try {
@@ -274,6 +268,10 @@ public class MainPanel extends JPanel {
         myMusicClip.stop();
     }
 
+    /**
+     * Handles property changes.
+     * @param theEvent The event to be handled.
+     */
     private void propertyChange(final PropertyChangeEvent theEvent) {
         if (PROPERTY_GAME_OVER.equals(theEvent.getPropertyName())
                 && (Boolean) theEvent.getNewValue()) {
@@ -297,6 +295,9 @@ public class MainPanel extends JPanel {
         }
     }
 
+    /**
+     * A class representing the controlKeyListener for a Tetris game.
+     */
     class ControlKeyListener extends KeyAdapter {
         /**
          * Map of key codes to actions.

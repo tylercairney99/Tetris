@@ -1,6 +1,8 @@
 package view.paint;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Shape;
 
 /**
  * Utility class used to create shapes and prints them according to the parameters given.

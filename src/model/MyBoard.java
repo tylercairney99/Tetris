@@ -92,6 +92,11 @@ public interface MyBoard {
     void setPieceSequence(List<TetrisPiece> thePieces);
 
     /**
+     * Sets my game over to end the game mid game.
+     */
+    void setMyGameOver();
+
+    /**
      * Advances the board by one step. This typically involves moving the current piece,
      * handling any line completions, and updating the game state.
      */
@@ -184,5 +189,9 @@ public interface MyBoard {
     void removePropertyChangeListener(String thePropertyName,
                                       PropertyChangeListener theListener);
 
+    /**
+     * sets myGameOver to true and fires a property_game_over change.
+     */
+    void setMyGameOver();
 }
 
