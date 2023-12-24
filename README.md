@@ -42,7 +42,7 @@ For detailed insights into our development journey, visit our Sprint 2 / 3 meeti
 
 - Sprint 2 Meeting Minutes: https://docs.google.com/document/d/1IfSivwr1jRjmUcQRhgPw4htbOL42FdTojRXSS8SrZr4/edit
 - Spring 3 Meeting Minutes: https://docs.google.com/document/d/1_QcnD_l412rijxIYXIzFufNI4wChT8nzERGTuX_RlQY/edit?usp=sharing
-- Executive Summary: https://docs.google.com/document/d/19B5Ntb2H0IOf_1yJ93-WRcpIdumobKiRWU8DvGEeU9w/edit
+- Executive Summary:        https://docs.google.com/document/d/19B5Ntb2H0IOf_1yJ93-WRcpIdumobKiRWU8DvGEeU9w/edit
 
 ## Screenshot
 
