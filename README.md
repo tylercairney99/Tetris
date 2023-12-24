@@ -25,11 +25,9 @@ To run TCSS 305 Tetris on your local machine, follow these steps:
 
 ```bash
 git clone https://github.com/[your-github-username]/TCSS305-Tetris.git
-cd TCSS305-Tetris
-# Add instructions on how to compile and run the application
 ```
 
-Included:
+## Project Structure
 
 - Checkstyle rule structure
 - IntelliJ Clean-code rules
@@ -37,3 +35,11 @@ Included:
 - Driver class with LOGGER object and examples
 - Unit test folder
 - .gitignore and README.md
+
+## License 
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contact
+
+For inquiries or contributions, please contact tylercairney99@gmail.com.
