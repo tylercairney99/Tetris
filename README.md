@@ -27,7 +27,29 @@ To run TCSS 305 Tetris on your local machine, follow these steps:
 git clone https://github.com/[your-github-username]/TCSS305-Tetris.git
 ```
 
-## Project Structure
+## Contributions
+
+Throughout the sprints, our team worked on various aspects of the project:
+
+- GUI Development: Creation and refinement of the game's interface.
+- Game Logic: Implementation of Tetris gameplay mechanics.
+- Scoring System: Development of the algorithm for scoring and level progression.
+- Sound Design: Integration of music and sound effects to enrich the gameplay.
+
+## Meeting Minutes
+
+For detailed insights into our development journey, visit our Sprint 2 / 3 meeting minutes and executive summary.
+
+- Sprint 2 Meeting Minutes: https://docs.google.com/document/d/1IfSivwr1jRjmUcQRhgPw4htbOL42FdTojRXSS8SrZr4/edit
+- Spring 3 Meeting Minutes: https://docs.google.com/document/d/1_QcnD_l412rijxIYXIzFufNI4wChT8nzERGTuX_RlQY/edit?usp=sharing
+- Executive Summary: https://docs.google.com/document/d/19B5Ntb2H0IOf_1yJ93-WRcpIdumobKiRWU8DvGEeU9w/edit
+
+## Screenshot
+
+![tetrisimg](https://github.com/tylercairney99/Tetris/assets/92860199/47f1f6df-5be8-4833-affc-da9f56084952)
+
+
+## Included
 
 - Checkstyle rule structure
 - IntelliJ Clean-code rules
@@ -35,6 +57,7 @@ git clone https://github.com/[your-github-username]/TCSS305-Tetris.git
 - Driver class with LOGGER object and examples
 - Unit test folder
 - .gitignore and README.md
+
 
 ## License 
 
